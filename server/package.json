@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "build/server.js",
   "scripts": {
-    "dev": "ts-node-dev server.ts",
+    "build": "tsc",
+    "dev": "ts-node-dev ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian Bauer",

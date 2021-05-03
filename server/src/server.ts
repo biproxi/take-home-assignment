@@ -15,8 +15,9 @@ app.use(
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use('/api', todoRouter);
+
+// Fallback error handling
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   return res.status(500).json({ message: error.message, error: error.toString() });
 });

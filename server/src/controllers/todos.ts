@@ -2,6 +2,7 @@ import { Todo, TodoStatusEnum } from "../models/todo"
 import { NextFunction, Request, Response } from "express";
 
 // This is a database if you really use your imagination...
+// The Map key is the id of the todo.
 const todosDB: Map<number, Todo> = new Map()
 let idIndex = 0
 
