@@ -5,8 +5,9 @@ export enum TodoStatusEnum {
 }
   
 export interface Todo {
-    title: string; // the title of the todo
-    status: TodoStatusEnum; // the status of the todo
+    id?: number,
+    title: string;
+    status: TodoStatusEnum;
     lastUpdatedAt: number // a unix timestamp representing the time the todo was last updated
     createdAt: number; // a unix timestamp representing the time the todo was created
 }
