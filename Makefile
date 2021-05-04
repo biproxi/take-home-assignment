@@ -30,18 +30,23 @@ start-client: build-client
 	@cd $(CLIENTDIR) && npm start
 
 
-package:
-	@make -j2 dockerize-server dockerize-client
+docker:
+	@make -j2 build-docker-client build-docker-client
 
 
-dockerize-client:
+build-docker-client:
 	@cd $(CLIENTDIR) \
 	&& npm install \
 	&& docker build . -t brian-bauer/biproxi-todo-client:latest
 
 
-dockerize-server:
+build-docker-client:
 	@cd $(SERVERDIR) \
 	&& npm install \
 	&& tsc && \
 	docker build . -t brian-bauer/biproxi-todo-server:latest
+
+
+# Todo
+# docker-start:
+# 	@docker-compose up
