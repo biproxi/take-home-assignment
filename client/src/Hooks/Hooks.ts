@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { Todo, TodoStatusEnum } from "../Models/models"
+import { Todo } from "../Models/models"
 
 /**
  * Hook that hits the route for retrieving todos from the database

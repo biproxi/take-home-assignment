@@ -1,13 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Typography, TextField, IconButton, Icon } from "@material-ui/core";
+import { TextField, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-// import ITodo from '../../backend/types/todoInterface'
 import { setTodo } from "../Redux/todoReducer";
 import styled from "styled-components";
 import { addTodoHook } from "../Hooks/Hooks";
-import configureStore from "../Redux/store";
 import { Todo, TodoStatusEnum } from "../Models/models";
 
 const useStyles = makeStyles(() => ({

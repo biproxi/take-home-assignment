@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setComplete, deleteTodo, updateTodo } from "../Redux/todoReducer";
+import { deleteTodo, updateTodo } from "../Redux/todoReducer";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";

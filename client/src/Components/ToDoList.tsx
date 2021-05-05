@@ -1,14 +1,11 @@
 import React, { Fragment, useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components";
-import IconButton from "@material-ui/core/IconButton";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useSelector } from "react-redux";
 import { fetchTodos } from "../Redux/todoReducer";
 import TodoItem from "./ToDoItem";
 
 import { useDispatch } from "react-redux";
-import { setComplete, setTodo } from "../Redux/todoReducer";
+import { setTodo } from "../Redux/todoReducer";
 import { Todo } from "../Models/models";
 
 import { getTodosHook } from "../Hooks/Hooks";

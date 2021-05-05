@@ -1,4 +1,3 @@
-import express from "express"
 import { Router } from "express"
 import { getAllTodos, addTodo, deleteTodo, updateTodo } from "../controller/controller";
 
