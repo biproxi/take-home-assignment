@@ -8,8 +8,8 @@ import todoRoutes from "./noGraphql/server/routes/routes"
  */
 
 const app: Express = express()
-const PORT: string | number = process.env.PORT || 8080;
-const MONGO_URI: string = "mongodb://mongo:27017/todoDB";
+const PORT: string | number = process.env.PORT || 4020;
+const MONGO_URI: string = "mongodb://localhost:27017/todoDB";
 
 app.use(cors())
 app.use(express.json());
