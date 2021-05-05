@@ -1,5 +1,8 @@
 # Quick notes
+
 This is my submission for the Biproxi take-home assignment (obviously lul)
+
+Run `make run` to start the application. This will install dependencies for both the client and server, as well as run them both.
 
 This bad boy contains very minimal styling (actually kinda garbage styling) but accomplishes most of the tasks (all the required tasks, at least)
 
