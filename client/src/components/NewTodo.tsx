@@ -10,8 +10,10 @@ const NewTodo: React.FC<NewTodoProps> = props => {
 
     const todoSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault()
+        debugger
         const newTodoItem = textInputRef.current!.value
         props.onAddTodo(newTodoItem)
+        
     }
 
     return (
