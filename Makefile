@@ -8,11 +8,11 @@ run:
 
 start-server:
 	@echo "Starting Server..."
-	@cd $(SERVER) && npm start
+	@cd $(SERVER) && npm install && npm start
 
 start-client:
 	@echo "Starting App..."
-	@cd $(CLIENT) && npm start
+	@cd $(CLIENT) && npm install && npm start
 
 build:
 	@make -j2 build-docker-client build-docker-server
