@@ -2,12 +2,16 @@
 
 This is my submission for the Biproxi take-home assignment (obviously lul)
 
+## Running the application
 Run `make run` to start the application. This will install dependencies for both the client and server, as well as run them both. `make build` works as expected in the sense that it builds docker containers and `make docker-run` works almost as expected in the sense that it builds the containers and runs them; however, mongo isn't working within the docker vm for some reason :/. I will probably figure out a solution to this later because I am having fun diving more into docker; however, I don't necessarily need it for this project. If you want to see what happens when you run `make docker-run`, first change the `MONGO_URI` variable in `server.ts` to be `"mongodb://mongo:27017/todoDB";` and give 'er a go. Anyway, yeah, just use the `make run` command.
 
+## Styling
 This bad boy (or lady) contains very minimal styling (actually kinda garbage styling) but accomplishes most of the tasks (all the required tasks, at least)
 
+## GraphQL/Server
 I attempted to use GraphQL but I admittedly have no experience with it, so I ended up spending quite a bit of time learning it, just to come to the realization that what I was attempting to apply to this project was unneccessary since there seems to be a lot of different conventions one can use for GraphQL infrastructure and I figured it would be best for me to wait and learn the Biproxi conventions (if I were to be hired, ofc). You can view my struggles within the `graphql` sub-directory within the main `backend` directory; however, all of the real backend mustard is within the `noGraphql` directory
 
+## TypeScript
 Also, my familiarity with the TypeScript isn't amazing...this should be obivous. However, I am looking forward to working more in Typescript. It's features are pretty neat, even though I really enjoy the luxury of normal ES6. There is probably also a fair amount of redundancy within my code. Truth be told, I didn't really spend any time looking through my code for places to refactor/restructure things. Sorry. However, I am still comfortable with what I am submitting
 
 ## Task
