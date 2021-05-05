@@ -6,6 +6,20 @@ import { NextFunction, Request, Response } from "express";
 const todosDB: Map<number, Todo> = new Map()
 let idIndex = 0
 
+todosDB.set(99999, {
+    id: 99999,
+    title: "Test Todo",
+    createdAt: Math.floor(Date.now() / 1000),
+    lastUpdatedAt: Math.floor(Date.now() / 1000),
+    status: TodoStatusEnum.Active
+})
+todosDB.set(100000, {
+    id: 100000,
+    title: "Test Todo Done",
+    createdAt: Math.floor(Date.now() / 1000),
+    lastUpdatedAt: Math.floor(Date.now() / 1000),
+    status: TodoStatusEnum.Inactive
+})
 
 /*
 Success: sends 200 response with list of all Todos
@@ -57,7 +71,7 @@ export function createTodo(req: Request, res: Response, next: NextFunction) {
         const id = idIndex
         const todo: Todo = {
             id,
-            title: req.body.todo.title,
+            title: req.body.title,
             status: TodoStatusEnum.Active,
             lastUpdatedAt: timestamp,
             createdAt: timestamp

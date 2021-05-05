@@ -1,6 +1,6 @@
 # Notes
 * `make run` to run app in dev mode
-* `make package` to build pair of docker images
+* `make docker` to build pair of docker images and start them (but they don't communicate)
 
 
 ## Task

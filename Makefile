@@ -32,21 +32,22 @@ start-client: build-client
 
 docker:
 	@make -j2 build-docker-client build-docker-client
+	@make docker-start
 
 
 build-docker-client:
 	@cd $(CLIENTDIR) \
 	&& npm install \
+	&& npm run build \
 	&& docker build . -t brian-bauer/biproxi-todo-client:latest
 
 
-build-docker-client:
+build-docker-server:
 	@cd $(SERVERDIR) \
 	&& npm install \
 	&& tsc && \
 	docker build . -t brian-bauer/biproxi-todo-server:latest
 
 
-# Todo
-# docker-start:
-# 	@docker-compose up
+docker-start:
+	@docker-compose up
