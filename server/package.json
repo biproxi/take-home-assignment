@@ -4,8 +4,9 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node-dev ./src/server.ts",
+    "docker-start": "node server.js",
+    "build": "npx tsc",
+    "dev": "NODE_ENV=development ts-node-dev ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-prep": "npm install && npm run build"
   },

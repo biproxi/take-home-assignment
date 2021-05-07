@@ -1,19 +1,23 @@
-import express, { NextFunction, Request, Response} from "express";
-import cors from "cors";
+import express from "express";
+import cors, { CorsOptions } from "cors";
 import session from "express-session";
 import crypto from "crypto";
 import todoRouter from "./routes/todos";
+import { logError, logRequest } from "./middleware/logRequest";
+import { catchErrors } from "./middleware/errorHandling";
+import { SessionOptions } from "express-session";
 
-const sessionConf = {
+const sessionConf: SessionOptions = {
   secret: crypto.randomBytes(48).toString('hex'),
   saveUninitialized: true,
   resave: true
 }
 
-const corsOpts = {
+const corsOpts: CorsOptions = {
   origin: true,
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type']
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept']
 }
 
 const app = express();
@@ -23,12 +27,8 @@ app.use(cors(corsOpts));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', todoRouter);
 
-// Fallback error handling
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  return res.status(500).json({ message: error.message, error: error.toString() });
-});
+app.use('/api', logRequest, todoRouter, logError, catchErrors);
 
 const port = 8081;
 app.listen(port, () => {

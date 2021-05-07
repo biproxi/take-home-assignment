@@ -30,7 +30,7 @@ export function getTodos(req: Request, res: Response, next: NextFunction) {
         const todos: Todo[] = [ ...todosDB.values() ]
         res.status(200)
         res.json(todos)
-        return
+        next()
     } catch (err) {
         err.message = 'Could not GET Todos'
         return next(err)
@@ -53,7 +53,7 @@ export function getTodoById(req: Request, res: Response, next: NextFunction) {
             res.status(404)
             res.json({ message: `Could not GET Todo with ID '${req.params.id}'` })
         }
-        return
+        next()
 
     } catch (err) {
         err.message = `Could not GET Todo with ID '${req.params.id}'`
@@ -82,9 +82,10 @@ export function createTodo(req: Request, res: Response, next: NextFunction) {
 
         res.status(200)
         res.json(todo)
+        next()
 
     } catch (err) {
-        err.message = `Could not create todo titled ${req.body?.todo?.title}`
+        err.message = `Could not create todo titled ${req.body?.title}`
         return next(err)
     }
 }
@@ -95,16 +96,16 @@ Failure: sends error code with message)
 */
 export function updateTodo(req: Request, res: Response, next: NextFunction) {
     try {
-        const newTodo = req.body.todo
+        const unsafeTodo: Todo = req.body.todo as Todo
         const id = Number(req.params.id)
         const todo: Todo | undefined = todosDB.get(id)
 
         if (todo) {
 
-            if (Object.values(TodoStatusEnum).includes(newTodo?.status)) {
-                todo.status = newTodo.status
+            if (Object.values(TodoStatusEnum).includes(unsafeTodo?.status)) {
+                todo.status = unsafeTodo.status
             }
-            todo.title = newTodo?.title || todo.title
+            todo.title = unsafeTodo?.title || todo.title
             todo.lastUpdatedAt = Math.floor(Date.now() / 1000)
             
             todosDB.set(id, todo)
@@ -116,8 +117,10 @@ export function updateTodo(req: Request, res: Response, next: NextFunction) {
             res.json({ message: `Todo with ID '${req.params.id}' cannot be updated because it does not exist`})
         }
         
+        next()
+
     } catch (err) {
-        err.message = `Could not update todo titled with id ${req.params.id}`
+        err.message = `Could not update todo with id ${req.params.id}`
         return next(err)
     }
 }
@@ -131,6 +134,7 @@ export function deleteTodo(req: Request, res: Response, next: NextFunction) {
     try {
         const id: number = Number(req.params.id)
         const success: boolean = todosDB.delete(id)
+
         if (success) {
             res.status(200)
             res.json({ message: `Deleted Todo with ID ${req.params.id}` })
@@ -138,7 +142,9 @@ export function deleteTodo(req: Request, res: Response, next: NextFunction) {
             res.status(404)
             res.json({ message: `Todo with ID '${req.params.id}' cannot be deleted because it does not exist` })
         }
-        return
+
+        next()
+        
     } catch (err) {
         err.message = `Could not DELETE todo with ID ${req.params.id}`
     }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useAppDispatch } from '../../../app/hooks';
 import { Todo, TodoStatusEnum, updateTodo } from '../todoListSlice';
 import styled, { StyledComponent } from "styled-components"
@@ -22,6 +22,7 @@ const TodoRowTop = styled.div`
 
 const StatusMessage = styled.span`
     font-size: 16pt;
+    padding-left: .4em;
 `
 
 // Is passing a styled component as a prop preferable to import export? Or does keeping it in a separate file negate the point?
@@ -32,11 +33,15 @@ export function TodoItem(props: TodoRowProps) {
     const Title = props.title
     
 
-    const handleStatusChange = (event: ChangeEvent) => {
+    const handleStatusChange = (event: React.ChangeEvent) => {
         event.preventDefault()
         const updatedTodo = { ...todo };
         updatedTodo.status = (todo.status === TodoStatusEnum.Active ? TodoStatusEnum.Inactive : TodoStatusEnum.Active)
         dispatch(updateTodo(updatedTodo))
+    }
+
+    const handleDelete = (event: React.MouseEvent) => {
+        dispatch(deleteTodo(todo))
     }
 
     const isDone = todo.status === TodoStatusEnum.Active ? false : true;
@@ -53,6 +58,9 @@ export function TodoItem(props: TodoRowProps) {
                 </Title>
             </TodoRowTop>
 
+            <button className={styles.button} onClick={handleDelete}>
+            Delete
+            </button>
             
             <StatusMessage>
                 { statusMessage }

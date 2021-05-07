@@ -16,4 +16,4 @@ RUN npm ci --only=production
 EXPOSE  8081
 
 # Start command
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "docker-start" ]

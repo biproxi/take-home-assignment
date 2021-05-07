@@ -1,14 +1,20 @@
 import { Todo } from "./todoListSlice";
+import axios, { AxiosRequestConfig } from 'axios'
 
-const route = 'http://localhost:8081/api/todos';
+
+const route = process.env.NODE_ENV === "development" ? 'http://localhost:8081/api/todos' : '/api/todos'
+
+const defaultOpts: AxiosRequestConfig = Object.freeze({
+  headers: {'Content-Type': 'application/json'},
+  withCredentials: true
+})
 
 
 export async function fetchTodoList(): Promise<Todo[]> {
-  const res = await fetch(route)
+  const res = await axios.get(route)
   if (res.status === 200) {
-    const data = await res.json()
-    console.log(data)
-    return data
+    console.log(res.data)
+    return res.data
   } else {
     console.error(res)
     // lazy but visible error handling
@@ -17,21 +23,12 @@ export async function fetchTodoList(): Promise<Todo[]> {
 }
 
 export async function updateTodoItem(todo: Todo): Promise<Todo> {
-  const req: RequestInit  = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({todo})
-  }
-
   const url = `${route}/${todo.id}`;
-  const res = await fetch(url, req);
+  const res = await axios.put(url, {todo}, defaultOpts);
   
   if (res.status === 200) {
-    const data = await res.json()
-    console.log(data)
-    return data
+    console.log(res.data)
+    return res.data
   } else {
     console.error(res)
     // lazy but visible error handling
@@ -40,21 +37,11 @@ export async function updateTodoItem(todo: Todo): Promise<Todo> {
 }
 
 export async function saveNewTodoItem(title: string) {
-  const req: RequestInit = {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({title})
-  }
-
-  const res = await fetch(route, req);
+  const res = await axios.post(route, JSON.stringify({title}), defaultOpts)
   
   if (res.status === 200) {
-    const data = await res.json()
-    console.log(data)
-    return data
+    console.log(res.data)
+    return res.data
   } else {
     // lazy but visible error handling
     return { title: `${res.status} CREATE NEW TODO DIDN'T WORK!`} as Todo
@@ -63,13 +50,11 @@ export async function saveNewTodoItem(title: string) {
 
 export async function deleteTodoItem(todo: Todo) {
   const url = `${route}/${todo.id}`;
-  const req = { method: 'DELETE' }
-  const res = await fetch(url, req);
+  const res = await axios.delete(url);
   
   if (res.status === 200) {
-    const data = await res.json()
-    console.log(data)
-    return data
+    console.log(res.data)
+    return res.data
   } else {
     // lazy but visible error handling
     return { title: `${res.status} DELETE TODO DIDN'T WORK!`} as Todo

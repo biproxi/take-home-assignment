@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../../app/hooks';
 import { saveTodo, toggleTodoForm } from '../todoListSlice'
 import styles from '../TodoList.module.css';
 import styled, { StyledComponent } from 'styled-components'
@@ -22,25 +22,24 @@ export function NewTodoItem(props: NewTodoRowProps) {
     const dispatch = useAppDispatch();
     const [unsavedTitle, setUnsavedTitle] = useState('');
 
-    const handleTodoSave = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleTodoSave = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         dispatch(saveTodo(unsavedTitle))
         dispatch(toggleTodoForm())
     }
-
     
     return (
         <Row>
             <Title>
                 What do you want to remember?
             </Title>
-            <form>
+            <form onSubmit={handleTodoSave}>
                 <InputContainer>
-                    <button onClick={handleTodoSave} className={styles.button}>
+                    <button type="submit" className={styles.button}>
                         Save
                     </button>
                     
-                    <input type="text" name="todo" className={styles.textbox} onChange={event => setUnsavedTitle(event.target.value)}  placeholder="Walk the dog" />
+                    <input type="text" name="todo" className={styles.textbox} value={unsavedTitle} onChange={event => setUnsavedTitle(event.target.value)} placeholder="Walk the dog" />
                 </InputContainer>
             </form>
         </Row>
