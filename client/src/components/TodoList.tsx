@@ -1,22 +1,39 @@
 import React from 'react'
 import './css/TodoList.css'
 
-interface TodoListProps {
-    items: {id: string, text: string}[]
-    onDeleteTodo: (id: string) => void
-}
+import { useDispatch, useSelector } from 'react-redux'
+import { Store } from '../store/types'
+import { deleteTodo, toggleTodo, updateTodo } from "../store/actions";
+import { TodoStatusEnum } from '../store/types'
 
-const TodoList: React.FC<TodoListProps> = props => {
+const TodoListItems: React.FC = () => {
+
+    const todos = useSelector((state: Store) => state.todos)
+    const dispatch = useDispatch()
+    
+    const toggleStatus = (todo: any) => {
+      const updatedTodo = {... todo}
+      updatedTodo.status = (todo.status === TodoStatusEnum.Active ? TodoStatusEnum.Inactive : TodoStatusEnum.Active)
+      dispatch(toggleTodo(updatedTodo.id, updatedTodo.status))
+    }
+
     return (
       <ul>
-        {props.items.map(todo => (
+        {todos.map((todo: { id: number; text: string; status: TodoStatusEnum }) => (
             <li key={todo.id}>
-                <span>{todo.text}</span>
-                <button onClick={props.onDeleteTodo.bind(null, todo.id)}>Delete</button>
+                <input value={todo.text} onChange={(e) => dispatch(updateTodo(todo.id, e.target.value))}/>
+                <button onClick={() => toggleStatus(todo)}>{todo.status}</button>
+                <button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</button>
             </li>
         ))}
       </ul>
     )
 }
 
-export default TodoList
+function TodoList() {
+    return (
+        <TodoListItems />
+    )
+  }
+  
+  export default TodoList;

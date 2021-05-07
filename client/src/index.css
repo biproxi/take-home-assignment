@@ -1,7 +1,12 @@
 html {
   font-family: sans-serif;
+  background-color: rgb(243, 227, 242);
 }
 
 body {
   margin: 0;
+}
+
+h1 {
+  text-align: center;
 }

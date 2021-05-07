@@ -1,26 +1,16 @@
-form {
+.form-control {
+    margin-bottom: 1rem;
     width: 90%;
     max-width: 40rem;
     margin: 2rem auto;
-}
-
-.form-control {
-    margin-bottom: 1rem;
-}
-
-label, input {
-    display: block;
-    width: 100%;
-}
-
-label {
-    font-weight: bold;
 }
 
 input {
     font: inherit;
     border: 1px solid #ccc;
     padding: 0.25rem;
+    display: block;
+    width: 100%;
 }
 
 input:focus {
@@ -42,6 +32,6 @@ button:focus {
 
 button:hover,
 button:active {
-    background: #6a0a77;
-    border-color: #6a0a77;
+    background: #ac337d;
+    border-color: #ac337d;
 }
