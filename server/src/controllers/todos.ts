@@ -8,14 +8,14 @@ let idIndex = 0
 
 todosDB.set(99999, {
     id: 99999,
-    title: "Test Todo",
+    title: "Practice Redux",
     createdAt: Math.floor(Date.now() / 1000),
     lastUpdatedAt: Math.floor(Date.now() / 1000),
     status: TodoStatusEnum.Active
 })
 todosDB.set(100000, {
     id: 100000,
-    title: "Test Todo Done",
+    title: "Go outside.",
     createdAt: Math.floor(Date.now() / 1000),
     lastUpdatedAt: Math.floor(Date.now() / 1000),
     status: TodoStatusEnum.Inactive

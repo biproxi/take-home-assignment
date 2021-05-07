@@ -2,16 +2,19 @@ version: "3.8"
 services:
   frontend:
     container_name: frontend
+    image: brian-bauer/biproxi-todo-client:latest
     build: ./client/
     restart: always
     ports:
       - 8080:80
+      - 8443:443
     depends_on:
       - backend
 
   backend:
     container_name: backend
+    image: brian-bauer/biproxi-todo-server:latest
     build: ./server/
     restart: always
     expose: 
-      - 8080
+      - 8081

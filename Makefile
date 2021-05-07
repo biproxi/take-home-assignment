@@ -1,16 +1,10 @@
 CLIENTDIR = ./client
-CLIENTBUILDDIR = $(CLIENTDIR)/build
 SERVERDIR = ./server
-CLIENTBUILDDIR = $(SERVERDIR)/build
 
 
-.PHONY: run
 
 run:
 	@make -j2 start-server start-client
-
-run-dev: start-server start-client
-
 
 build-server:
 	@echo "Building API server..."
@@ -31,23 +25,20 @@ start-client: build-client
 
 
 docker:
-	@make -j2 build-docker-client build-docker-client
-	@make docker-start
+	@make docker-prep
+	@docker-compose build
 
+docker-run:
+	@make docker-prep
+	@docker-compose up --build --force-recreate
 
-build-docker-client:
-	@cd $(CLIENTDIR) \
-	&& npm install \
-	&& npm run build \
-	&& docker build . -t brian-bauer/biproxi-todo-client:latest
+docker-prep:
+	@cd $(SERVERDIR) && npm run docker-prep
+	@cd $(CLIENTDIR) && npm run docker-prep
 
-
-build-docker-server:
-	@cd $(SERVERDIR) \
-	&& npm install \
-	&& tsc && \
-	docker build . -t brian-bauer/biproxi-todo-server:latest
-
-
-docker-start:
-	@docker-compose up
+ 
+clean:
+	@rm -rf $(CLIENTDIR)/node_modules
+	@rm -rf $(SERVERDIR)/node_modules
+	@rm -rf $(CLIENTDIR)/build
+	@rm -rf $(SERVERDIR)/build

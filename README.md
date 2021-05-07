@@ -1,6 +1,7 @@
-# Notes
+## Usage:
 * `make run` to run app in dev mode
-* `make docker` to build pair of docker images and start them (but they don't communicate)
+* `make docker` to build docker images
+* `make docker-run` to build and run docker images
 
 
 ## Task

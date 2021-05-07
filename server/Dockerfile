@@ -13,7 +13,7 @@ COPY ./build .
 COPY package*.json ./
 RUN npm ci --only=production
 
-EXPOSE  8080
+EXPOSE  8081
 
 # Start command
 CMD [ "node", "server.js" ]
