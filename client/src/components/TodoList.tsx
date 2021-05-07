@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './css/TodoList.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '../store/types'
-import { deleteTodo, toggleTodo, updateTodo } from "../store/actions";
+import { deleteTodo, toggleTodo, updateTodo, setTodos } from "../store/actions";
 import { TodoStatusEnum } from '../store/types'
+import { getTodos } from '../API'
+import { Todo } from '../store/types'
 
 const TodoListItems: React.FC = () => {
 
     const todos = useSelector((state: Store) => state.todos)
     const dispatch = useDispatch()
+    useEffect(() => getTodoList(), [])
+
+    const getTodoList = () => {
+      getTodos()
+      .then(({ data: { todos } }: Todo[] | any) => {
+        dispatch(setTodos(todos))
+      })
+      .catch((error: Error) => console.error(error));
+    }
     
     const toggleStatus = (todo: any) => {
       const updatedTodo = {... todo}

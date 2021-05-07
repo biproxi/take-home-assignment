@@ -62,10 +62,10 @@ export const setTodos = (todos: Todo[]): ActionTypes => ({
     payload: todos,
 });
 
-export const getTodos = (
-    url: string
-): ThunkAction<void, Store, unknown, Action<string>> => async (dispatch) => {
-    const resp = await fetch(url);
-    const todos: Todo[] = await resp.json();
-    dispatch(setTodos(todos));
-};
+// export const getTodos = (
+//     url: string
+// ): ThunkAction<void, Store, unknown, Action<string>> => async (dispatch) => {
+//     const resp = await fetch(url);
+//     const todos: Todo[] = await resp.json();
+//     dispatch(setTodos(todos));
+// };
