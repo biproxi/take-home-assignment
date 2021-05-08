@@ -2,9 +2,9 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { TodoItem } from './todoItem/TodoItem';
 import { toggleTodoForm, selectDisplayAddTodoForm, selectToDos, TodoListState, TodoStatusEnum } from './todoListSlice';
-import styles from './TodoList.module.css';
+import { StyledButton } from './todoItem/TodoItem';
 import { NewTodoItem } from './todoItem/NewTodoItem';
-import styled from "styled-components"
+import styled from "styled-components";
 
 
 const Flexbox = styled.div`
@@ -35,7 +35,6 @@ const Title = styled.label`
     padding-bottom: 0;
 `
 
-
 export function TodoList() {
     const { todoList }: TodoListState = useAppSelector(selectToDos);
     const displayAddTodoForm = useAppSelector(selectDisplayAddTodoForm)
@@ -50,10 +49,10 @@ export function TodoList() {
             
             {displayAddTodoForm
                 ? 
-                <div className={styles.row}>
-                    <button className={styles.button} aria-label="Do more!" onClick={() => dispatch(toggleTodoForm())}>
-                    Do more?
-                    </button>
+                <div>
+                    <StyledButton onClick={() => dispatch(toggleTodoForm())}>
+                        Do More?
+                    </StyledButton>
                 </div>
                 :
                 <NewTodoItem row={Row} title={Title}/>
