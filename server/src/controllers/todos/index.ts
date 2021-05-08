@@ -3,21 +3,7 @@ import { Todo, TodoStatusEnum } from '../../models/todo'
 
 //Only storing the todos in memory
 const TODOS: Todo[] = []
-
-TODOS.push({
-  id: 99999,
-  title: "Practice Redux",
-  createdAt: Math.floor(Date.now() / 1000),
-  lastUpdatedAt: Math.floor(Date.now() / 1000),
-  status: TodoStatusEnum.Active
-})
-TODOS.push({
-  id: 100000,
-  title: "Go outside.",
-  createdAt: Math.floor(Date.now() / 1000),
-  lastUpdatedAt: Math.floor(Date.now() / 1000),
-  status: TodoStatusEnum.Inactive
-})
+let startingIndex = 0
 
 export const getTodos: RequestHandler = (req, res) => {
   try {
@@ -28,18 +14,19 @@ export const getTodos: RequestHandler = (req, res) => {
   }
 }
 
-
 export const addTodo: RequestHandler = (req, res) => {
   try {
     const time = Math.floor(Date.now() / 1000)
+    const id = startingIndex
     const todo: Todo = {
-      id: Math.random(),
+      id: id,
       title: req.body.title,
       status: TodoStatusEnum.Active,
       lastUpdatedAt: time,
       createdAt: time
     }
 
+    startingIndex++
     TODOS.push(todo)
 
     res.status(201)

@@ -14,10 +14,10 @@ import {
 } from "./actions";
 import { Store, Todo } from "./types";
 
-export const updateTodo = (todos: Todo[], id: number, text: string): Todo[] =>
+export const updateTodo = (todos: Todo[], id: number, title: string): Todo[] =>
   todos.map((todo) => ({
     ...todo,
-    text: todo.id === id ? text : todo.text,
+    title: todo.id === id ? title : todo.title,
   }));
 
 export const toggleTodo = (todos: Todo[], id: number, status: TodoStatusEnum): Todo[] => 
@@ -29,12 +29,14 @@ export const toggleTodo = (todos: Todo[], id: number, status: TodoStatusEnum): T
 export const removeTodo = (todos: Todo[], id: number): Todo[] =>
   todos.filter((todo) => todo.id !== id);
 
-export const addTodo = (todos: Todo[], text: string): Todo[] => [
+export const addTodo = (todos: Todo[], title: string): Todo[] => [
   ...todos,
   {
     id: Math.max(0, Math.max(...todos.map(({ id }) => id))) + 1,
-    text,
+    title,
     status: TodoStatusEnum.Active,
+    lastUpdatedAt: Math.floor(Date.now() / 1000),
+    createdAt: Math.floor(Date.now() / 1000)
   },
 ];
 
@@ -60,7 +62,7 @@ function todoReducer(
       case UPDATE_TODO:
         return {
           ...state,
-          todos: updateTodo(state.todos, action.payload.id, action.payload.text),
+          todos: updateTodo(state.todos, action.payload.id, action.payload.title),
         };
       case TOGGLE_TODO:
         return {

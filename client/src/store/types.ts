@@ -1,13 +1,15 @@
 
 export interface Todo {
-    id: number;
-    text: string;
-    status: TodoStatusEnum;
+    id: number
+    title: string
+    status: TodoStatusEnum
+    lastUpdatedAt: number
+    createdAt: number
 }
 
 export interface Store {
-    todos: Todo[];
-    newTodo: string;
+    todos: Todo[]
+    newTodo: string
 }
 
 export enum TodoStatusEnum {

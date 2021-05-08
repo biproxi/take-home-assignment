@@ -19,7 +19,7 @@ export type ActionTypes =
         type: typeof UPDATE_TODO;
         payload: {
         id: number;
-        text: string;
+        title: string;
         };
     }
     | { type: typeof TOGGLE_TODO; 
@@ -36,11 +36,11 @@ export const deleteTodo = (id: number): ActionTypes => ({
     payload: id,
 });
 
-export const updateTodo = (id: number, text: string): ActionTypes => ({
+export const updateTodo = (id: number, title: string): ActionTypes => ({
     type: UPDATE_TODO,
     payload: {
     id,
-    text,
+    title,
     },
 });
 
@@ -52,9 +52,9 @@ export const toggleTodo = (id: number, status: TodoStatusEnum): ActionTypes => (
     },
 });
 
-export const setNewTodo = (text: string): ActionTypes => ({
+export const setNewTodo = (title: string): ActionTypes => ({
     type: SET_NEWTODO,
-    payload: text,
+    payload: title,
 });
 
 export const setTodos = (todos: Todo[]): ActionTypes => ({
