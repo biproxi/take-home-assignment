@@ -1,52 +1,56 @@
+import { TodoStatusEnum, Todo } from './types'
 
-import { Todo } from "./types";
-import { TodoStatusEnum } from './types'
-
-export const ADD_TODO = "ADD_TODO"
-export const DELETE_TODO = "DELETE_TODO";
-export const UPDATE_TODO = "UPDATE_TODO";
-export const TOGGLE_TODO = "TOGGLE_TODO";
-export const SET_NEWTODO = "SET_NEWTODO";
-export const SET_TODOS = "SET_TODOS";
+export const ADD_TODO = 'ADD_TODO'
+export const DELETE_TODO = 'DELETE_TODO'
+export const UPDATE_TODO = 'UPDATE_TODO'
+export const TOGGLE_TODO = 'TOGGLE_TODO'
+export const SET_NEWTODO = 'SET_NEWTODO'
+export const SET_TODOS = 'SET_TODOS'
 
 export type ActionTypes = 
     | { type: typeof SET_TODOS; payload: Todo[] }
-    | { type: typeof ADD_TODO }
+    | { type: typeof ADD_TODO; payload: any}
     | { type: typeof DELETE_TODO; payload: number }
     | {
         type: typeof UPDATE_TODO;
         payload: {
-        id: number;
-        title: string;
-        };
+            id: number
+            title: string
+            lastUpdatedAt: number
+        }
     }
     | { type: typeof TOGGLE_TODO; 
         payload: {
             id: number
             status: TodoStatusEnum
+            lastUpdatedAt: number
         } }
     | { type: typeof SET_NEWTODO; payload: string };
 
-export const addTodo = (): ActionTypes => ({ type: ADD_TODO });
+export const addTodo = (todo: any): ActionTypes => ({ 
+    type: ADD_TODO,
+    payload: todo });
 
 export const deleteTodo = (id: number): ActionTypes => ({
     type: DELETE_TODO,
     payload: id,
 });
 
-export const updateTodo = (id: number, title: string): ActionTypes => ({
+export const updateTodo = (id: number, title: string, lastUpdatedAt: number): ActionTypes => ({
     type: UPDATE_TODO,
     payload: {
-    id,
-    title,
+        id,
+        title,
+        lastUpdatedAt
     },
 });
 
-export const toggleTodo = (id: number, status: TodoStatusEnum): ActionTypes => ({
+export const toggleTodo = (id: number, status: TodoStatusEnum, lastUpdatedAt: number): ActionTypes => ({
     type: TOGGLE_TODO,
     payload: {
         id,
-        status
+        status,
+        lastUpdatedAt
     },
 });
 

@@ -15,4 +15,23 @@ li {
     justify-content: space-between;
     align-items: center;
 }
+
+#deleteBtn {
+    padding-left: 1em;
+    font-size: 20px;
+}
+
+#deleteBtn:hover {
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.Inactive {
+    background-color: rgb(197, 224, 233);
+    color: rgb(56, 55, 55);
+}
   
+.Inactive:hover {
+    background-color: rgb(161, 184, 192);
+    border-color: rgb(161, 184, 192);
+}

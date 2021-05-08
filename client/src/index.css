@@ -1,6 +1,10 @@
 html {
   font-family: sans-serif;
-  background-color: rgb(243, 227, 242);
+  height: 100%;
+  background-image: url(./sunset.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 body {
@@ -9,4 +13,6 @@ body {
 
 h1 {
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 50px;
 }

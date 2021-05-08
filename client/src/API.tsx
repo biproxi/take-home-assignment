@@ -1,10 +1,9 @@
-import { Todo } from './store/types'
 import axios, { AxiosResponse } from 'axios'
-import { TodoStatusEnum } from './store/types'
+import { TodoStatusEnum, Todo } from './store/types'
 
 const baseUrl: string = 'http://localhost:4000'
-const time: number = Math.floor(Date.now() / 1000)
 
+//Fetches to backend
 export const getTodosAPI = async (): Promise<AxiosResponse<Todo[]>> => {
   try {
     const todos: AxiosResponse<Todo[]> = await axios.get(
@@ -20,15 +19,9 @@ export const addTodoAPI = async (
   formData: Omit<Todo, 'id'>
 ): Promise<AxiosResponse<Todo[]>> => {
   try {
-    const todo: Omit<Todo, 'id'> = {
-      title: formData.title,
-      status: TodoStatusEnum.Active,
-      lastUpdatedAt: time,
-      createdAt: time
-    }
     const saveTodo: AxiosResponse<Todo[]> = await axios.post(
       baseUrl + '/todos',
-      todo
+      formData
     )
     return saveTodo
   } catch (error) {

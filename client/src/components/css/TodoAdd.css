@@ -2,28 +2,29 @@
     margin-bottom: 1rem;
     width: 90%;
     max-width: 40rem;
-    margin: 2rem auto;
+    margin: 2rem auto;  
+    display: flex;
 }
 
 input {
     font: inherit;
     border: 1px solid #ccc;
     padding: 0.25rem;
-    display: block;
     width: 100%;
 }
 
 input:focus {
     outline: none;
-    border-color: #c7358f;
+    border-color: #dd405a;
 }
 
 button {
-    background: #c7358f;
-    border: 1px solid #c7358f;
+    background: #dd405a;
+    border: 1px solid grey;
     color: white;
     padding: 0.5rem 1.5rem;
     cursor: pointer;
+    width: 130px;
 }
 
 button:focus {
@@ -32,6 +33,6 @@ button:focus {
 
 button:hover,
 button:active {
-    background: #ac337d;
-    border-color: #ac337d;
+    background: #aa2a3f;
+    border-color: #aa2a3f;
 }
