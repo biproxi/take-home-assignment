@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '../store/types'
 import { deleteTodo, toggleTodo, updateTodo, setTodos } from "../store/actions";
 import { TodoStatusEnum } from '../store/types'
-import { getTodos, updateTodoAPI, deleteTodoAPI } from '../API'
+import { getTodosAPI, updateTodoAPI, deleteTodoAPI } from '../API'
 import { Todo } from '../store/types'
 
 const TodoListItems: React.FC = () => {
@@ -15,7 +15,7 @@ const TodoListItems: React.FC = () => {
     useEffect(() => getTodoList(), [])
 
     const getTodoList = () => {
-      getTodos()
+      getTodosAPI()
       .then(({ todos: { todos } }: Todo[] | any) => {
         dispatch(setTodos(todos))
       })

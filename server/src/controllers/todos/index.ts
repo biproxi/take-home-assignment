@@ -36,15 +36,16 @@ export const addTodo: RequestHandler = (req, res) => {
   }
 }
 
-export const updateTodo: RequestHandler<{ id: number }> = (req, res) => {
+export const updateTodo: RequestHandler = (req, res) => {
   try {
-    const todoId = req.params.id
-    const updatedTodo = req.body.Todo
+    const todoId = req.body.id
+    const updatedTodo = req.body
     const todoIndex = TODOS.findIndex(todo => todo.id === todoId)
 
     TODOS[todoIndex] = updatedTodo
 
-    res.json({message: 'Updated!', updatedTodo: TODOS[todoIndex]})
+
+    res.json({message: 'Updated!', todos: TODOS})
 
   } catch (err) {
     throw err

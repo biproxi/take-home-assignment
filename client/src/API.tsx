@@ -5,7 +5,7 @@ import { TodoStatusEnum } from './store/types'
 const baseUrl: string = 'http://localhost:4000'
 const time: number = Math.floor(Date.now() / 1000)
 
-export const getTodos = async (): Promise<AxiosResponse<Todo[]>> => {
+export const getTodosAPI = async (): Promise<AxiosResponse<Todo[]>> => {
   try {
     const todos: AxiosResponse<Todo[]> = await axios.get(
       baseUrl + '/todos'
