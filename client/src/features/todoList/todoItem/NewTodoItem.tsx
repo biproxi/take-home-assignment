@@ -6,7 +6,6 @@ import { StyledButton } from './TodoItem';
 
 interface NewTodoRowProps {
     row: StyledComponent<"span", any, {}, never>
-    title: StyledComponent<"label", any, {}, never>
 }
 
 const InputContainer = styled.div`
@@ -16,7 +15,7 @@ const InputContainer = styled.div`
     align-items: center;
 `
 
-const StyledTextBox = styled.input`
+export const StyledTextBox = styled.input`
     type: text;
     font-size: 32px;
     padding: .1em .2em .1em .2em;
@@ -24,10 +23,13 @@ const StyledTextBox = styled.input`
     text-align: left;
     border-radius: .2em;
 `
+const Title = styled.label`
+    margin: 0 0 0 0;
+    padding-bottom: 0;
+`
 
 export function NewTodoItem(props: NewTodoRowProps) {
     const Row = props.row
-    const Title = props.title
     const dispatch = useAppDispatch();
     const [unsavedTitle, setUnsavedTitle] = useState('');
 

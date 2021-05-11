@@ -30,11 +30,6 @@ const Row = styled.span`
     text-align: left;
 `
 
-const Title = styled.label`
-    margin: 0 0 0 0;
-    padding-bottom: 0;
-`
-
 export function TodoList() {
     const { todoList }: TodoListState = useAppSelector(selectToDos);
     const displayAddTodoForm = useAppSelector(selectDisplayAddTodoForm)
@@ -43,7 +38,7 @@ export function TodoList() {
     return (
         <Flexbox>
             {todoList.map((todo) => todo.status !== TodoStatusEnum.Archived
-                ? <TodoItem key={todo.id} todo={todo} row={Row} title={Title}/> 
+                ? <TodoItem key={todo.id} todo={todo} row={Row} /> 
                 : null)
             }
             
@@ -55,7 +50,7 @@ export function TodoList() {
                     </StyledButton>
                 </div>
                 :
-                <NewTodoItem row={Row} title={Title}/>
+                <NewTodoItem row={Row} />
             }
         </Flexbox>
     );
