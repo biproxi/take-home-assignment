@@ -16,6 +16,12 @@ function TodoList() {
     // using a spread operator that makes a copy of the todos object with the new todo
     setTodos([...todos, newTodo]);
   };
+
+  // removing a todo
+  const remove = (id) => {
+    // filter out todos with id
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
   
 
   // loop through our todos and create todo component
@@ -23,6 +29,8 @@ function TodoList() {
     // todo component
     <Todo 
       todo={todo}
+      key={todo.id}
+      remove={remove}
     />
   ));
 

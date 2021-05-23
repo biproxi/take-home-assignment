@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-function Todo({ todo }) {
+function Todo({ todo, remove }) {
 
-    const task = useState(todo.task);
+    // removes the todo from click event
+    const handleRemove = (evt) => {
+        remove(evt.target.id);
+    };
 
     return (
         <div>
@@ -12,8 +15,8 @@ function Todo({ todo }) {
             <button>
                 <i className="fas fa-pen" />
             </button>
-            <button>
-                <i className="fas fa-trash" />
+            <button onClick={handleRemove}>
+                <i id={todo.id} className="fas fa-trash" />
             </button>
         </div>
     )
