@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import NewTodoForm from "./NewTodoForm";
 import Todo from "./Todo";
+import {v4 as uuid} from "uuid"; 
 
 function TodoList() {
 
   // set the state for the todos and setTodos using useState
   const [todos, setTodos] = useState([
-    { task: "create todo app", completed: false },
-    { task: "create pull request", completed: false }
+    { id: uuid(), task: "create todo app", completed: false },
+    { id: uuid(), task: "create pull request", completed: false }
   ]);
 
   // adding a new todo from the form and adding it to the todos object

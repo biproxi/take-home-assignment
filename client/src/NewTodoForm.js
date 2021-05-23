@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import {v4 as uuid} from "uuid"; 
 
 function NewTodoForm({createTodo}) {
 
@@ -20,7 +21,7 @@ function NewTodoForm({createTodo}) {
     const handleSubmit = (evt) => {
         // prevents the browser from reloading
         evt.preventDefault();
-        const newTodo = { task: userInput.task, completed: false };
+        const newTodo = { id: uuid(), task: userInput.task, completed: false };
         createTodo(newTodo);
         // sets the task with an empty string again
         setUserInput({ task: "" });
