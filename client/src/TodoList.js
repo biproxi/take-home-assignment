@@ -22,6 +22,18 @@ function TodoList() {
     // filter out todos with id
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+
+  // using an id to determine what we are updating
+  // using updatedTask to determine what the new task is and then updates the state
+  const update = (id, updatedTask) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, task: updatedTask };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
   
 
   // loop through our todos and create todo component
@@ -31,6 +43,7 @@ function TodoList() {
       todo={todo}
       key={todo.id}
       remove={remove}
+      update={update}
     />
   ));
 
