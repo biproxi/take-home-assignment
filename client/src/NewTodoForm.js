@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-function NewTodoForm() {
+function NewTodoForm({createTodo}) {
 
     // setting the initial value for task
     // not sure why we need to use useReducer instead of useState
@@ -16,9 +16,19 @@ function NewTodoForm() {
         setUserInput({ [evt.target.name]: evt.target.value });
     };
 
+    // handles the form submisssion
+    const handleSubmit = (evt) => {
+        // prevents the browser from reloading
+        evt.preventDefault();
+        const newTodo = { task: userInput.task, completed: false };
+        createTodo(newTodo);
+        // sets the task with an empty string again
+        setUserInput({ task: "" });
+    };
+
     // controlled form
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="task">New Todo</label>
             <input 
                 type="text"
@@ -30,6 +40,7 @@ function NewTodoForm() {
                 onChange={handleChange}
                 name="task"
             />
+            <button>Add Todo</button>
         </form>
     );
 }
