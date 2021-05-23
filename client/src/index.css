@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  background: #f9f9f9;
+  font-size: 1.1rem;
+  font-family: "Helvetica", sans-serif;
+  height: 100%;
+}
