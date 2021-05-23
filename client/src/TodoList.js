@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NewTodoForm from "./NewTodoForm";
 import Todo from "./Todo";
 
 function TodoList() {
@@ -23,6 +24,7 @@ function TodoList() {
       <ul>
         <li>{todosList}</li>
       </ul>
+      <NewTodoForm />
     </div>
   );
 }
