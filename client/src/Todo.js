@@ -8,6 +8,7 @@ const Wrapper = styled.li`
     justify-content: space-between;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 `
 
 const ButtonWrapper = styled.div`
