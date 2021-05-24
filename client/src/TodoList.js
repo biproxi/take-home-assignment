@@ -1,11 +1,34 @@
 import React, { useState } from "react";
 import NewTodoForm from "./NewTodoForm";
 import Todo from "./Todo";
-import {v4 as uuid} from "uuid"; 
+import {v4 as uuid} from "uuid";
+import styled from "styled-components";
+
+// styles
+const Wrapper = styled.div`
+  margin: 4rem auto;
+  padding: 2rem 3rem;
+  max-width: 500px;
+  background: #0a0b39;
+  color: #fff;
+  border-radius: 32px;
+`
+
+const List = styled.ul`
+  margin-top: 2.6rem;
+  list-style: none;
+`
+
+const Heading = styled.h1`
+  font-weight: normal;
+  font-size: 2.6rem;
+  margin: 0;
+`
 
 function TodoList() {
 
   // set the state for the todos and setTodos using useState
+  // a status of false = not completed, a status of true = completed
   const [todos, setTodos] = useState([
     { id: uuid(), task: "create todo app", status: false },
     { id: uuid(), task: "create pull request", status: false }
@@ -36,7 +59,7 @@ function TodoList() {
   };
 
   // using id to detemine what we are updating
-  // changing todo to completed and returning the new array
+  // changing todo to inactive by using a boolean and returning the new array
   const toggleStatus = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -60,13 +83,11 @@ function TodoList() {
   ));
 
   return (
-    <div>
-      <h1>Biproxi Todo List</h1>
-      <ul>
-        <li>{todosList}</li>
-      </ul>
+    <Wrapper>
+      <Heading>Biproxi Todo List</Heading>
+      <List>{todosList}</List>
       <NewTodoForm createTodo={create} />
-    </div>
+    </Wrapper>
   );
 }
 

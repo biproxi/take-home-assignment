@@ -1,5 +1,39 @@
 import React, { useReducer } from "react";
-import {v4 as uuid} from "uuid"; 
+import {v4 as uuid} from "uuid";
+import styled from "styled-components";
+
+const Button = styled.button`
+    cursor: pointer;
+    border: none;
+    font-size: 1em;
+    margin: 0.4em;
+    background: #3f3fe1;
+    border-radius: 4px;
+    padding: .75em 1.25em;
+    color: #fff;
+    vertical-align: middle;
+    transition: all 200ms ease;
+    :hover {
+        background-color: #161688;
+    }
+`
+
+const Input = styled.input`
+    flex-grow: 1;
+    border: none;
+    background: #f7f1f1;
+    padding: 0 1.5em;
+    font-size: initial;
+    height: 3rem;
+    border-radius: 4px;
+    vertical-align: middle;
+
+
+`
+
+const Form = styled.form `
+    padding: 1.1rem 0 1.1rem;
+`
 
 function NewTodoForm({createTodo}) {
 
@@ -29,11 +63,10 @@ function NewTodoForm({createTodo}) {
 
     // controlled form
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="task">New Todo</label>
-            <input 
+        <Form onSubmit={handleSubmit}>
+            <Input 
                 type="text"
-                placeholder="New Todo" 
+                placeholder="" 
                 id="task"
                 // value changes when handleChange updates the state
                 value={userInput.task}
@@ -41,8 +74,8 @@ function NewTodoForm({createTodo}) {
                 onChange={handleChange}
                 name="task"
             />
-            <button>Add Todo</button>
-        </form>
+            <Button>Add Todo</Button>
+        </Form>
     );
 }
 

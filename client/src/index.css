@@ -9,8 +9,16 @@ body {
   font-size: 1.1rem;
   font-family: "Helvetica", sans-serif;
   height: 100%;
+  background-image: url(https://uploads-ssl.webflow.com/603d677b55c02c410c523dab/6083330bdb7e871c8fb1eeca_bg-photo.jpg);
+}
+
+.inactive {
+  opacity: .25;
+  text-decoration: line-through;
+  transition: opacity 0.4s linear;
 }
 
 .active {
-  color: lightgrey;
+  opacity: 1;
+  transition: opacity 0.4s linear;
 }
