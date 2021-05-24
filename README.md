@@ -1,3 +1,18 @@
+## Notes
+Ok, so this was fun and I learned a TON in the process. I would say this is my first app that I've built with React other than a few rudimentary websites with Gatsby.js. I spent basically a whole day reading the React documentation and watching tutorials in preparation. I wasn't able to complete the whole project but at least this will give you a good idea as to where I stand skill-wise. I basically just focused on the front-end of the project because I don't have any experience on the backend other than consuming a REST API and the occasional MySQL query. If anything, this project shows I'm a quick learner!
+
+- I kept it simple and placed all my files in the src directory. If it was a bigger project I would certainly use a better file structure.
+
+- I used comments to explain how everything is connected. This will give you a good idea as to my understanding of each component.
+
+- I ended up using useState because I don't know how to use Redux yet. I basically just learned React state management while working on this project.
+
+- Wasn't sure how to toggle status without using a boolean. I think I need to use ternary logic to achieve this.
+
+- I tried to implement TypeScript but failed to get the app the compile without using any for the types that I was getting errors on. I totally get how it's a much safer way to write JavaScript and I plan on continuing to learn it as I learn more JavaScript.
+
+Overall, this was a great project and like I mentioned, I learned a lot. This project helped me realize that I really need to double down on the React and to continue learning ES6.
+
 ## Task
 Your task is to build a full-stack "Todo" Application in TypeScript. There are two discrete components to this system: A web client that will allow the user to interact with the application and a back-end API that the web client interacts with to store and retrieve data. Each component should run in its own process, however the entire project should be contained in a single git repository. The system does not need to support multiple users or persist data between application restarts though several bonus tasks including adding data persistence are outlined in the sections below. The final step is packaging the application in a manner that makes starting the application in development mode easy. The completed version should take no longer than 6 hours to produce but will take significantly less for candidates familiar with the required toolchain. Some implementation details are intentionally left to your discretion. This helps us determine your familiarity with the TypeScript ecosystem and best-practices.
 
