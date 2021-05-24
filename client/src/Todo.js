@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function Todo({ todo, remove, update }) {
+function Todo({ todo, remove, update, toggleStatus }) {
     
     const [isEditing, setIsEditing] = useState(false);
     const [task, setTask] = useState(todo.task);
 
-    // removes the todo from click event
+    // handles the onClick event for todo removal
     const handleRemove = (evt) => {
         remove(evt.target.id);
     };
@@ -23,9 +23,14 @@ function Todo({ todo, remove, update }) {
         toggleForm();
     };
 
-    // updates the task value
+    // handles the onChange event of the task value
         const handleChange = (evt) => {
         setTask(evt.target.value);
+    };
+
+    // handles the toggle event for the id
+    const handleToggle = (evt) => {
+        toggleStatus(evt.target.id);
     };
 
     let result;
@@ -42,7 +47,11 @@ function Todo({ todo, remove, update }) {
     } else {
         result = (
             <div>
-                <li>
+                <li
+                    id={todo.id}
+                    className={todo.status ? "active" : ""}
+                    onClick={handleToggle}
+                >
                     {todo.task}
                 </li>
                 <button onClick={toggleForm}>

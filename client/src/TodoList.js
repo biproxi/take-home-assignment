@@ -7,8 +7,8 @@ function TodoList() {
 
   // set the state for the todos and setTodos using useState
   const [todos, setTodos] = useState([
-    { id: uuid(), task: "create todo app", completed: false },
-    { id: uuid(), task: "create pull request", completed: false }
+    { id: uuid(), task: "create todo app", status: false },
+    { id: uuid(), task: "create pull request", status: false }
   ]);
 
   // adding a new todo from the form and adding it to the todos object
@@ -34,7 +34,18 @@ function TodoList() {
     });
     setTodos(updatedTodos);
   };
-  
+
+  // using id to detemine what we are updating
+  // changing todo to completed and returning the new array
+  const toggleStatus = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, status: !todo.status };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
 
   // loop through our todos and create todo component
   const todosList = todos.map((todo) => (
@@ -44,6 +55,7 @@ function TodoList() {
       key={todo.id}
       remove={remove}
       update={update}
+      toggleStatus={toggleStatus}
     />
   ));
 

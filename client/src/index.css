@@ -10,3 +10,7 @@ body {
   font-family: "Helvetica", sans-serif;
   height: 100%;
 }
+
+.active {
+  color: lightgrey;
+}
