@@ -1,0 +1,57 @@
+
+schema {
+    query: RootQuery
+    mutation: RootMutation
+}
+type RootQuery{
+    tasks(userID: ID!): [task!]!
+    users: [user]
+}
+type RootMutation{
+    createTask(input: newTaskInput!): task
+    createUser(input: newUserInput): user
+    updateTask(input: taskUpdateInput): task
+    deleteTask(input: idInput): id
+    login(input: loginInput): authData
+}
+input newUserInput{
+    name: String!,
+    userName: String!,
+    password: String!
+}
+input loginInput{
+    userName: String!,
+    password: String!
+}
+input newTaskInput{
+    title: String!,
+    description: String,
+    userID: ID!
+}
+input idInput{
+    id: ID!
+}
+input taskUpdateInput{
+    id: ID!,
+    completed: Boolean,
+    description: String,
+    title: String
+}
+type id{
+    id: ID!
+}
+type authData{
+    token: String!,
+    name: String!
+}
+type task{
+    id: ID!,
+    title: String!,
+    completed: Boolean!,
+    description: String
+}
+type user{
+    id: ID!,
+    name: String!,
+    userName: String!
+}
