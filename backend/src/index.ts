@@ -9,6 +9,15 @@ import resolvers from "./resolvers/resolver";
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => {
+        return {
+            ...req,
+            authToken:
+                req && req.headers.authorization
+                    ? userAuth(req)
+                    : null
+        };
+    }
 });
 
 server

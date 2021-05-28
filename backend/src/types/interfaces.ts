@@ -21,6 +21,13 @@ interface taskUpdateInput {
     }
 }
 
+interface loginInput {
+    input: {
+        userName: string,
+        password: string
+    }
+}
+
 interface queryInput {
     userID: number
 }
