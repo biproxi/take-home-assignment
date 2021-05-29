@@ -3,44 +3,42 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import { TextField } from "@material-ui/core";
+import { Collapse, TextField } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useDispatch } from "react-redux";
-import { changePage, updateLogin } from "./reducers/loginReducer";
+import { changePage } from "./reducers/loginReducer";
+
 const createUserMutation = gql`
   mutation CreateUserMutation(
     $userName: String!
     $password: String!
     $name: String!
   ) {
-    createUser(input: { userName: "test", name: "test", password: "test" }) {
+    createUser(
+      input: { userName: $userName, name: $name, password: $password }
+    ) {
       id
     }
   }
 `;
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 275,
+  center: {
+    marginTop: "50px",
+    marginLeft: "50px",
   },
-  container: {
-    alignItems: "center",
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+  spacing: {
+    margin: "10px",
   },
 });
+/**
+ * Component used for signup.
+ * @constructor
+ */
 export default function SignUp() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -48,65 +46,91 @@ export default function SignUp() {
   const [userName, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [createUserSuccess, setCreateUserSuccess] = useState(false);
+
+  /**
+   * Handles when a user clicks signup by creating them an account on the backend.
+   * @param event {React.FormEvent}
+   */
   async function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
     try {
       let response = await createUserLink({
         variables: { name: name, userName: userName, password: password },
       });
-      console.log(response);
-      // dispatch(updateLogin({ data: response.data.login, type: "login" }));
+      setCreateUserSuccess(true);
     } catch (e) {
       console.log(e);
     }
   }
-  function goToSignIn(event: any) {
+
+  /**
+   * Change page back to sign in.
+   * @param event
+   */
+  function goToSignIn(event: SyntheticEvent) {
     dispatch(changePage("login"));
   }
   return (
-    <form onSubmit={handleSignUp}>
-      <Card className={classes.root} variant="outlined">
-        <CardContent>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <FormControl>
-              <FormLabel>Sign Up</FormLabel>
-              <TextField
-                id="name"
-                label="Your Name"
-                variant="outlined"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <TextField
-                id="username"
-                label="Username"
-                variant="outlined"
-                value={userName}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                id="password"
-                label="Password"
-                variant="outlined"
-                type={"password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Button type={"submit"}>Sign Up</Button>
-            <Button onClick={goToSignIn}>Back to Login</Button>
-          </Grid>
-        </CardActions>
-      </Card>
-    </form>
+    <div>
+      <form onSubmit={handleSignUp}>
+        <Card className={classes.center} variant="outlined">
+          <CardContent>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <FormControl>
+                <FormLabel className={classes.spacing}>Sign Up</FormLabel>
+                <TextField
+                  className={classes.spacing}
+                  id="name"
+                  label="Your Name"
+                  variant="outlined"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                  className={classes.spacing}
+                  id="username"
+                  label="Username"
+                  variant="outlined"
+                  value={userName}
+                  required
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                  className={classes.spacing}
+                  id="password"
+                  label="Password"
+                  variant="outlined"
+                  type={"password"}
+                  value={password}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormControl>
+              <Collapse in={createUserSuccess}>
+                <Alert severity="success">Account Created!</Alert>
+              </Collapse>
+            </Grid>
+          </CardContent>
+          <CardActions>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Button type={"submit"}>Sign Up</Button>
+              <Button onClick={goToSignIn}>Back to Login</Button>
+            </Grid>
+          </CardActions>
+        </Card>
+      </form>
+    </div>
   );
 }

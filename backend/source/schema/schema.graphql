@@ -4,7 +4,7 @@ schema {
     mutation: RootMutation
 }
 type RootQuery{
-    tasks(userID: ID!): [task!]!
+    tasks: [task!]!
     users: [user]
 }
 type RootMutation{
@@ -21,12 +21,11 @@ input newUserInput{
 }
 input loginInput{
     userName: String!,
-    password: String!
+    password: String!,
 }
 input newTaskInput{
     title: String!,
     description: String,
-    userID: ID!
 }
 input idInput{
     id: ID!

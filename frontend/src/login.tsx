@@ -3,15 +3,21 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import { TextField } from "@material-ui/core";
+import { Collapse, TextField } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import React, { SyntheticEvent, useState } from "react";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { connect, RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { changePage, updateLogin } from "./reducers/loginReducer";
+import { connect, useDispatch } from "react-redux";
+import {
+  changePage,
+  updateLogin,
+  updateTodoList,
+} from "./reducers/loginReducer";
 import { login } from "../../backend/source/resolvers/mutations";
+import Alert from "@material-ui/lab/Alert";
+
 const loginMutation = gql`
   mutation LoginMutation($userName: String!, $password: String!) {
     login(input: { userName: $userName, password: $password }) {
@@ -20,48 +26,65 @@ const loginMutation = gql`
     }
   }
 `;
+const getTodoListQuery = gql`
+  query getTodoListQuery {
+    tasks {
+      id
+      title
+      description
+      completed
+    }
+  }
+`;
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 275,
+  center: {
+    marginTop: "50px",
+    marginLeft: "50px",
   },
-  container: {
-    alignItems: "center",
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+  spacing: {
+    margin: "10px",
   },
 });
+
+/**
+ * Component for user login
+ * @constructor
+ */
 function Login() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const loginState = useSelector(
-    (state: RootStateOrAny) => state.globalReducer.login
-  );
   const [loginLink] = useMutation(loginMutation);
+  const { data, refetch } = useQuery(getTodoListQuery);
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginFailure, setLoginFailure] = useState(false);
+
+  /**
+   * Handle when the user clicks login.
+   * @param event
+   */
   async function handleLogin(event: React.FormEvent) {
     event.preventDefault();
     try {
       let response = await loginLink({
         variables: { userName: userName, password: password },
       });
-      console.log(response);
+      localStorage.setItem("token", response.data.login.token);
+      let todoList = await refetch();
+      dispatch(updateTodoList(todoList.data.tasks));
       dispatch(updateLogin({ data: response.data.login, type: "login" }));
+      setLoginFailure(false);
+      dispatch(changePage("todo"));
     } catch (e) {
+      setLoginFailure(true);
       console.log(e);
     }
   }
 
+  /**
+   * Change to sign up page.
+   * @param event
+   */
   function goToSignUp(event: SyntheticEvent) {
     console.log(event);
     dispatch(changePage("signUp"));
@@ -69,7 +92,7 @@ function Login() {
 
   return (
     <form onSubmit={handleLogin}>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.center} variant="outlined">
         <CardContent>
           <Grid
             container
@@ -78,8 +101,9 @@ function Login() {
             alignItems="center"
           >
             <FormControl>
-              <FormLabel>Login</FormLabel>
+              <FormLabel className={classes.spacing}>Login</FormLabel>
               <TextField
+                className={classes.spacing}
                 id="username"
                 label="Username"
                 variant="outlined"
@@ -87,6 +111,7 @@ function Login() {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <TextField
+                className={classes.spacing}
                 id="password"
                 label="Password"
                 variant="outlined"
@@ -95,12 +120,16 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
+            <Collapse in={loginFailure}>
+              <Alert severity="error">Login Failed!</Alert>
+            </Collapse>
           </Grid>
         </CardContent>
         <CardActions>
           <Grid container direction="row" justify="center" alignItems="center">
             <Button type={"submit"}>Login</Button>
             <Button onClick={goToSignUp}>Sign Up</Button>
+            <span></span>
           </Grid>
         </CardActions>
       </Card>
