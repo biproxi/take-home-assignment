@@ -6,17 +6,19 @@ import FormLabel from "@material-ui/core/FormLabel";
 import { TextField } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { connect, RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changePage, updateLogin } from "./reducers/loginReducer";
-import { login } from "../../backend/source/resolvers/mutations";
-const loginMutation = gql`
-  mutation LoginMutation($userName: String!, $password: String!) {
-    login(input: { userName: $userName, password: $password }) {
-      token
-      name
+const createUserMutation = gql`
+  mutation CreateUserMutation(
+    $userName: String!
+    $password: String!
+    $name: String!
+  ) {
+    createUser(input: { userName: "test", name: "test", password: "test" }) {
+      id
     }
   }
 `;
@@ -39,36 +41,30 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-function Login() {
+export default function SignUp() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const loginState = useSelector(
-    (state: RootStateOrAny) => state.globalReducer.login
-  );
-  const [loginLink] = useMutation(loginMutation);
+  const [createUserLink] = useMutation(createUserMutation);
   const [userName, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  async function handleLogin(event: React.FormEvent) {
+  async function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
     try {
-      let response = await loginLink({
-        variables: { userName: userName, password: password },
+      let response = await createUserLink({
+        variables: { name: name, userName: userName, password: password },
       });
       console.log(response);
-      dispatch(updateLogin({ data: response.data.login, type: "login" }));
+      // dispatch(updateLogin({ data: response.data.login, type: "login" }));
     } catch (e) {
       console.log(e);
     }
   }
-
-  function goToSignUp(event: SyntheticEvent) {
-    console.log(event);
-    dispatch(changePage("signUp"));
+  function goToSignIn(event: any) {
+    dispatch(changePage("login"));
   }
-
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleSignUp}>
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Grid
@@ -78,7 +74,14 @@ function Login() {
             alignItems="center"
           >
             <FormControl>
-              <FormLabel>Login</FormLabel>
+              <FormLabel>Sign Up</FormLabel>
+              <TextField
+                id="name"
+                label="Your Name"
+                variant="outlined"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
               <TextField
                 id="username"
                 label="Username"
@@ -99,13 +102,11 @@ function Login() {
         </CardContent>
         <CardActions>
           <Grid container direction="row" justify="center" alignItems="center">
-            <Button type={"submit"}>Login</Button>
-            <Button onClick={goToSignUp}>Sign Up</Button>
+            <Button type={"submit"}>Sign Up</Button>
+            <Button onClick={goToSignIn}>Back to Login</Button>
           </Grid>
         </CardActions>
       </Card>
     </form>
   );
 }
-
-export default connect()(Login);

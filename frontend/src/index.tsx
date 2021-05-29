@@ -1,32 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import {
-    ApolloProvider,
-    ApolloClient,
-    createHttpLink,
-    InMemoryCache
-} from '@apollo/client';
+  ApolloProvider,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import store from "./reducers/loginReducer";
+import { Provider } from "react-redux";
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4000'
+  uri: "http://localhost:4000",
 });
 
 const client = new ApolloClient({
-    link: httpLink,
-    cache: new InMemoryCache()
+  link: httpLink,
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
-
   <React.StrictMode>
-      <ApolloProvider client={client}>
-          <App />
-      </ApolloProvider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

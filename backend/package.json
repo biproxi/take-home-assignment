@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "npm run build:dev",
-    "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts resolvers/* -e ts,graphql"
+    "build:dev": "nodemon 'source/index.ts' --exec 'ts-node' source/index.ts resolvers/* -e ts,graphql"
   },
   "author": "",
   "license": "ISC",

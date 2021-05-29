@@ -22,5 +22,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "ignore": ["backend/*, ../backend/*"]
 }
