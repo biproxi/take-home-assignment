@@ -53,7 +53,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `userName`, `password`) VALUES
-(1, 'Chris Miller', 'chrismiller', 'test');
+(1, 'Test User', 'testUser', '$2b$10$gm8MNJk39i1xKt/a1uv7jevxNRtNPDyD4rXCcTS0SCNu9q02R0IEW');
 
 -- --------------------------------------------------------
 

@@ -5,20 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "npm run build:dev",
-    "build:dev": "nodemon 'source/index.ts' --exec 'ts-node' source/index.ts resolvers/* -e ts,graphql"
+    "build:dev": "nodemon 'source/index.ts' --exec 'ts-node' source/index.ts resolvers/* -e ts,graphql",
+    "build:prod": "tsc",
+    "start:prod": "node source/index.js"
   },
+
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jsonwebtoken": "^8.5.1",
     "apollo-server": "^2.24.1",
     "bcrypt": "^5.0.1",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "graphql-import-node": "^0.0.4",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-import": "^1.0.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -27,8 +31,7 @@
     "@types/graphql-depth-limit": "^1.1.2",
     "@types/mysql": "^2.15.18",
     "@types/node": "^15.6.1",
-    "graphql-depth-limit": "^1.1.0",
-    "graphql-import": "^1.0.2",
-    "graphql-import-node": "^0.0.4"
+    "@types/jsonwebtoken": "^8.5.1",
+    "ts-node": "^10.0.0"
   }
 }

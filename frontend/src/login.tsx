@@ -15,7 +15,6 @@ import {
   updateLogin,
   updateTodoList,
 } from "./reducers/loginReducer";
-import { login } from "../../backend/source/resolvers/mutations";
 import Alert from "@material-ui/lab/Alert";
 
 const loginMutation = gql`

@@ -1,0 +1,65 @@
+version: '3.9'
+networks:
+  todoApp:
+    driver: bridge
+#    gateway: 172.18.0.1
+#    subnet: 172.18.0.0/24
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: examplePassword
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: examplePassword2
+      MYSQL_DATABASE: todoApp
+    volumes:
+      - ./backend/sql.sql:/docker-entrypoint-initdb.d/vid_challenge.sql
+    networks:
+      todoApp:
+        ipv4_address: 172.18.0.3
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: examplePassword
+    ports:
+      - 127.0.0.1:8080:80
+    links:
+      - db:db
+    networks:
+      todoApp:
+        ipv4_address: 172.18.0.4
+
+  frontEnd:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: todo-frontend:latest
+    container_name: todo-frontend
+    ports:
+    - 127.0.0.1:80:3000
+    mem_limit: 500m
+    cpu_shares: 512
+    networks:
+      todoApp:
+        ipv4_address: 172.18.0.6
+
+  backEnd:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: todo-backend:latest
+    container_name: todo-backend
+    ports:
+    - 127.0.0.1:4000:4000
+    mem_limit: 500m
+    cpu_shares: 512
+#    ipv4_address: 172.18.0.5
+    networks:
+      todoApp:
+        ipv4_address: 172.18.0.5
+
