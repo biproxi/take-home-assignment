@@ -24,16 +24,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `task` (
   `id` int NOT NULL,
   `title` varchar(100) NOT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `completed` tinyint(1) NOT NULL
+  `status` varchar(15) NOT NULL DEFAULT 'Inactive',
+  `lastUpdatedAt` bigint DEFAULT NULL,
+  `createdAt` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`id`, `title`, `description`, `completed`) VALUES
-(1, 'My Task', 'A task', 1);
+INSERT INTO `task` (`id`, `title`, `status`, `lastUpdatedAt`, `createdAt`) VALUES
+(1, 'My Task', 'Active', 1622493003366, 1622492830404);
 
 -- --------------------------------------------------------
 
