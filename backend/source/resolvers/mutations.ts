@@ -1,4 +1,14 @@
 import { QueryRunner } from "../utils/QueryRunner";
+import {
+  idInput,
+  loginInput,
+  newTaskInput,
+  newUserInput,
+  taskUpdateInput,
+  Todo,
+  TodoStatusEnum,
+  user,
+} from "../types/interfaces";
 const bcrypt = require("bcrypt");
 const APP_SECRET = "superSecret1";
 const jwt = require("jsonwebtoken");
@@ -40,15 +50,12 @@ export async function createTask(
   parent: void,
   args: newTaskInput,
   context: any
-): Promise<task | Error> {
+): Promise<Todo | Error> {
   if (!context.authToken) return new Error("login required");
-  let taskQuery =
-    "INSERT INTO task (`title`, `completed`,`description`) VALUES (?);";
+  let taskQuery = "INSERT INTO task (`title`) VALUES (?);";
   let userTaskQuery = "INSERT INTO `userTask`(`userID`, `taskID`) VALUES (?)";
   try {
-    let task = await QueryRunner.query(taskQuery, [
-      [args.input.title, false, args.input.description],
-    ]);
+    let task = await QueryRunner.query(taskQuery, [[args.input.title]]);
     let userTask = await QueryRunner.query(userTaskQuery, [
       [context.authToken.userID, task.insertId],
     ]);
@@ -56,8 +63,9 @@ export async function createTask(
       return {
         id: task.insertId,
         title: args.input.title,
-        description: args.input.description,
-        completed: false,
+        status: TodoStatusEnum.Inactive,
+        lastUpdatedAt: Date.now(),
+        createdAt: Date.now(),
       };
     else return new Error("Insert Unsuccessful");
   } catch (e) {
@@ -133,6 +141,8 @@ export async function deleteTask(
 
 /**
  * Update a task for the logged in user. Must be logged in and own task.
+ * It should be noted that for simplicity the returned values are not accurate
+ * and a query should be made to get accurate values.
  * @param parent
  * @param args
  * @param context
@@ -141,7 +151,7 @@ export async function updateTask(
   parent: void,
   args: taskUpdateInput,
   context: any
-): Promise<task | Error> {
+): Promise<Todo | Error> {
   if (!context.authToken) return new Error("login required");
   let checkUserQuery =
     "SELECT * FROM `userTask` WHERE `userID` = ? AND `taskID` = ?;";
@@ -153,16 +163,15 @@ export async function updateTask(
     updateTaskQuery += " `title`= ? ,";
     params.push(args.input.title);
   }
-  if (args.input.completed !== undefined) {
-    updateTaskQuery += " `completed`= ? ,";
-    params.push(args.input.completed);
+  if (args.input.status !== undefined) {
+    updateTaskQuery += " `status`= ? ,";
+    params.push(args.input.status);
   }
-  if (args.input.description !== undefined) {
-    updateTaskQuery += " `description`= ? ";
-    params.push(args.input.description);
-  }
-  params.push(args.input.id);
   updateTaskQuery = updateTaskQuery.slice(0, -1);
+  updateTaskQuery += "`lastUpdatedAt` = ? ";
+  let updatedAt = Date.now();
+  params.push(updatedAt);
+  params.push(args.input.id);
   updateTaskQuery += " WHERE id = ?;";
   try {
     //Check user permissions
@@ -177,9 +186,10 @@ export async function updateTask(
     if (task.affectedRows)
       return {
         id: args.input.id,
-        completed: args.input.completed,
-        description: args.input.description,
         title: args.input.title,
+        status: args.input.status,
+        lastUpdatedAt: updatedAt,
+        createdAt: updatedAt,
       };
     else return new Error("Update Unsuccessful");
   } catch (e) {

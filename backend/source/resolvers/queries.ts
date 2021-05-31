@@ -1,4 +1,5 @@
 import { QueryRunner } from "../utils/QueryRunner";
+import { queryInput, Todo, user } from "../types/interfaces";
 
 /**
  * Get tasks for logged in user query. Must be logged in.
@@ -12,7 +13,7 @@ export async function getTasks(
   args: queryInput,
   context: any,
   info: any
-): Promise<Array<task> | Error> {
+): Promise<Array<Todo> | Error> {
   if (!context.authToken) return new Error("login required");
   let query =
     "SELECT * FROM task INNER JOIN userTask ON userTask.taskID = task.id AND userTask.userID = ?;";

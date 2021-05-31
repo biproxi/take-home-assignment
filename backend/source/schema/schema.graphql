@@ -4,13 +4,13 @@ schema {
     mutation: RootMutation
 }
 type RootQuery{
-    tasks: [task!]!
+    tasks: [todo!]!
     users: [user]
 }
 type RootMutation{
-    createTask(input: newTaskInput!): task
+    createTask(input: newTaskInput!): todo
     createUser(input: newUserInput): user
-    updateTask(input: taskUpdateInput): task
+    updateTask(input: taskUpdateInput): todo
     deleteTask(input: idInput): id
     login(input: loginInput): authData
 }
@@ -25,7 +25,7 @@ input loginInput{
 }
 input newTaskInput{
     title: String!,
-    description: String,
+    userID: ID
 }
 input idInput{
     id: ID!
@@ -43,11 +43,12 @@ type authData{
     token: String!,
     name: String!
 }
-type task{
+type todo{
     id: ID!,
     title: String!,
-    completed: Boolean!,
-    description: String
+    status: String!,
+    lastUpdatedAt: String!,
+    createdAt: String!,
 }
 type user{
     id: ID!,
