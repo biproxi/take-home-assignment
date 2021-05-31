@@ -17,23 +17,30 @@ import {
 } from "./reducers/loginReducer";
 import { gql, useMutation } from "@apollo/client";
 import { Delete, Edit } from "@material-ui/icons";
+import { Todo, TodoStatusEnum } from "./types/types";
 
-interface props {
-  title: string;
-  completed: boolean;
-  id: number;
-  description: string;
-}
 const updateCompletedMutation = gql`
-  mutation updateCompletedMutation($id: ID!, $completed: Boolean!) {
-    updateTask(input: { id: $id, completed: $completed }) {
+  mutation updateCompletedMutation(
+    $id: ID!
+    $status: String!
+    $lastUpdatedAt: Float!
+  ) {
+    updateTask(
+      input: { id: $id, status: $status, lastUpdatedAt: $lastUpdatedAt }
+    ) {
       id
     }
   }
 `;
 const updateTextMutation = gql`
-  mutation updateTextMutation($id: ID!, $title: String, $description: String) {
-    updateTask(input: { id: $id, title: $title, description: $description }) {
+  mutation updateTextMutation(
+    $id: ID!
+    $title: String
+    $lastUpdatedAt: Float!
+  ) {
+    updateTask(
+      input: { id: $id, title: $title, lastUpdatedAt: $lastUpdatedAt }
+    ) {
       id
     }
   }
@@ -49,13 +56,19 @@ const deleteTaskMutation = gql`
  * A task item in the task list.
  * @param title {string}
  * @param description {string}
- * @param completed {boolean}
  * @param id {number}
  * @constructor
  */
-const TaskItem: React.FC<props> = ({ title, description, completed, id }) => {
-  const [checked, setChecked] = useState(completed);
-  const [descriptionEditor, setDescriptionEditor] = useState(description);
+const TaskItem: React.FC<Todo> = ({
+  title,
+  status,
+  lastUpdatedAt,
+  createdAt,
+  id,
+}) => {
+  const newDate: Date = new Date(lastUpdatedAt);
+  const dateString: string = newDate.toDateString();
+  const [checked, setChecked] = useState(status);
   const [titleEditor, setTitleEditor] = useState(title);
   const [editorOpen, setEditorOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -92,19 +105,21 @@ const TaskItem: React.FC<props> = ({ title, description, completed, id }) => {
    * Update the title and description on the front and backend.
    */
   async function updateText() {
+    let updatedAt = Date.now();
     dispatch(
       updateTodoListItem({
         id: id,
         data: {
           title: titleEditor,
-          description: descriptionEditor,
-          completed: completed,
+          status: status,
+          lastUpdatedAt: updatedAt,
+          createdAt: createdAt,
           id: id,
         },
       })
     );
     let response = await updateTextLink({
-      variables: { id: id, title: titleEditor, description: descriptionEditor },
+      variables: { id: id, title: titleEditor, lastUpdatedAt: updatedAt },
     });
     setEditorOpen(false);
   }
@@ -114,28 +129,36 @@ const TaskItem: React.FC<props> = ({ title, description, completed, id }) => {
    * @param event
    */
   async function updateCompleted(event: ChangeEvent) {
-    setChecked(!checked);
+    let newStatus = TodoStatusEnum.Active;
+    if (checked === TodoStatusEnum.Active) {
+      setChecked(TodoStatusEnum.Inactive);
+      newStatus = TodoStatusEnum.Inactive;
+    } else setChecked(TodoStatusEnum.Active);
+    let updatedAt = Date.now();
     dispatch(
       updateTodoListItem({
         id: id,
         data: {
           title: title,
-          description: description,
-          completed: checked,
+          status: checked,
+          lastUpdatedAt: updatedAt,
+          createdAt: createdAt,
           id: id,
         },
       })
     );
     let response = await updateCompletedLink({
-      variables: { id: id, completed: !checked },
+      variables: { id: id, status: newStatus, lastUpdatedAt: updatedAt },
     });
   }
   return (
     <TableRow>
       <TableCell>{title}</TableCell>
-      <TableCell>{description}</TableCell>
       <TableCell>
-        <Checkbox checked={checked} onChange={updateCompleted} />
+        <Checkbox
+          checked={checked === TodoStatusEnum.Active}
+          onChange={updateCompleted}
+        />
       </TableCell>
       <TableCell>
         <Button onClick={openEditor}>
@@ -152,16 +175,6 @@ const TaskItem: React.FC<props> = ({ title, description, completed, id }) => {
               autoFocus
               margin="dense"
               label="Title"
-              fullWidth
-            />
-            <TextField
-              value={descriptionEditor}
-              onChange={(e) => {
-                setDescriptionEditor(e.target.value);
-              }}
-              autoFocus
-              margin="dense"
-              label="Description"
               fullWidth
             />
           </DialogContent>
@@ -191,6 +204,7 @@ const TaskItem: React.FC<props> = ({ title, description, completed, id }) => {
           </DialogActions>
         </Dialog>
       </TableCell>
+      <TableCell>{dateString}</TableCell>
     </TableRow>
   );
 };

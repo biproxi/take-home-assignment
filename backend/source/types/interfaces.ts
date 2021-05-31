@@ -25,6 +25,7 @@ interface taskUpdateInput {
     id: number;
     title?: string;
     status?: TodoStatusEnum;
+    lastUpdatedAt: number;
   };
 }
 

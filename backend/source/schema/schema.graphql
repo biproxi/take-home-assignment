@@ -32,9 +32,9 @@ input idInput{
 }
 input taskUpdateInput{
     id: ID!,
-    completed: Boolean,
-    description: String,
-    title: String
+    status: String,
+    title: String,
+    lastUpdatedAt: Float!
 }
 type id{
     id: ID!
@@ -47,8 +47,8 @@ type todo{
     id: ID!,
     title: String!,
     status: String!,
-    lastUpdatedAt: String!,
-    createdAt: String!,
+    lastUpdatedAt: Float!,
+    createdAt: Float!,
 }
 type user{
     id: ID!,

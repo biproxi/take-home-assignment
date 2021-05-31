@@ -52,10 +52,14 @@ export async function createTask(
   context: any
 ): Promise<Todo | Error> {
   if (!context.authToken) return new Error("login required");
-  let taskQuery = "INSERT INTO task (`title`) VALUES (?);";
+  let createdAt = Date.now();
+  let taskQuery =
+    "INSERT INTO task (`title`, `lastUpdatedAt`, `createdAt`) VALUES (?);";
   let userTaskQuery = "INSERT INTO `userTask`(`userID`, `taskID`) VALUES (?)";
   try {
-    let task = await QueryRunner.query(taskQuery, [[args.input.title]]);
+    let task = await QueryRunner.query(taskQuery, [
+      [args.input.title, createdAt, createdAt],
+    ]);
     let userTask = await QueryRunner.query(userTaskQuery, [
       [context.authToken.userID, task.insertId],
     ]);
@@ -64,8 +68,8 @@ export async function createTask(
         id: task.insertId,
         title: args.input.title,
         status: TodoStatusEnum.Inactive,
-        lastUpdatedAt: Date.now(),
-        createdAt: Date.now(),
+        lastUpdatedAt: createdAt,
+        createdAt: createdAt,
       };
     else return new Error("Insert Unsuccessful");
   } catch (e) {
@@ -167,12 +171,11 @@ export async function updateTask(
     updateTaskQuery += " `status`= ? ,";
     params.push(args.input.status);
   }
-  updateTaskQuery = updateTaskQuery.slice(0, -1);
   updateTaskQuery += "`lastUpdatedAt` = ? ";
-  let updatedAt = Date.now();
-  params.push(updatedAt);
-  params.push(args.input.id);
   updateTaskQuery += " WHERE id = ?;";
+  params.push(args.input.lastUpdatedAt);
+  params.push(args.input.id);
+
   try {
     //Check user permissions
     let checkUser = await QueryRunner.query(checkUserQuery, [
@@ -188,8 +191,8 @@ export async function updateTask(
         id: args.input.id,
         title: args.input.title,
         status: args.input.status,
-        lastUpdatedAt: updatedAt,
-        createdAt: updatedAt,
+        lastUpdatedAt: args.input.lastUpdatedAt,
+        createdAt: args.input.lastUpdatedAt,
       };
     else return new Error("Update Unsuccessful");
   } catch (e) {

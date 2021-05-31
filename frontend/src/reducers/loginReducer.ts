@@ -1,11 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-interface todoListItem {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { Todo } from "../types/types";
 
 /**
  * Global state
@@ -18,7 +12,7 @@ const globalReducer = createSlice({
       token: "test",
       name: "",
     },
-    todoList: Array<todoListItem>(),
+    todoList: Array<Todo>(),
   },
   reducers: {
     /**
@@ -67,7 +61,7 @@ const globalReducer = createSlice({
      */
     updateTodoListItem: (state, action) => {
       let index = state.todoList.findIndex(
-        (item: todoListItem) => action.payload.id === item.id
+        (item: Todo) => item && action.payload.id === item.id
       );
       state.todoList[index] = action.payload.data;
     },
@@ -78,7 +72,7 @@ const globalReducer = createSlice({
      */
     deleteTodoListItem: (state, action) => {
       let index = state.todoList.findIndex(
-        (item: todoListItem) => action.payload.id === item.id
+        (item: Todo) => action.payload.id === item.id
       );
       delete state.todoList[index];
     },

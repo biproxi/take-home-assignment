@@ -30,8 +30,9 @@ const getTodoListQuery = gql`
     tasks {
       id
       title
-      description
-      completed
+      status
+      lastUpdatedAt
+      createdAt
     }
   }
 `;
@@ -85,7 +86,6 @@ function Login() {
    * @param event
    */
   function goToSignUp(event: SyntheticEvent) {
-    console.log(event);
     dispatch(changePage("signUp"));
   }
 

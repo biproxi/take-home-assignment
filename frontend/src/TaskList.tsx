@@ -19,6 +19,7 @@ import { addTodoListItem, updateLogin } from "./reducers/loginReducer";
 import TaskItem from "./TaskItem";
 import { Add } from "@material-ui/icons";
 import { gql, useMutation } from "@apollo/client";
+import { Todo, TodoStatusEnum } from "./types/types";
 
 interface todoListItemObject {
   id: number;
@@ -28,9 +29,12 @@ interface todoListItemObject {
 }
 
 const createTaskMutation = gql`
-  mutation createTaskMutation($title: String!, $description: String) {
-    createTask(input: { title: $title, description: $description }) {
+  mutation createTaskMutation($title: String!) {
+    createTask(input: { title: $title }) {
       id
+      status
+      createdAt
+      lastUpdatedAt
     }
   }
 `;
@@ -44,7 +48,6 @@ function TaskList() {
   const dispatch = useDispatch();
   const [addTaskDialogOpen, setAddTaskDialogOpen] = useState(false);
   const [addTitle, setAddTitle] = useState("");
-  const [addDescription, setAddDescription] = useState("");
   const todoListState = useSelector(
     (state: RootStateOrAny) => state.globalReducer.todoList
   );
@@ -63,18 +66,18 @@ function TaskList() {
    */
   async function createNewTask() {
     let response = await createTaskLink({
-      variables: { title: addTitle, description: addDescription },
+      variables: { title: addTitle },
     });
     dispatch(
       addTodoListItem({
         title: addTitle,
-        description: addDescription,
-        completed: false,
+        status: TodoStatusEnum.Inactive,
         id: response.data.createTask.id,
+        createdAt: response.data.createTask.createdAt,
+        lastUpdatedAt: response.data.createTask.lastUpdatedAt,
       })
     );
     setAddTaskDialogOpen(false);
-    setAddDescription("");
     setAddTitle("");
   }
 
@@ -85,10 +88,10 @@ function TaskList() {
           <TableHead>
             <TableRow>
               <TableCell>Todo Task</TableCell>
-              <TableCell>Description</TableCell>
               <TableCell>Completed</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Delete</TableCell>
+              <TableCell>Last Updated At</TableCell>
               <TableCell align={"right"}>
                 <Button onClick={() => setAddTaskDialogOpen(true)}>
                   <Add />
@@ -100,12 +103,13 @@ function TaskList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todoListState.map((todoListItem: todoListItemObject) => (
+            {todoListState.map((todoListItem: Todo) => (
               <TaskItem
                 title={todoListItem.title}
-                completed={todoListItem.completed}
+                status={todoListItem.status}
                 id={todoListItem.id}
-                description={todoListItem.description}
+                createdAt={todoListItem.createdAt}
+                lastUpdatedAt={todoListItem.lastUpdatedAt}
               />
             ))}
           </TableBody>
@@ -122,16 +126,6 @@ function TaskList() {
             autoFocus
             margin="dense"
             label="Title"
-            fullWidth
-          />
-          <TextField
-            value={addDescription}
-            onChange={(e) => {
-              setAddDescription(e.target.value);
-            }}
-            autoFocus
-            margin="dense"
-            label="Description"
             fullWidth
           />
         </DialogContent>
