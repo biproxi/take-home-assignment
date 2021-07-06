@@ -5,6 +5,7 @@ const Todos = () => {
   const TodoContainer = styled.div`
     display: grid;
     grid-auto-rows: auto auto;
+    grid-auto-columns: auto;
     grid-row-gap: 32px;
     padding: 32px;
   `;
