@@ -22,48 +22,72 @@ export const initialState: TodoState = {
 export const getAllTodosAsync = createAsyncThunk(
     'todo/getAll',
     async () => {
-        const response = await getAllTodos();
-        return response.data;
+        try {
+            const response = await getAllTodos();
+            return response.data;
+        } catch (error) {
+            throw error
+        }
     }
 );
 
 export const getArchivedTodosAsync = createAsyncThunk(
     'todo/getArchived',
     async () => {
-        const response = await getArchivedTodos();
-        return response.data;
+        try {
+            const response = await getArchivedTodos();
+            return response.data;
+        } catch (error) {
+            throw error
+        }
     }
 );
 
 export const addTodoAsync = createAsyncThunk(
     'todo/add',
     async (title: string) => {
-        const response = await addTodo(title);
-        return response.data;
+        try {
+            const response = await addTodo(title);
+            return response.data;
+        } catch (error) {
+            throw error
+        }
     }
 );
 
 export const deleteTodoAsync = createAsyncThunk(
     'todo/delete',
     async (id: string) => {
-        const response = await deleteTodo(id);
-        return response.config.headers['X-Todo-ID'];
+        try {
+            const response = await deleteTodo(id);
+            return response.config.headers['X-Todo-ID'];
+        } catch (error) {
+            throw error
+        }
     }
 );
 
 export const archiveTodoAsync = createAsyncThunk(
     'todo/archive',
     async (id: string) => {
-        const response = await archiveTodo(id);
-        return response.config.headers['X-Todo-ID'];
+        try {
+            const response = await archiveTodo(id);
+            return response.config.headers['X-Todo-ID'];
+        } catch (error) {
+            throw error
+        }
     }
 );
 
 export const saveTodoAsync = createAsyncThunk(
     'todo/save',
     async (todo: Todo) => {
-        await saveTodo(todo);
-        return todo;
+        try {
+            await saveTodo(todo);
+            return todo;
+        } catch (error) {
+            throw error
+        }
     }
 );
 
@@ -97,23 +121,35 @@ export const todoSlice = createSlice({
                 state.status = 'idle';
                 state.todos = action.payload;
             })
+            .addCase(getAllTodosAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
 
-            .addCase(getArchivedTodosAsync.pending, (state, action) => {
+            .addCase(getArchivedTodosAsync.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(getArchivedTodosAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.archive = action.payload;
             })
+            .addCase(getArchivedTodosAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
 
             .addCase(addTodoAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.todos.push(action.payload);
             })
+            .addCase(addTodoAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
 
             .addCase(deleteTodoAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+            })
+            .addCase(deleteTodoAsync.rejected, (state) => {
+                state.status = 'failed';
             })
 
             .addCase(archiveTodoAsync.fulfilled, (state, action) => {
@@ -128,6 +164,9 @@ export const todoSlice = createSlice({
                     return todo
                 }).filter(todo => todo.status !== TodoStatusEnum.Archived);
             })
+            .addCase(archiveTodoAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
 
             .addCase(saveTodoAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
@@ -138,6 +177,9 @@ export const todoSlice = createSlice({
                     return todo
                 })
                 state.todoToEdit = undefined
+            })
+            .addCase(saveTodoAsync.rejected, (state) => {
+                state.status = 'failed';
             })
 
     },
