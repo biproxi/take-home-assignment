@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { TodoStatusEnum } from "../model/TodoStatusEnum";
 import { Todo } from "../model/Todo";
 
-const serviceAccount = require('../auth/biproxi-todo-firebase-adminsdk-408dn-0fb85fae20.json');
+const serviceAccount = require('../auth/tom-holland-biproxi-todo.json');
 
 const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
