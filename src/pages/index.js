@@ -1,5 +1,5 @@
 function HomePage() {
-  return <div>Welcome to Next.js!</div>
+  return <div>Let's see if fash refresh works!</div>;
 }
 
-export default HomePage
+export default HomePage;
