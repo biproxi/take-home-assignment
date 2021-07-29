@@ -3,10 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const result = await supabase
-      .from('todos')
-      .delete()
-      .match({ id: req.query.id });
+    const { newTodo } = req.body;
+    const result = await supabase.from('todos').insert([{ title: newTodo }]);
     const todo = result.data[0];
     res.send({ todo });
   } catch (err) {
