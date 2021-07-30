@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    console.log(req.query.id);
     const result = await supabase
       .from('todos')
       .delete()

@@ -3,7 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { data } = await supabase.from('todos').select('id, title');
+    const { data } = await supabase
+      .from('todos')
+      .select('id, title, createdAt, lastUpdatedAt');
     res.send(data);
   } catch (err) {
     console.log(err);
