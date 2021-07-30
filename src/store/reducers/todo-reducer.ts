@@ -3,14 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //will create 'archived' state that holds archived todos. Will access with selector and will update in client with request to API route that updates database
 
 //typing
-interface Todo {
+export interface Todo {
   id: number;
   title: string; // the title of the todo
   // lastUpdatedAt: number; // a unix timestamp representing the time the todo was last updated
   // createdAt: number; // a unix timestamp representing the time the todo was created
 }
 
-interface FormInput {
+export interface FormInput {
   title: string;
   // lastUpdatedAt: string;
   // createdAt: string;
@@ -25,7 +25,7 @@ const initialState = {
 
 //slice: actions/ reducers, name
 const todosSlice = createSlice({
-  name: 'todo',
+  name: 'todos',
   initialState,
   reducers: {
     setTodos: (state, action: PayloadAction<Todo[]>) => {
@@ -44,8 +44,8 @@ const todosSlice = createSlice({
 });
 
 //selectors
-export const selectTodos = (state) => state.todos;
-export const selectFormInput = (state) => state.metrics.formInput;
+export const selectTodos = (state) => state.todos.todos;
+export const selectFormInput = (state) => state.todos.formInput;
 
 //actions/reducer export
 export const actions = todosSlice.actions;
