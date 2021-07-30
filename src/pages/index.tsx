@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     getTodos();
-  }, [getTodos, dispatch]);
+  }, [getTodos]);
 
   return (
     <Container

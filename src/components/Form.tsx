@@ -2,7 +2,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormHelperText,
   Heading,
   Button,
   Box
@@ -11,17 +10,6 @@ import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions, selectFormInput } from '../store/reducers/todo-reducer';
-
-// const addTodo = async () => {
-//   const result = await fetch("/api/todos", {
-//     method: "POST",
-//     body: JSON.stringify({ newTodo }),
-//   });
-//   const data = await result.json();
-
-//   setNewTodo("");
-//   setTodos((state) => [...state, data.todo]);
-// };
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -38,7 +26,7 @@ const Form = () => {
     }
   };
 
-  const updateForm = (event: React.ChangeEvent<any>) => {
+  const updateForm = (event: React.ChangeEvent<any>): void => {
     const input = event.target.value;
     dispatch(actions.setFormInput(input));
   };
