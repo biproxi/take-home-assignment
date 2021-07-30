@@ -19,7 +19,7 @@ export default function Home() {
   const getTodos = async (): Promise<void> => {
     try {
       const result: AxiosResponse = await axios.get('/api/get');
-      const todos: Todo[] = result.data;
+      const todos: Todo[] = result.data.data;
       dispatch(actions.setTodos(todos));
     } catch (err) {
       console.log(err);

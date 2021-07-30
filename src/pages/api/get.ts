@@ -6,8 +6,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { data } = await supabase
       .from('todos')
       .select('id, title, createdAt, lastUpdatedAt, status');
-    res.send(data);
+    res.send({ message: 'To-dos successfully retrieved', data });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(`There was an issue retrieving to-dos`);
   }
 };

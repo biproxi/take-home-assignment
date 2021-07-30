@@ -13,8 +13,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     ]);
     const data = result.data;
-    res.send({ data });
+    res.send({ message: 'Successfully created to-do', data });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(`There was an creating your to-do`);
   }
 };

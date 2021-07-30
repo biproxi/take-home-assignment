@@ -3,12 +3,20 @@ import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 
 type TodoItemProps = {
+  key?: number;
   id: number;
   title: string;
   createdAt: number;
   lastUpdatedAt: number;
+  status: string;
 };
-const Todoitem = ({ id, title, createdAt, lastUpdatedAt }: TodoItemProps) => {
+const Todoitem = ({
+  id,
+  title,
+  createdAt,
+  lastUpdatedAt,
+  status
+}: TodoItemProps) => {
   const updateTodo = async (update: string): Promise<void> => {
     try {
       const result = await axios.put('/api/update', {
@@ -44,7 +52,7 @@ const Todoitem = ({ id, title, createdAt, lastUpdatedAt }: TodoItemProps) => {
       <Text>{`${id}: ${title}`}</Text>
       <Text>{`Created On: ${createdAt}`}</Text>
       <Text>{`Last Updated: ${lastUpdatedAt}`}</Text>
-      <Select onChange={updateStatus}>
+      <Select placeholder={status} onChange={updateStatus}>
         <option value="Active">Active</option>
         <option value="Inactive">Inactive</option>
         <option value="Archived">Archived</option>
