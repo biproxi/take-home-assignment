@@ -9,6 +9,7 @@ import {
 import { actions, selectTodos, Todo } from '../store/reducers/todo-reducer';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from '../components/TodoItem';
+import Form from '../components/Form';
 
 export default function Home() {
   const bg = useColorModeValue('white', 'grey');
@@ -27,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [getTodos, dispatch]);
 
   return (
     <Container
@@ -40,6 +41,7 @@ export default function Home() {
       maxW="80%"
       bg={bg}
     >
+      <Form />
       <Heading>Your List</Heading>
       <SimpleGrid w="100%" gap={1} gridAutoRows="1fr">
         {todos.length > 0 &&

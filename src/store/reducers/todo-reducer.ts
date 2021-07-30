@@ -10,17 +10,13 @@ export interface Todo {
   // createdAt: number; // a unix timestamp representing the time the todo was created
 }
 
-export interface FormInput {
-  title: string;
-  // lastUpdatedAt: string;
-  // createdAt: string;
-}
+export type FormInput = string;
 
 //initial state
 const initialState = {
   todos: [],
   archive: [],
-  formInput: {}
+  formInput: ''
 };
 
 //slice: actions/ reducers, name
@@ -45,7 +41,7 @@ const todosSlice = createSlice({
 
 //selectors
 export const selectTodos = (state) => state.todos.todos;
-export const selectFormInput = (state) => state.formInput;
+export const selectFormInput = (state) => state.todos.formInput;
 
 //actions/reducer export
 export const actions = todosSlice.actions;
