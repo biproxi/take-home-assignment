@@ -3,18 +3,10 @@ import axios, { AxiosResponse } from 'axios';
 import {
   Container,
   SimpleGrid,
-  Box,
   Heading,
-  Text,
   useColorModeValue
 } from '@chakra-ui/react';
-import {
-  actions,
-  selectTodos,
-  selectFormInput,
-  Todo,
-  FormInput
-} from '../store/reducers/todo-reducer';
+import { actions, selectTodos, Todo } from '../store/reducers/todo-reducer';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from '../components/TodoItem';
 
@@ -33,8 +25,6 @@ export default function Home() {
     }
   };
 
-  const createTodo = async () => {};
-
   useEffect(() => {
     getTodos();
   }, []);
@@ -51,9 +41,8 @@ export default function Home() {
       bg={bg}
     >
       <Heading>Your List</Heading>
-      {console.log(todos)}
-      <SimpleGrid w="100%" gap={1} minChildWidth="1em" gridAutoRows="1fr">
-        {todos.length &&
+      <SimpleGrid w="100%" gap={1} gridAutoRows="1fr">
+        {todos.length > 0 &&
           todos.map((todo) => <TodoItem key={todo.id} {...todo} />)}
       </SimpleGrid>
     </Container>

@@ -45,7 +45,7 @@ const todosSlice = createSlice({
 
 //selectors
 export const selectTodos = (state) => state.todos.todos;
-export const selectFormInput = (state) => state.todos.formInput;
+export const selectFormInput = (state) => state.formInput;
 
 //actions/reducer export
 export const actions = todosSlice.actions;
