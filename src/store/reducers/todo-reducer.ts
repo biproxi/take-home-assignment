@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-//will create 'archived' state that holds archived todos. Will access with selector and will update in client with request to API route that updates database
-
-//typing
 enum TodoStatusEnum {
   Active = 'Active', // the todo has is not completed
   Inactive = 'Inactive', // the todo is completed
@@ -12,22 +9,27 @@ export interface Todo {
   id: number;
   title: string; // the title of the todo
   status: TodoStatusEnum;
-  lastUpdatedAt: Date; // a unix timestamp representing the time the todo was last updated
-  createdAt: Date; // a unix timestamp representing the time the todo was created
+  lastUpdatedAt: number; // a unix timestamp representing the time the todo was last updated
+  createdAt: number; // a unix timestamp representing the time the todo was created
 }
 
 export type FormInput = string;
 export type Status = string;
 
-//initial state
-const initialState = {
+interface InitialState {
+  todos: Todo[];
+  archive: Todo[];
+  formInput: string;
+  status: string;
+}
+
+const initialState: InitialState = {
   todos: [],
   archive: [],
   formInput: '',
   status: ''
 };
 
-//slice: actions/ reducers, name
 const todosSlice = createSlice({
   name: 'todos',
   initialState,
@@ -51,11 +53,9 @@ const todosSlice = createSlice({
   }
 });
 
-//selectors
-export const selectTodos = (state) => state.todos.todos;
-export const selectFormInput = (state) => state.todos.formInput;
-export const selectStatus = (state) => state.todos.status;
+export const selectTodos = (state: any) => state.todos.todos;
+export const selectFormInput = (state: any) => state.todos.formInput;
+export const selectStatus = (state: any) => state.todos.status;
 
-//actions/reducer export
 export const actions = todosSlice.actions;
 export const reducer = todosSlice.reducer;

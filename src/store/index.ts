@@ -1,4 +1,3 @@
-import { createStore } from 'redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import reducers from './reducers';
 

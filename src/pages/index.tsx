@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     getTodos();
-  }, [getTodos]);
+  }, [getTodos, dispatch, todos]);
 
   return (
     <Container
@@ -45,7 +45,7 @@ export default function Home() {
       <Heading>Your List</Heading>
       <SimpleGrid w="100%" gap={1} gridAutoRows="1fr">
         {todos.length > 0 &&
-          todos.map((todo) => <TodoItem key={todo.id} {...todo} />)}
+          todos.map((todo: Todo) => <TodoItem key={todo.id} {...todo} />)}
       </SimpleGrid>
     </Container>
   );

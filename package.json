@@ -4,7 +4,7 @@
   "description": "Your task is to build a full-stack \"Todo\" Application in TypeScript. There are two discrete components to this system: A web client that will allow the user to interact with the application and a back-end API that the web client interacts with to store and retrieve data. Each component should run in its own process, however the entire project should be contained in a single git repository. The system does not need to support multiple users or persist data between application restarts though several bonus tasks including adding data persistence are outlined in the sections below. The final step is packaging the application in a manner that makes starting the application in development mode easy. The completed version should take no longer than 6 hours to produce but will take significantly less for candidates familiar with the required toolchain. Some implementation details are intentionally left to your discretion. This helps us determine your familiarity with the TypeScript ecosystem and best-practices.",
   "main": "index.js",
   "scripts": {
-    "make run": "npm i && npm run dev",
+    "make run": "npm i && npm run build && npm run start",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -29,6 +29,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "@supabase/supabase-js": "^1.21.0",
     "axios": "^0.21.1",
+    "eslint-config-prettier": "^8.3.0",
     "framer-motion": "^4.1.17",
     "next": "^11.0.1",
     "prettier": "^2.3.2",
@@ -38,5 +39,12 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.31.0",
+    "eslint-config-next": "^11.0.1",
+    "eslint-plugin-react": "^7.24.0"
   }
 }

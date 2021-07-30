@@ -12,8 +12,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         status: 'Active'
       }
     ]);
-    const todo = result.data[0];
-    res.send({ todo });
+    const data = result.data;
+    res.send({ data });
   } catch (err) {
     console.log(err);
   }

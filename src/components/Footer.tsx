@@ -1,4 +1,4 @@
-import { Flex, Text, Stack } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 type FooterProps = {
   h: string;

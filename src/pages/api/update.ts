@@ -8,8 +8,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .from('todos')
       .update({ status: update })
       .match({ id: id });
-    const todo = result.data[0];
-    res.send({ todo });
+    const data = result.data;
+    res.send({ data });
   } catch (err) {
     console.log(err);
   }
