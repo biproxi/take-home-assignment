@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import axios from 'axios';
 
-const Form = (props: any) => {
+const CreateForm = (props: any) => {
 
   const renderInput = (formProps: any) => {
     return (
@@ -17,9 +17,8 @@ const Form = (props: any) => {
 
   const onSubmit = async (formValues: any) => {
     try{
-      console.log(formValues)
-      const createPost = await axios.post('/create',{ formValues });
-      const response = createPost.data;
+      const addForm = await axios.post('/api/addPost', {formValues})
+      const response = addForm;
       console.log(response)
     } catch(err) {
       console.error(err)
@@ -30,14 +29,10 @@ const Form = (props: any) => {
   return(
     <form onSubmit = {props.handleSubmit(onSubmit)}>
      <Field name = "title" label = "Title" component = {renderInput}/>
-     <Field name = "status" label = "Status" component = {renderInput}/>
-     {/* <Field name = "lastUpdatedAt"/>
-     <Field name = "createdAt"/> */}
-     <p>{Math.round((new Date()).getTime() /1000)}</p>
      <button type = "submit">Submit</button>
     </form>
   )
 };
 
 
-export default reduxForm({ form: 'create-form' })(Form);
+export default reduxForm({ form: 'create-form' })(CreateForm);

@@ -1,9 +1,9 @@
-import Form from '../components/form';
+import CreateForm from '../components/createForm';
 
 export default function Home() {
   return (
     <div>
-      <Form />
+      <CreateForm />
     </div>
   )
 }
