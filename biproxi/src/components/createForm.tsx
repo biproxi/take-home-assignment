@@ -28,5 +28,4 @@ const CreateForm = () => {
   )
 };
 
-// export default connect(null, { getPosts })(CreateForm);
 export default CreateForm;
