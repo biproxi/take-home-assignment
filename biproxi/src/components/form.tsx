@@ -1,6 +1,6 @@
 // import { connect } from 'react-redux';
 // import { createPost } from '../actions/posts';
-import React from 'react';
+import { useEffect } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import axios from 'axios';
 
@@ -19,7 +19,7 @@ const Form = (props: any) => {
     try{
       console.log(formValues)
       const createPost = await axios.post('/create',{ formValues });
-      const response = createPost;
+      const response = createPost.data;
       console.log(response)
     } catch(err) {
       console.error(err)
