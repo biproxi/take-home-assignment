@@ -1,6 +1,6 @@
-export default (state = [], action) => {
+export default (state = [], action: any) => {
   switch (action.type){
-    case 'ADD_POSTS':
+    case 'ADD_POST':
       return [...state, action.payload]
     default:
       return state;
