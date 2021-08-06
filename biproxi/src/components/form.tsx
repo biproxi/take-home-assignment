@@ -15,8 +15,16 @@ const Form = (props: any) => {
     )
   };
 
-  const onSubmit = (formValues: any) => {
-    console.log(formValues)
+  const onSubmit = async (formValues: any) => {
+    try{
+      console.log(formValues)
+      const createPost = await axios.post('/create',{ formValues });
+      const response = createPost;
+      console.log(response)
+    } catch(err) {
+      console.error(err)
+    }
+
   };
 
   return(
