@@ -3,7 +3,7 @@ import { supabase } from '../../supabase/client';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try{
-    const { title } = req.body.formValues;
+    const { title } = req.body;
 
     const response = await supabase
       .from('posts')

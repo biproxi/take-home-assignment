@@ -1,24 +1,15 @@
-// import { connect } from 'react-redux';
-// import { createPost } from '../actions/posts';
-import { useEffect } from 'react';
-import { reduxForm, Field } from 'redux-form';
+
+import { useRef } from 'react';
 import axios from 'axios';
 
-const CreateForm = (props: any) => {
+const CreateForm = () => {
+  const inputRef = useRef();
 
-  const renderInput = (formProps: any) => {
-    return (
-      <div className = "field">
-        <label>{formProps.label} </label>
-        <input {...formProps.input} />
-      </div>
-    )
-  };
-
-  const onSubmit = async (formValues: any) => {
+  const handleSubmit = async () => {
     try{
-      const addForm = await axios.post('/api/addPost', {formValues})
-      const response = addForm;
+      let title = inputRef.current.value;
+      const addForm = await axios.post('/api/addPost', {title})
+      const response = addForm.data;
       console.log(response)
     } catch(err) {
       console.error(err)
@@ -27,12 +18,15 @@ const CreateForm = (props: any) => {
   };
 
   return(
-    <form onSubmit = {props.handleSubmit(onSubmit)}>
-     <Field name = "title" label = "Title" component = {renderInput}/>
-     <button type = "submit">Submit</button>
+    <form onSubmit = {handleSubmit}>
+      <input
+        type = "text"
+        ref = {inputRef}
+      />
+      <button type = "submit">Submit Form</button>
     </form>
   )
 };
 
-
-export default reduxForm({ form: 'create-form' })(CreateForm);
+// export default connect(null, { getPosts })(CreateForm);
+export default CreateForm;
