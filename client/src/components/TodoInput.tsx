@@ -39,7 +39,7 @@ export const TodoInput = () => {
     dispatch(
       create({
         title: todosInput.value,
-        status: TodoStatusEnum.Inactive,
+        status: TodoStatusEnum.Active,
         lastUpdatedAt: Math.floor(Date.now() / 1000),
         createdAt: Math.floor(Date.now() / 1000),
       })

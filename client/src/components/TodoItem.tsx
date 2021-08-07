@@ -1,7 +1,7 @@
 import styled, { StyledInterface } from "styled-components";
 import { useDispatch } from "react-redux";
 import { Todo, TodoStatusEnum } from "types/todo";
-import { toggle } from "../store/slices/TodosSlice";
+import { remove, toggle } from "../store/slices/TodosSlice";
 import { EditTodo } from "./EditTodo";
 
 interface CustomStyledParagraph {
@@ -28,6 +28,9 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
   const handleCheck = () => {
     dispatch(toggle(createdAt));
   };
+  const handleDelete = () => {
+    dispatch(remove(createdAt));
+  };
   return (
     <StyledContainer>
       {/* {toggle editTodo here when edit button is clicked} */}
@@ -39,7 +42,7 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
       <StyledParagraph inActive={status === TodoStatusEnum.Inactive}>
         {title}
       </StyledParagraph>
-      <button>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
       <button>Edit</button>
     </StyledContainer>
   );

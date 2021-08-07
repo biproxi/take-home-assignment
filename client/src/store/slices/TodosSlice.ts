@@ -30,9 +30,10 @@ const TodoSlice = createSlice({
     create: (state, action: PayloadAction<Todo>) => {
       state.push(action.payload);
     },
-    // remove: (state, action: PayloadAction<Todo>) => {
-    //   state.filter(todo => todo.createdAt !== action.createdAt)
-    // },
+    remove: (state, action: PayloadAction<number>) => {
+      const index = state.findIndex(todo => todo.createdAt === action.payload);
+      state.splice(index, 1);
+    },
     // edit: (state, action: PayloadAction<Todo>) => {
     //   const updateTodos = state.map((todo) => {
     //     todo.createdAt === action.createdAt ? {...todo, todo}
@@ -49,21 +50,11 @@ const TodoSlice = createSlice({
       } else {
         return state;
       }
-
-      //state.map(todo => {
-      // if (action.payload === todo.createdAt) {
-      /*if (todo.status === TodoStatusEnum.Active) {
-        todo.status = TodoStatusEnum.Inactive;
-      } else {
-        todo.status = TodoStatusEnum.Active;
-      }*/
-      //}
-      //});
     },
   },
 });
 
-export const { create, toggle } = TodoSlice.actions;
+export const { create, toggle, remove } = TodoSlice.actions;
 // grabs the store abd
 export const selectTodos = (state: RootState) => state.todos;
 export default TodoSlice.reducer;
