@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { create } from "../store/slices/TodosSlice";
+import { clearInput, selectTodosInput } from "store/slices/TodoInput";
 import { TodoStatusEnum } from "types/todo";
+import { addInput } from "store/slices/TodoInput";
 
 const StyledInputContainer = styled.form`
   height: 50px;
@@ -30,24 +32,26 @@ const Button = styled.button`
 `;
 
 export const TodoInput = () => {
-  const [input, setInput] = useState("");
+  //const [input, setInput] = useState("");
+  const todosInput = useSelector(selectTodosInput);
   const dispatch = useDispatch();
   const addTodo = () => {
     dispatch(
       create({
-        title: input,
+        title: todosInput.value,
         status: TodoStatusEnum.Inactive,
         lastUpdatedAt: Math.floor(Date.now() / 1000),
         createdAt: Math.floor(Date.now() / 1000),
       })
     );
+    dispatch(clearInput());
   };
   return (
     <StyledInputContainer onSubmit={e => e.preventDefault()}>
       <StyledInput
         type='text'
-        value={input}
-        onChange={e => setInput(e.target.value)}
+        value={todosInput.value}
+        onChange={e => dispatch(addInput({ value: e.target.value }))}
       />
       <Button onClick={addTodo}>Add</Button>
     </StyledInputContainer>

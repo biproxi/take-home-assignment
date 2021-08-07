@@ -1,8 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { Todo } from "types/todo";
 import { toggle } from "../store/slices/TodosSlice";
+import { EditTodo } from "./EditTodo";
 
 const StyledParagraph = styled.p`
   flex: 1;
@@ -24,14 +24,17 @@ const StyledContainer = styled.div`
 export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
   const dispatch = useDispatch();
   const handleCheck = () => {
-    dispatch(toggle(createdAt));
+    dispatch(toggle(status));
   };
   return (
     <StyledContainer>
+      {/* {toggle editTodo here when edit button is clicked} */}
       <input type='checkbox' onChange={handleCheck} />
       <StyledParagraph className={status ? "status" : ""}>
         {title}
       </StyledParagraph>
+      <button>Delete</button>
+      <button>Edit</button>
     </StyledContainer>
   );
 };
