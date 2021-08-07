@@ -9,8 +9,7 @@ function getTodoRoutes() {
   router.get("/todos", TodoController.GetAllTodos);
   router.get("/todos/:id", TodoController.GetTodo);
 
-  router.put("/todos/:id", TodoController.UpdateTodoDescription);
-  router.put("/todos/completed/:id", TodoController.UpdateTodoStatus);
+  router.put("/todos/:id", TodoController.UpdateTodo);
 
   router.delete("/todos/:id", TodoController.DeleteTodo);
   return router;

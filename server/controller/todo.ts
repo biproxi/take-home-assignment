@@ -3,10 +3,10 @@ import { pool } from "../db";
 
 export async function AddTodo(req: Request, res: Response) {
   try {
-    const { description, completed } = req.body;
+    const { title, status, createdAt, lastUpdatedAt } = req.body;
     const newTodo = await pool.query(
-      "INSERT INTO todo (description, completed) VALUES($1, $2) RETURNING *",
-      [description, completed]
+      "INSERT INTO todo (title, status, createdAt, lastUpdatedAt) VALUES($1, $2, $3, $4) RETURNING *",
+      [title, status, createdAt, lastUpdatedAt]
     );
 
     res.json(newTodo.rows[0]);
@@ -25,9 +25,9 @@ export async function GetAllTodos(req: Request, res: Response) {
 }
 export async function GetTodo(req: Request, res: Response) {
   try {
-    const { id } = req.params;
-    const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
-      id,
+    const { createdAt } = req.params;
+    const todo = await pool.query("SELECT * FROM todo WHERE createdAt = $1", [
+      createdAt,
     ]);
     res.json(todo.rows[0]);
   } catch (err) {
@@ -35,42 +35,29 @@ export async function GetTodo(req: Request, res: Response) {
   }
 }
 
-export async function UpdateTodoDescription(req: Request, res: Response) {
+export async function UpdateTodo(req: Request, res: Response) {
   try {
-    const { id } = req.params;
-    const { description } = req.body;
-    await pool.query("UPDATE todo SET description = $1 WHERE todo_id = $2", [
-      description,
-      id,
-    ]);
-    res.json("Todo was updated!");
+    const { createdAt } = req.params;
+    const { title, lastUpdatedAt, status } = req.body;
+    const todo = await pool.query(
+      "UPDATE todo SET title = $1, lastUpdatedAt = $2, status = $3 WHERE createdAt = $4",
+      [title, lastUpdatedAt, status, createdAt]
+    );
+    res.json(todo.rows[0]);
   } catch (err) {
     res
       .status(418)
       .send(`There was a problem updating this todo description ${err}`);
   }
 }
-export async function UpdateTodoStatus(req: Request, res: Response) {
-  try {
-    const { id } = req.params;
-    const { completed } = req.body;
-    await pool.query("UPDATE todo SET completed = $1 WHERE todo_id = $2", [
-      completed,
-      id,
-    ]);
-    res.json("Todo was updated!");
-  } catch (err) {
-    res
-      .status(418)
-      .send(`There was a problem updating this todo status ${err}`);
-  }
-}
 
 export async function DeleteTodo(req: Request, res: Response) {
   try {
-    const { id } = req.params;
-    const todo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
-    res.json("Todo was deleted!");
+    const { createdAt } = req.params;
+    const todo = await pool.query("DELETE FROM todo WHERE createdAt = $1", [
+      createdAt,
+    ]);
+    res.json(todo.rows[0]);
   } catch (err) {
     res.status(418).send(`There was a problem deleting ${err}`);
   }
