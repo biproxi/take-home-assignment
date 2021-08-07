@@ -5,7 +5,8 @@ import axios from 'axios';
 const CreateForm = () => {
   const inputRef = useRef();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     try{
       let title = inputRef.current.value;
       const addForm = await axios.post('/api/addPost', {title})

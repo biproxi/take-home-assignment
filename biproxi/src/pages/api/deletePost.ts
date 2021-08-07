@@ -8,7 +8,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .from('posts')
       .delete()
       .match({id})
-    console.log(response.data)
       res.send("Successfully deleted post!")
   } catch(err) {
     res.status(500).send(err)

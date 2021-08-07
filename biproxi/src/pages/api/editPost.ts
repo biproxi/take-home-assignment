@@ -3,16 +3,19 @@ import { supabase } from '../../supabase/client';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try{
-    const { title } = req.body;
+    const { title, status } = req.body.updates
+    const { id } = req.query
 
     const response = await supabase
       .from('posts')
-      .insert([
+      .update([
         {
           title,
-          status: 'Active'
+          last_updated_at: new Date().getTime(),
+          status
         }
       ])
+      .match({ id })
     console.log(response.data)
       res.send("Successfully edited post!")
   } catch(err) {
