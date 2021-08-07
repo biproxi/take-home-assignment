@@ -38,16 +38,27 @@ const TodoSlice = createSlice({
     //     todo.createdAt === action.createdAt ? {...todo, todo}
     //   })
     // },
-    toggle: (state, action) => {
-      state.map(todo => {
-        if (action.payload === todo.createdAt) {
-          if (todo.status === TodoStatusEnum.Active) {
-            todo.status = TodoStatusEnum.Inactive;
-          } else {
-            todo.status = TodoStatusEnum.Active;
-          }
+    toggle: (state, action: PayloadAction<number>) => {
+      const todo = state.find(item => item.createdAt === action.payload);
+      if (todo) {
+        if (todo.status === TodoStatusEnum.Active) {
+          todo.status = TodoStatusEnum.Inactive;
+        } else {
+          todo.status = TodoStatusEnum.Active;
         }
-      });
+      } else {
+        return state;
+      }
+
+      //state.map(todo => {
+      // if (action.payload === todo.createdAt) {
+      /*if (todo.status === TodoStatusEnum.Active) {
+        todo.status = TodoStatusEnum.Inactive;
+      } else {
+        todo.status = TodoStatusEnum.Active;
+      }*/
+      //}
+      //});
     },
   },
 });
