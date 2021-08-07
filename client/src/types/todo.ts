@@ -11,6 +11,8 @@ export interface Todo {
   createdAt: number; // a unix timestamp representing the time the todo was created
 }
 
-export interface State {
-  todos: Todo[];
+export interface TodoEditPayload {
+  title: string;
+  createdAt: number;
+  lastUpdatedAt: number;
 }

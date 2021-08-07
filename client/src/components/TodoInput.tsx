@@ -51,7 +51,7 @@ export const TodoInput = () => {
       <StyledInput
         type='text'
         value={todosInput.value}
-        onChange={e => dispatch(addInput({ value: e.target.value }))}
+        onChange={e => dispatch(addInput({ value: e.target.value, edit: 0 }))}
       />
       <Button onClick={addTodo}>Add</Button>
     </StyledInputContainer>

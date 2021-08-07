@@ -1,6 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { toggleEdit } from "store/slices/TodoInput";
+import {
+  addInput,
+  clearEditInput,
+  selectTodosInputEdit,
+} from "store/slices/TodosInputEdit";
+import { edit } from "store/slices/TodosSlice";
 import styled from "styled-components";
 
-const StyledInputContainer = styled.form`
+const StyledInputContainer = styled.div`
   height: 50px;
   width: 80%;
   border-radius: 12px;
@@ -11,7 +19,7 @@ const StyledInputContainer = styled.form`
 
 const StyledInput = styled.input`
   background: none;
-  border: none;
+  //border: none;
   margin-left: 12px;
   flex: 1;
 `;
@@ -25,13 +33,37 @@ const Button = styled.button`
   width: 50px;
 `;
 
-export const EditTodo = () => {
+interface EditTodoProp {
+  createdAt: number;
+  title: string;
+}
+
+export const EditTodo = ({ createdAt, title }: EditTodoProp) => {
+  const dispatch = useDispatch();
+  const todosInputEdit = useSelector(selectTodosInputEdit);
+  //console.log("======", todosInputEdit.value);
+
   const handleSave = () => {
+    console.log("the value ===", todosInputEdit.value);
+    dispatch(
+      edit({
+        createdAt,
+        lastUpdatedAt: Math.floor(Date.now() / 1000),
+        title: todosInputEdit.value,
+      })
+    );
+    dispatch(clearEditInput());
+    dispatch(toggleEdit(0));
     console.log("saved todo");
   };
+
   return (
-    <StyledInputContainer onSubmit={e => e.preventDefault()}>
-      <StyledInput type='text' value={""} />
+    <StyledInputContainer>
+      <StyledInput
+        type='text'
+        value={todosInputEdit.value || title}
+        onChange={e => dispatch(addInput({ value: e.target.value }))}
+      />
       <Button onClick={handleSave}>Save</Button>
     </StyledInputContainer>
   );

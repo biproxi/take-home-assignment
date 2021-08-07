@@ -1,8 +1,10 @@
 import styled, { StyledInterface } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Todo, TodoStatusEnum } from "types/todo";
 import { remove, toggle } from "../store/slices/TodosSlice";
 import { EditTodo } from "./EditTodo";
+import { selectTodosInput, toggleEdit } from "store/slices/TodoInput";
+import React from "react";
 
 interface CustomStyledParagraph {
   inActive: boolean;
@@ -25,25 +27,32 @@ const StyledContainer = styled.div`
 
 export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
   const dispatch = useDispatch();
+
+  const todosInput = useSelector(selectTodosInput);
+
   const handleCheck = () => {
     dispatch(toggle(createdAt));
   };
-  const handleDelete = () => {
-    dispatch(remove(createdAt));
-  };
+
   return (
     <StyledContainer>
       {/* {toggle editTodo here when edit button is clicked} */}
-      <input
-        type='checkbox'
-        onChange={handleCheck}
-        checked={status === TodoStatusEnum.Inactive}
-      />
-      <StyledParagraph inActive={status === TodoStatusEnum.Inactive}>
-        {title}
-      </StyledParagraph>
-      <button onClick={handleDelete}>Delete</button>
-      <button>Edit</button>
+      {todosInput.edit === createdAt ? (
+        <EditTodo createdAt={createdAt} title={title} />
+      ) : (
+        <>
+          <input
+            type='checkbox'
+            onChange={handleCheck}
+            checked={status === TodoStatusEnum.Inactive}
+          />
+          <StyledParagraph inActive={status === TodoStatusEnum.Inactive}>
+            {title}
+          </StyledParagraph>
+          <button onClick={() => dispatch(remove(createdAt))}>Delete</button>
+          <button onClick={() => dispatch(toggleEdit(createdAt))}>Edit</button>
+        </>
+      )}
     </StyledContainer>
   );
 };

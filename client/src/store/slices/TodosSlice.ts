@@ -1,3 +1,4 @@
+import { TodoEditPayload } from "./../../types/todo";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import { TodoStatusEnum, Todo } from "types/todo";
@@ -34,11 +35,18 @@ const TodoSlice = createSlice({
       const index = state.findIndex(todo => todo.createdAt === action.payload);
       state.splice(index, 1);
     },
-    // edit: (state, action: PayloadAction<Todo>) => {
-    //   const updateTodos = state.map((todo) => {
-    //     todo.createdAt === action.createdAt ? {...todo, todo}
-    //   })
-    // },
+
+    edit: (state, action: PayloadAction<TodoEditPayload>) => {
+      const todo = state.find(
+        item => item.createdAt === action.payload.createdAt
+      );
+      if (todo) {
+        todo.title = action.payload.title;
+        todo.lastUpdatedAt = action.payload.lastUpdatedAt;
+      } else {
+        return todo;
+      }
+    },
     toggle: (state, action: PayloadAction<number>) => {
       const todo = state.find(item => item.createdAt === action.payload);
       if (todo) {
@@ -54,7 +62,7 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { create, toggle, remove } = TodoSlice.actions;
+export const { create, toggle, remove, edit } = TodoSlice.actions;
 // grabs the store abd
 export const selectTodos = (state: RootState) => state.todos;
 export default TodoSlice.reducer;
