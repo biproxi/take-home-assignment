@@ -5,9 +5,11 @@ import {
   clearEditInput,
   selectTodosInputEdit,
 } from "store/slices/TodosInputEdit";
-import { edit } from "store/slices/TodosSlice";
+import { updateTodo } from "store/slices/TodosSlice";
 import { Button, StyledContainer } from "../styles/sharedStyledComponents";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { Todo } from "types/todo";
 
 const StyledInput = styled.input`
   background: none;
@@ -16,20 +18,22 @@ const StyledInput = styled.input`
   flex: 1;
 `;
 
-interface EditTodoProp {
-  createdAt: number;
-  title: string;
-}
-
-export const EditTodo = ({ createdAt, title }: EditTodoProp) => {
+export const EditTodo = ({ createdAt, title, status, lastUpdatedAt }: Todo) => {
   const dispatch = useDispatch();
   const todosInputEdit = useSelector(selectTodosInputEdit);
 
+  useEffect(() => {
+    if (!todosInputEdit.value) {
+      dispatch(addInput({ value: title }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, title]);
+
   const handleSave = () => {
-    console.log("the value ===", todosInputEdit.value);
     dispatch(
-      edit({
+      updateTodo({
         createdAt,
+        status,
         lastUpdatedAt: Math.floor(Date.now() / 1000),
         title: todosInputEdit.value,
       })
@@ -42,7 +46,7 @@ export const EditTodo = ({ createdAt, title }: EditTodoProp) => {
     <StyledContainer>
       <StyledInput
         type='text'
-        value={todosInputEdit.value || title}
+        value={todosInputEdit.value}
         onChange={e => dispatch(addInput({ value: e.target.value }))}
       />
       <Button onClick={handleSave}>Save</Button>

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { create } from "../store/slices/TodosSlice";
+import { insertTodo } from "../store/slices/TodosSlice";
 import { clearInput, selectTodosInput } from "store/slices/TodoInput";
 import { TodoStatusEnum } from "types/todo";
 import { addInput } from "store/slices/TodoInput";
 import { Button } from "../styles/sharedStyledComponents";
 
-const StyledInputContainer = styled.form`
+const StyledInputContainer = styled.div`
   height: 3.125rem;
   width: 90%;
   border-radius: 0.75rem;
@@ -28,7 +28,7 @@ export const TodoInput = () => {
   const dispatch = useDispatch();
   const addTodo = () => {
     dispatch(
-      create({
+      insertTodo({
         title: todosInput.value,
         status: TodoStatusEnum.Active,
         lastUpdatedAt: Math.floor(Date.now() / 1000),
@@ -38,7 +38,7 @@ export const TodoInput = () => {
     dispatch(clearInput());
   };
   return (
-    <StyledInputContainer onSubmit={e => e.preventDefault()}>
+    <StyledInputContainer>
       <StyledInput
         type='text'
         value={todosInput.value}

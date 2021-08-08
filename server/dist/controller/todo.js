@@ -15,11 +15,12 @@ function AddTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { title, status, createdAt, lastUpdatedAt } = req.body;
-            const newTodo = yield db_1.pool.query("INSERT INTO todo (title, status, createdAt, lastUpdatedAt) VALUES($1, $2, $3, $4) RETURNING *", [title, status, createdAt, lastUpdatedAt]);
+            const newTodo = yield db_1.pool.query('INSERT INTO todo (title, status, "createdAt", "lastUpdatedAt") VALUES($1, $2, $3, $4) RETURNING *', [title, status, createdAt, lastUpdatedAt]);
             res.json(newTodo.rows[0]);
         }
         catch (error) {
             console.error(error.message);
+            res.json({ errors: [error] });
         }
     });
 }
@@ -39,9 +40,9 @@ exports.GetAllTodos = GetAllTodos;
 function GetTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { createdAt } = req.params;
-            const todo = yield db_1.pool.query("SELECT * FROM todo WHERE createdAt = $1", [
-                createdAt,
+            const { id } = req.params;
+            const todo = yield db_1.pool.query('SELECT * FROM todo WHERE "createdAt" = $1', [
+                id,
             ]);
             res.json(todo.rows[0]);
         }
@@ -54,9 +55,12 @@ exports.GetTodo = GetTodo;
 function UpdateTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { createdAt } = req.params;
+            const { id } = req.params;
             const { title, lastUpdatedAt, status } = req.body;
-            const todo = yield db_1.pool.query("UPDATE todo SET title = $1, lastUpdatedAt = $2, status = $3 WHERE createdAt = $4", [title, lastUpdatedAt, status, createdAt]);
+            yield db_1.pool.query('UPDATE todo SET title = $1, "lastUpdatedAt" = $2, status = $3 WHERE "createdAt" = $4', [title, lastUpdatedAt, status, id]);
+            const todo = yield db_1.pool.query('SELECT * FROM todo WHERE "createdAt" = $1', [
+                id,
+            ]);
             res.json(todo.rows[0]);
         }
         catch (err) {
@@ -70,11 +74,9 @@ exports.UpdateTodo = UpdateTodo;
 function DeleteTodo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { createdAt } = req.params;
-            const todo = yield db_1.pool.query("DELETE FROM todo WHERE createdAt = $1", [
-                createdAt,
-            ]);
-            res.json(todo.rows[0]);
+            const { id } = req.params;
+            yield db_1.pool.query('DELETE FROM todo WHERE "createdAt" = $1', [id]);
+            res.json({ createdAt: id });
         }
         catch (err) {
             res.status(418).send(`There was a problem deleting ${err}`);

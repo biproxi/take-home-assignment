@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import todosReducer from "./slices/TodosSlice";
 import todosInput from "./slices/TodoInput";
 import todosInputEdit from "./slices/TodosInputEdit";
+import thunkMiddleware from "redux-thunk";
 
 const store = configureStore({
   reducer: {
     todos: todosReducer,
     todosInput: todosInput,
     todosInputEdit: todosInputEdit,
+  },
+  middleware: getDefaultMiddleware => {
+    return getDefaultMiddleware().concat(thunkMiddleware);
   },
 });
 
