@@ -4,7 +4,7 @@ import { Todo, TodoStatusEnum } from "types/todo";
 import { remove, toggle } from "../store/slices/TodosSlice";
 import { EditTodo } from "./EditTodo";
 import { selectTodosInput, toggleEdit } from "store/slices/TodoInput";
-import { Button } from "../styles/sharedStyledComponents";
+import { Button, StyledContainer } from "../styles/sharedStyledComponents";
 import { MdCreate, MdClear } from "react-icons/md";
 
 interface CustomStyledParagraph {
@@ -15,16 +15,6 @@ const StyledParagraph = styled.p<CustomStyledParagraph>`
   flex: 1;
   margin-left: 1rem;
   text-decoration: ${({ inActive }) => (inActive ? "line-through" : "unset")};
-`;
-
-const StyledContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 90%;
-  background-color: white;
-  margin: 6px 4px;
-  height: 40px;
-  border-radius: 12px;
 `;
 
 const StyledCheckBox = styled.input`
@@ -41,11 +31,11 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
   };
 
   return (
-    <StyledContainer>
+    <>
       {todosInput.edit === createdAt ? (
         <EditTodo createdAt={createdAt} title={title} />
       ) : (
-        <>
+        <StyledContainer>
           <StyledCheckBox
             type='checkbox'
             onChange={handleCheck}
@@ -60,8 +50,8 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
           <Button onClick={() => dispatch(remove(createdAt))}>
             <MdClear />
           </Button>
-        </>
+        </StyledContainer>
       )}
-    </StyledContainer>
+    </>
   );
 };
