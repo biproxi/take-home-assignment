@@ -5,7 +5,7 @@ import type { RootState } from "../store";
 
 const initialState: Todo[] = [];
 
-const host = "http://localhost:8080";
+const host = "http://localhost:5000";
 
 export const getAllTodos = createAsyncThunk("todos/getAll", async () => {
   const response = await axios.get(`${host}/api/todos`);

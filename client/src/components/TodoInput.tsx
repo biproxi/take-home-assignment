@@ -5,7 +5,7 @@ import { TodoStatusEnum } from "types/todo";
 import { insertTodo } from "../store/slices/TodosSlice";
 import { Button, StyledInput } from "../styles/sharedStyledComponents";
 
-const StyledInputContainer = styled.div`
+const StyledInputContainer = styled.form`
   height: 3.125rem;
   width: 90%;
   border-radius: 0.75rem;
@@ -30,7 +30,7 @@ export const TodoInput = () => {
     dispatch(clearInput());
   };
   return (
-    <StyledInputContainer>
+    <StyledInputContainer onSubmit={e => e.preventDefault()}>
       <StyledInput
         type='text'
         value={todosInput.value}
