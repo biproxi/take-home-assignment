@@ -1,10 +1,11 @@
-import styled, { StyledInterface } from "styled-components";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Todo, TodoStatusEnum } from "types/todo";
 import { remove, toggle } from "../store/slices/TodosSlice";
 import { EditTodo } from "./EditTodo";
 import { selectTodosInput, toggleEdit } from "store/slices/TodoInput";
-import React from "react";
+import { Button } from "../styles/sharedStyledComponents";
+import { MdCreate, MdClear } from "react-icons/md";
 
 interface CustomStyledParagraph {
   inActive: boolean;
@@ -12,17 +13,22 @@ interface CustomStyledParagraph {
 
 const StyledParagraph = styled.p<CustomStyledParagraph>`
   flex: 1;
+  margin-left: 1rem;
   text-decoration: ${({ inActive }) => (inActive ? "line-through" : "unset")};
 `;
 
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 90%;
   background-color: white;
   margin: 6px 4px;
   height: 40px;
   border-radius: 12px;
+`;
+
+const StyledCheckBox = styled.input`
+  margin-left: 1rem;
 `;
 
 export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
@@ -36,12 +42,11 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
 
   return (
     <StyledContainer>
-      {/* {toggle editTodo here when edit button is clicked} */}
       {todosInput.edit === createdAt ? (
         <EditTodo createdAt={createdAt} title={title} />
       ) : (
         <>
-          <input
+          <StyledCheckBox
             type='checkbox'
             onChange={handleCheck}
             checked={status === TodoStatusEnum.Inactive}
@@ -49,8 +54,12 @@ export const TodoItem = ({ title, status, lastUpdatedAt, createdAt }: Todo) => {
           <StyledParagraph inActive={status === TodoStatusEnum.Inactive}>
             {title}
           </StyledParagraph>
-          <button onClick={() => dispatch(remove(createdAt))}>Delete</button>
-          <button onClick={() => dispatch(toggleEdit(createdAt))}>Edit</button>
+          <Button onClick={() => dispatch(toggleEdit(createdAt))}>
+            <MdCreate />
+          </Button>
+          <Button onClick={() => dispatch(remove(createdAt))}>
+            <MdClear />
+          </Button>
         </>
       )}
     </StyledContainer>

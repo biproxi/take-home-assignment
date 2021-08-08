@@ -1,5 +1,3 @@
-//import { PayloadAction } from "@reduxjs/toolkit";
-//import { selectTodosInput } from "store/slices/TodoInput";
 import { RootState } from "./../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

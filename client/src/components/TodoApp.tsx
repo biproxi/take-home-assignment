@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   align-items: center;
   background-color: rgb(232, 234, 237);
   border-radius: 12px;
-  padding: 32px 0;
+  padding: 3rem 3rem;
 `;
 
 const StyledTodoContainer = styled.div`

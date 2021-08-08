@@ -1,38 +1,29 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { create } from "../store/slices/TodosSlice";
 import { clearInput, selectTodosInput } from "store/slices/TodoInput";
 import { TodoStatusEnum } from "types/todo";
 import { addInput } from "store/slices/TodoInput";
+import { Button } from "../styles/sharedStyledComponents";
 
 const StyledInputContainer = styled.form`
-  height: 50px;
-  width: 80%;
-  border-radius: 12px;
+  height: 3.125rem;
+  width: 90%;
+  border-radius: 0.75rem;
   background-color: white;
   display: flex;
   justify-content: center;
+  margin-bottom: 1.25rem;
 `;
 
 const StyledInput = styled.input`
   background: none;
   border: none;
-  margin-left: 12px;
+  margin-left: 0.75rem;
   flex: 1;
 `;
 
-const Button = styled.button`
-  margin: 8px;
-  background-color: rgb(214, 213, 213);
-  border: none;
-  border-radius: 10px;
-  height: 30px;
-  width: 50px;
-`;
-
 export const TodoInput = () => {
-  //const [input, setInput] = useState("");
   const todosInput = useSelector(selectTodosInput);
   const dispatch = useDispatch();
   const addTodo = () => {
