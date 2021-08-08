@@ -11,8 +11,8 @@ const StyledDiv = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  height: 900px;
-  width: 600px;
+  height: 56.25rem;
+  width: 37.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -12,7 +12,7 @@ import styled from "styled-components";
 const StyledInput = styled.input`
   background: none;
   border: none;
-  margin-left: 12px;
+  margin-left: 0.75rem;
   flex: 1;
 `;
 
