@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import { MdClear, MdCreate } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Todo, TodoStatusEnum } from "types/todo";
-import { EditTodo } from "./EditTodo";
 import { selectTodosInput, toggleEdit } from "store/slices/TodoInput";
-import { Button, StyledContainer } from "../styles/sharedStyledComponents";
-import { MdCreate, MdClear } from "react-icons/md";
 import { destroyTodo, updateTodo } from "store/slices/TodosSlice";
+import styled from "styled-components";
+import { Todo, TodoStatusEnum } from "types/todo";
+import { Button, StyledContainer } from "../styles/sharedStyledComponents";
+import { EditTodo } from "./EditTodo";
 
 interface CustomStyledParagraph {
   inActive: boolean;

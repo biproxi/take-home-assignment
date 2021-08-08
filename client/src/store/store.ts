@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todosReducer from "./slices/TodosSlice";
+import thunkMiddleware from "redux-thunk";
 import todosInput from "./slices/TodoInput";
 import todosInputEdit from "./slices/TodosInputEdit";
-import thunkMiddleware from "redux-thunk";
+import todosReducer from "./slices/TodosSlice";
 
 const store = configureStore({
   reducer: {

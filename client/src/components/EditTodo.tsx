@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleEdit } from "store/slices/TodoInput";
 import {
@@ -6,17 +7,12 @@ import {
   selectTodosInputEdit,
 } from "store/slices/TodosInputEdit";
 import { updateTodo } from "store/slices/TodosSlice";
-import { Button, StyledContainer } from "../styles/sharedStyledComponents";
-import styled from "styled-components";
-import { useEffect } from "react";
 import { Todo } from "types/todo";
-
-const StyledInput = styled.input`
-  background: none;
-  border: none;
-  margin-left: 0.75rem;
-  flex: 1;
-`;
+import {
+  Button,
+  StyledContainer,
+  StyledInput,
+} from "../styles/sharedStyledComponents";
 
 export const EditTodo = ({ createdAt, title, status, lastUpdatedAt }: Todo) => {
   const dispatch = useDispatch();

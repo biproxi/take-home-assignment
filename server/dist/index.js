@@ -8,7 +8,7 @@ const routes_1 = require("./routes");
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(express_1.default.json());

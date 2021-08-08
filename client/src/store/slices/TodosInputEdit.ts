@@ -1,5 +1,5 @@
-import { RootState } from "./../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./../store";
 
 interface InputEditState {
   value: string;

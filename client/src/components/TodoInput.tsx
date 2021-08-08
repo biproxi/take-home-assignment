@@ -1,10 +1,9 @@
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { insertTodo } from "../store/slices/TodosSlice";
-import { clearInput, selectTodosInput } from "store/slices/TodoInput";
+import { addInput, clearInput, selectTodosInput } from "store/slices/TodoInput";
+import styled from "styled-components";
 import { TodoStatusEnum } from "types/todo";
-import { addInput } from "store/slices/TodoInput";
-import { Button } from "../styles/sharedStyledComponents";
+import { insertTodo } from "../store/slices/TodosSlice";
+import { Button, StyledInput } from "../styles/sharedStyledComponents";
 
 const StyledInputContainer = styled.div`
   height: 3.125rem;
@@ -14,13 +13,6 @@ const StyledInputContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 1.25rem;
-`;
-
-const StyledInput = styled.input`
-  background: none;
-  border: none;
-  margin-left: 0.75rem;
-  flex: 1;
 `;
 
 export const TodoInput = () => {
