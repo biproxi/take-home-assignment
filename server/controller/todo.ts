@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { pool } from "../db";
 
-console.log("======= the pool is===", pool);
-
 export async function AddTodo(req: Request, res: Response) {
   try {
     const { title, status, createdAt, lastUpdatedAt } = req.body;

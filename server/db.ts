@@ -10,6 +10,4 @@ const pool = new Pool({
   database: "perntodo",
 });
 
-console.log("the pool is ====", pool);
-
 export { pool };

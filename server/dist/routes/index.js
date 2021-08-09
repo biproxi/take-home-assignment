@@ -7,6 +7,7 @@ exports.getRoutes = void 0;
 const express_1 = __importDefault(require("express"));
 const todo_1 = require("./todo");
 function getRoutes() {
+    console.log("================================");
     // All routes in our Node API are placed on this router
     const router = express_1.default.Router();
     // router.use() prefixes our route (i.e. /api/v1/todos)

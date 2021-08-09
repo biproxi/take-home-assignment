@@ -6,8 +6,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./client/:/app/
-      - /app/node_modules
+      - ./client:/app
 
   server:
     build:
@@ -17,8 +16,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./server/:/app/
-      - /app/node_modules
+      - ./server:/app
 
   postgres:
     image: postgres
