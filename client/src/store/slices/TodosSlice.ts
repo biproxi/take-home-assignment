@@ -7,6 +7,9 @@ const initialState: Todo[] = [];
 
 const host = "http://localhost:5000";
 
+// A string that will be used as the prefix for the generated action types
+// A "payload creator" callback function that should return a Promise. This is often written using the async/await syntax, since async functions automatically return a promise.
+// These are all the endpoints interacting with the backend using the createAsyncThunk api
 export const getAllTodos = createAsyncThunk("todos/getAll", async () => {
   const response = await axios.get(`${host}/api/todos`);
   return response.data;
@@ -42,6 +45,11 @@ const TodoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {},
+  // The logic in these 'addCases' were the same logic I had in my reducers object when I wasnt interacting with the backend
+  // You can have cases for pending, fulfilled, rejected, currently my error handling is on the backend
+  // Due to time constraints I kept it simple with just fulfilled states, if time a wasnt an issue I would create pending states with a loading component
+
+  // state represents the current state of the application, action is an object which we interact with the action.payload to get what was passed in the dispatch action
   extraReducers: builder => {
     builder.addCase(getAllTodos.fulfilled, (state, action) => {
       return action.payload;
