@@ -4,12 +4,11 @@ import { TodoInput } from "./TodoInput";
 import { TodoList } from "./TodoList";
 
 const StyledDiv = styled.div`
-  height: 100vh;
   width: 100vw;
   padding-top: 1.5rem;
   background-color: #fff;
   display: grid;
-  place-items: center;
+  place-items: normal center;
 `;
 
 const StyledContainer = styled.div`
