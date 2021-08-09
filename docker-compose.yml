@@ -5,8 +5,8 @@ services:
       context: ./client
     ports:
       - 3000:3000
-    volumes:
-      - ./client:/app
+    #volumes:
+    # - ./client:/app
 
   server:
     build:
@@ -15,8 +15,9 @@ services:
       - postgres
     ports:
       - 8080:8080
-    volumes:
-      - ./server:/app
+      - 9229:9229
+    # volumes:
+    # - ./server:/app
 
   postgres:
     image: postgres
