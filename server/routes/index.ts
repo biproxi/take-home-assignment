@@ -2,6 +2,7 @@ import express from "express";
 import { getTodoRoutes } from "./todo";
 
 function getRoutes() {
+  console.log("================================");
   // All routes in our Node API are placed on this router
   const router = express.Router();
 

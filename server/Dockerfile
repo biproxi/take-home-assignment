@@ -1,12 +1,16 @@
 FROM node:14.15.4
 
-COPY package*.json ./
+#WORKDIR /app/
 
-RUN npm install
 
-COPY ./ ./
-COPY tsconfig.json ./tsconfig.json
+COPY package.json ./
 
-RUN npm run build
-COPY ./dist ./dist
-CMD [ "npm", "run", "start" ]
+
+RUN npm i
+
+COPY . ./
+#COPY tsconfig.json ./app/tsconfig.json
+
+#RUN npm run build
+#COPY ./dist ./dist#
+CMD ./start.sh

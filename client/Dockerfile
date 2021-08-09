@@ -1,10 +1,12 @@
 FROM node:14.15.4
 
-COPY package*.json ./
+#COPYWORKDIR /app
 
-RUN npm install
+COPY package.json ./
+#COPY package-lock.json ./app/
 
-COPY ./ ./
-COPY tsconfig.json ./tsconfig.json
+RUN npm i
+
+COPY . ./
 
 CMD [ "npm", "run", "start" ]

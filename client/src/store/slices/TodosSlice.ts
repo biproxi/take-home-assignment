@@ -5,7 +5,7 @@ import type { RootState } from "../store";
 
 const initialState: Todo[] = [];
 
-const host = "http://localhost:5000";
+const host = "http://localhost:8080";
 
 // A string that will be used as the prefix for the generated action types
 // A "payload creator" callback function that should return a Promise. This is often written using the async/await syntax, since async functions automatically return a promise.

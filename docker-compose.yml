@@ -1,28 +1,29 @@
 version: "3"
 services:
   client:
-    build: ./client/
+    build:
+      context: ./client
     ports:
       - 3000:3000
     volumes:
-      - /client/node_modules
-      - ./client:/client
+      - ./client/:/app/
+      - /app/node_modules
+
   server:
-    build: ./server/
-    restart: on-failure
+    build:
+      context: ./server
     depends_on:
-      - db
+      - postgres
     ports:
       - 8080:8080
     volumes:
-      - ./server:/server/
-      - /server/node_modules
+      - ./server/:/app/
+      - /app/node_modules
 
-  db:
-    image: postgres:13.2
-    ports:
-      - "5432:5432"
+  postgres:
+    image: postgres
     environment:
-      - POSTGRES_DB:perntodo
-      - POSTGRES_PASSWORD:packers
-      - POSTGRES_USER:postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./database_data:/var/lib/postgresql/data
+      - ./db/:/docker-entrypoint-initdb.d/
