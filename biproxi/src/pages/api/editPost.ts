@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const editPost = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { title, status } = req.body.updates
     const { id } = req.query
@@ -22,3 +22,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).send(err)
   }
 }
+
+export default editPost;

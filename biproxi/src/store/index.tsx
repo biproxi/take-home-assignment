@@ -5,5 +5,4 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 const store = createStore(formReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 
-
 export default store;

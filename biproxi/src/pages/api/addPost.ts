@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { title } = req.body;
     console.log("does it raeach")
@@ -22,3 +22,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).send(err)
   }
 }
+
+export default addPost;

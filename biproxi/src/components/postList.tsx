@@ -50,7 +50,6 @@ const PostList = (props: any) => {
 };
 
 const mapStatetoProps = (state: any) => {
-  console.log(state)
   return { posts: state.posts };
 };
 
