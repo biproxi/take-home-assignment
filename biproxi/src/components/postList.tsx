@@ -10,7 +10,7 @@ const PostList = (props: any) => {
 
   useEffect(() => {
     props.getPosts();
-  },[])
+  },[props.posts])
 
   const editPost = async (id: number, title: string, status: string) => {
     router.push({
@@ -28,7 +28,6 @@ const PostList = (props: any) => {
     }
   };
 
-
   return(
     <div>
       {props.posts.map((post: any) => (
@@ -37,8 +36,8 @@ const PostList = (props: any) => {
             <div className = "description">
               <h2>{post.title}</h2>
               <p>{post.status}</p>
-              <p>{post.created_at}</p>
-              <p>{post.last_updated_at}</p>
+              <p>Created at: {post.created_at}</p>
+              <p>Last updated at: {post.last_updated_at}</p>
               <button onClick = {() => editPost(post.id, post.title, post.status)}>Edit Post</button>
               <button onClick = {() => deletePost(post.id)}>Delete Post</button>
             </div>
