@@ -5,7 +5,7 @@ import axios from 'axios';
 const CreateForm = () => {
   const inputRef = useRef();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try{
       let title = inputRef.current.value;

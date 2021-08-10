@@ -1,16 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPosts } from '../store/actions';
 import axios from 'axios';
-import Modal from '@material-ui/core/Modal';
-import EditFormModal from './editFormModal';
 import { useRouter } from 'next/router';
 
 const PostList = (props: any) => {
 
   const router = useRouter();
-
-  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     props.getPosts();
@@ -21,13 +17,6 @@ const PostList = (props: any) => {
       pathname: '/edit',
       query: { id, title , status }
     })
-    // try{
-    //   console.log("edit test", id)
-    //   const editResponse = await axios.put(`/api/deletePost/?id=${id}`)
-    //   console.log(editResponse.data);
-    // } catch(err){
-    //   console.error(err)
-    // }
   };
 
   const deletePost = async (id: number) => {
@@ -39,13 +28,6 @@ const PostList = (props: any) => {
     }
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return(
     <div>
