@@ -1,5 +1,4 @@
 FROM node:14.15.4
-EXPOSE 8080 9229
 
 #WORKDIR /app
 
