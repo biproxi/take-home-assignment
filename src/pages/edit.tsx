@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { connect } from 'react-redux';
 import { updateFormTitle, updateFormStatus } from "../store/hooks";
 import axios from "axios";
+import styled from 'styled-components';
+import { SubmitButton, BackButton } from '../styled-components/elements';
 
 interface Query{
   id: number,
@@ -14,6 +16,12 @@ interface Query{
 interface Props{
   query: Query
 }
+
+const FormEditor = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+`;
 
 const EditForm: React.FC<Props> = (props: any) => {
 
@@ -55,21 +63,24 @@ const EditForm: React.FC<Props> = (props: any) => {
    return(
     <div>
       <Link href = "/" passHref>
-        <button>Go back</button>
+        <BackButton>Go Back</BackButton>
       </Link>
-      <form onSubmit = {handleEditForm}>
+      <FormEditor onSubmit = {handleEditForm}>
+        <label htmlFor="revise-title">Change Title</label>
           <input
+            id = "revise-title"
             type = "text"
             placeholder = {props.query.title}
             onChange = {handleTitleChange}
           />
-          <select name = "status" onChange = {handleStatusChange}>
+          <label htmlFor="revise-status">Change Status</label>
+          <select id = "revise-status" name = "status" onChange = {handleStatusChange}>
             <option value={"Active"}>Active</option>
             <option value={"Inactive"}>Inactive</option>
             <option value={"Archived"}>Archived</option>
           </select>
-          <button type = "submit">Submit</button>
-      </form>
+          <SubmitButton type = "submit">Submit</SubmitButton>
+      </FormEditor>
     </div>
   )
 };

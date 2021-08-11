@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPostState, deletePostState } from '../store/hooks';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { OptionButton } from '../styled-components/elements';
 import { makeStyles,
          Table,
          TableBody,
@@ -16,6 +18,7 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
+
 
 const TodoList = (props: any) => {
 
@@ -56,9 +59,14 @@ const TodoList = (props: any) => {
                 <TableCell align = "center">{post.status}</TableCell>
                 <TableCell align = "center">{post.created_at}</TableCell>
                 <TableCell align = "center">{post.last_updated_at}</TableCell>
-                <TableCell align = "center">
-                  <button onClick = {() => editPost(post.id, post.title, post.status)}>Edit Post</button>
-                  <button onClick = {() => deletePost(post.id)}>Delete</button>
+                <TableCell align = "center"
+                  style = {{
+                    display: "flex",
+                    justifyContent: "space-evenly"
+                  }}
+                >
+                  <OptionButton onClick = {() => editPost(post.id, post.title, post.status)}>Edit Post</OptionButton>
+                  <OptionButton onClick = {() => deletePost(post.id)}>Delete</OptionButton>
                 </TableCell>
               </TableRow>
             ))}

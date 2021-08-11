@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getArchivedState } from '../store/hooks';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { BackButton, OptionButton } from '../styled-components/elements';
 import { makeStyles,
          Table,
          TableBody,
@@ -18,11 +18,6 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-
-const BackButton = styled.button`
-  background-color: blue;
-  color: white;
-`;
 
 const ArchivedTodos = (props: any) => {
 
@@ -43,7 +38,7 @@ const ArchivedTodos = (props: any) => {
   return(
     <div>
       <Link href = '/' passHref>
-        <BackButton>Return to home page</BackButton>
+        <BackButton>Go Back</BackButton>
       </Link>
       <TableContainer component = {Paper}>
         <Table className = {classes.table} aria-label = "archived table">
@@ -64,7 +59,7 @@ const ArchivedTodos = (props: any) => {
                 <TableCell align = "center">{todo.created_at}</TableCell>
                 <TableCell align = "center">{todo.last_updated_at}</TableCell>
                 <TableCell align = "center">
-                  <button onClick = {() => editTodo(todo.id, todo.title, todo.status)}>Edit Todo</button>
+                  <OptionButton onClick = {() => editTodo(todo.id, todo.title, todo.status)}>Edit Todo</OptionButton>
                 </TableCell>
               </TableRow>
             ))}

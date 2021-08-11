@@ -1,11 +1,17 @@
 import { connect } from 'react-redux';
 import { addNewPostState, updateFormTitle } from '../store/hooks';
 import styled from 'styled-components';
+import { SubmitButton } from '../styled-components/elements';
 
 const Form = styled.form`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  width: 15vw;
+  align-items: center;
+  width: 40%;
+  height: 10vh;
+  border: 1px solid;
+  margin-bottom: 2vh;
 `;
 
 const CreateForm = (props: any) => {
@@ -27,7 +33,7 @@ const CreateForm = (props: any) => {
         onChange = {handleTitleChange}
         required
       />
-      <button type = "submit">Submit Form</button>
+      <SubmitButton type = "submit">Submit New Todo</SubmitButton>
     </Form>
   )
 };
