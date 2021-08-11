@@ -15,7 +15,7 @@ const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
           status: 'Active'
         }
       ])
-      res.status(201).send(response.data)
+      res.status(201).send(response.data[0])
   } catch(err) {
     res.status(500).send(err)
   }

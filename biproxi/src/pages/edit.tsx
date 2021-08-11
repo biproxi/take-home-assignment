@@ -25,14 +25,14 @@ const EditForm: React.FC<Props> = (props: any) => {
     if (props.query.status === "Active") options[0].setAttribute("selected", "")
     if (props.query.status === "Inactive") options[1].setAttribute("selected", "")
     if (props.query.status === "Archived") options[2].setAttribute("selected", "")
-  }, []);
+  });
 
   const handleEditForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try{
       event.preventDefault();
       const updates = {
-        title: props.todos.title,
-        status: props.todos.status
+        title: props.todos.title === '' ? props.query.title : props.todos.title,
+        status: props.todos.status === '' ? props.query.status : props.todos.status
       };
       await axios.put(`/api/editPost?id=${props.query.id}`, {updates})
 

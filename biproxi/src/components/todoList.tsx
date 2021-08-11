@@ -24,7 +24,7 @@ const TodoList = (props: any) => {
 
   useEffect(() => {
     props.getPostState()
-  },[])
+  })
 
   const editPost = (id: number, title: string, status: string) => {
     router.push({
