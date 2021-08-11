@@ -4,6 +4,7 @@ import { supabase } from '../../supabase/client';
 const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { title } = req.body;
+
     const response = await supabase
       .from('posts')
       .insert([
@@ -16,7 +17,6 @@ const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
       ])
       res.status(201).send(response.data)
   } catch(err) {
-    console.log(err)
     res.status(500).send(err)
   }
 }

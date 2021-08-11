@@ -4,10 +4,12 @@ import { supabase } from '../../supabase/client';
 const deletePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { id } = req.query;
-    const response = await supabase
+
+    await supabase
       .from('posts')
       .delete()
       .match({id})
+
       res.send(id)
   } catch(err) {
     res.status(500).send(err)

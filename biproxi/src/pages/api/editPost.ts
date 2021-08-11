@@ -6,7 +6,7 @@ const editPost = async (req: NextApiRequest, res: NextApiResponse) => {
     const { title, status } = req.body.updates
     const { id } = req.query
 
-    const response = await supabase
+    await supabase
       .from('posts')
       .update([
         {
@@ -16,8 +16,7 @@ const editPost = async (req: NextApiRequest, res: NextApiResponse) => {
         }
       ])
       .match({ id })
-    console.log(response.data)
-      res.send("Successfully edited post!")
+       res.send(`Successfully edited post for project ${title}`)
   } catch(err) {
     res.status(500).send(err)
   }
