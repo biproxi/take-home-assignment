@@ -8,7 +8,7 @@ const deletePost = async (req: NextApiRequest, res: NextApiResponse) => {
       .from('posts')
       .delete()
       .match({id})
-      res.send("Successfully deleted post!")
+      res.send(id)
   } catch(err) {
     res.status(500).send(err)
   }

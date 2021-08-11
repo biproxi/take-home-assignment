@@ -2,24 +2,21 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { getArchivedPosts } from '../store/actions';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles,
+         Table,
+         TableBody,
+         TableCell,
+         TableContainer,
+         TableHead,
+         TableRow,
+         Paper } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
-
-function createData(title: string, status: string, created_at: number, last_updated_at: number){
-  return { title, status, created_at, last_updated_at };
-}
 
 const ArchivedPosts = (props: any) => {
 
@@ -34,7 +31,7 @@ const ArchivedPosts = (props: any) => {
       <Link href = '/' passHref>
         <button>Return to home page</button>
       </Link>
-      <TableContainer>
+      <TableContainer component = {Paper}>
         <Table className = {classes.table} aria-label = "archived table">
           <TableHead>
             <TableRow>
@@ -61,7 +58,6 @@ const ArchivedPosts = (props: any) => {
 };
 
 const mapStatetoProps = (state: any) => {
-  console.log(state)
   return { posts: state.posts };
 }
 

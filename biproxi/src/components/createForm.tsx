@@ -1,19 +1,25 @@
 import { useRef } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { addNewPostState } from '../store/hooks';
 
-const CreateForm = () => {
-  const inputRef = useRef();
+const CreateForm = (props: any) => {
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch();
+  const inputRef = useRef({});
+
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    try{
-      let title = inputRef.current.value;
-      const addForm = await axios.post('/api/addPost', {title})
-      const response = addForm.data;
-      console.log(response)
-    } catch(err) {
-      console.error(err)
-    }
+    let title = inputRef.current.value;
+    props.addNewPostState(title)
+    // try{
+    //   const addForm = await axios.post('/api/addPost', {title})
+    //   const response = addForm.data;
+    //   console.log(response)
+    // } catch(err) {
+    //   console.error(err)
+    // }
 
   };
 
@@ -22,10 +28,15 @@ const CreateForm = () => {
       <input
         type = "text"
         ref = {inputRef}
+        placeholder =  "Enter your title here!"
       />
       <button type = "submit">Submit Form</button>
     </form>
   )
 };
 
-export default CreateForm;
+const mapStatetoProps = (state: any) => {
+  return { todos: state.todos }
+};
+
+export default connect(null, { addNewPostState })(CreateForm);

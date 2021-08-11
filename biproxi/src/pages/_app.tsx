@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import App from 'next/app';
-import store from '../store';
+import { store } from '../store';
 
 type AppProps<P = any> = {
   Component: P;

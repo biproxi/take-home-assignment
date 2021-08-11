@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
-import axios from 'axios';
+import { useRouter } from "next/router";
+import axios from "axios";
 
 interface Query{
   id: number,
@@ -14,7 +15,9 @@ interface Props{
 
 const EditForm: React.FC<Props> = ({ query }) => {
 
+  const router = useRouter();
   const inputRef = useRef({});
+
   useEffect(() => {
     inputRef.current['title'].focus()
     inputRef.current['title'].value = query.title
@@ -22,17 +25,17 @@ const EditForm: React.FC<Props> = ({ query }) => {
   }, []);
 
   const handleEditForm = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const updates = {
-      title: inputRef.current['title'].value,
-      status: inputRef.current['status'].value
-    };
-
     try{
+      event.preventDefault();
+      const updates = {
+        title: inputRef.current['title'].value,
+        status: inputRef.current['status'].value
+      };
       const editPost = await axios.put(`/api/editPost?id=${query.id}`, {updates})
-      const response = editPost.data;
-      console.log(response)
+
+      router.push({
+        pathname: '/'
+      })
     } catch(err) {
       console.error(err)
     }
