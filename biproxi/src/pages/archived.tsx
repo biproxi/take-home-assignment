@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { getArchivedPosts } from '../store/actions';
+import { getArchivedState } from '../store/hooks';
 import { connect } from 'react-redux';
 import { makeStyles,
          Table,
@@ -23,7 +23,7 @@ const ArchivedPosts = (props: any) => {
   const classes = useStyles();
 
   useEffect(() => {
-    props.getArchivedPosts();
+    props.getArchivedState();
   },[])
 
   return(
@@ -42,12 +42,12 @@ const ArchivedPosts = (props: any) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.posts.map((post: any) => (
-              <TableRow key = {post.id}>
-                <TableCell align = "center">{post.title}</TableCell>
-                <TableCell align = "center">{post.status}</TableCell>
-                <TableCell align = "center">{post.created_at}</TableCell>
-                <TableCell align = "center">{post.last_updated_at}</TableCell>
+            {props.todos.map((todo: any) => (
+              <TableRow key = {todo.id}>
+                <TableCell align = "center">{todo.title}</TableCell>
+                <TableCell align = "center">{todo.status}</TableCell>
+                <TableCell align = "center">{todo.created_at}</TableCell>
+                <TableCell align = "center">{todo.last_updated_at}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -58,7 +58,7 @@ const ArchivedPosts = (props: any) => {
 };
 
 const mapStatetoProps = (state: any) => {
-  return { posts: state.posts };
+  return { todos: state.todos.archivedTodos };
 }
 
-export default connect(mapStatetoProps, { getArchivedPosts })(ArchivedPosts);
+export default connect(mapStatetoProps, { getArchivedState })(ArchivedPosts);
