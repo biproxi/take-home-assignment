@@ -1,42 +1,39 @@
-import { useRef } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { addNewPostState } from '../store/hooks';
+import { connect } from 'react-redux';
+import { addNewPostState, updateFormTitle } from '../store/hooks';
+import styled from 'styled-components';
+
+const Form = styled.form`
+  display: flex;
+  justify-content: space-around;
+  width: 15vw;
+`;
 
 const CreateForm = (props: any) => {
 
-  const dispatch = useDispatch();
-  const inputRef = useRef({});
-
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    let title = inputRef.current.value;
-    props.addNewPostState(title)
-    // try{
-    //   const addForm = await axios.post('/api/addPost', {title})
-    //   const response = addForm.data;
-    //   console.log(response)
-    // } catch(err) {
-    //   console.error(err)
-    // }
+    props.addNewPostState(props.todos.title)
+  };
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.updateFormTitle(event.target.value)
   };
 
   return(
-    <form onSubmit = {handleSubmit}>
+    <Form onSubmit = {handleSubmit}>
       <input
         type = "text"
-        ref = {inputRef}
         placeholder =  "Enter your title here!"
+        onChange = {handleTitleChange}
+        required
       />
       <button type = "submit">Submit Form</button>
-    </form>
+    </Form>
   )
 };
 
-const mapStatetoProps = (state: any) => {
+const mapStateToProps = (state: any) => {
   return { todos: state.todos }
 };
 
-export default connect(null, { addNewPostState })(CreateForm);
+export default connect(mapStateToProps, { updateFormTitle,addNewPostState })(CreateForm);

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPostState, deletePostState } from '../store/hooks';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { makeStyles,
          Table,
@@ -18,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PostList = (props: any) => {
+const TodoList = (props: any) => {
 
   const router = useRouter();
   const classes = useStyles();
@@ -36,12 +35,6 @@ const PostList = (props: any) => {
 
   const deletePost = (id: number) => {
     props.deletePostState(id)
-    // try{
-    //   const deleteResponse = await axios.delete(`/api/deletePost/?id=${id}`)
-    //   console.log(deleteResponse.data)
-    // } catch(err) {
-    //   console.error(err)
-    // }
   };
 
   return(
@@ -79,4 +72,4 @@ const mapStatetoProps = (state: any) => {
   return { todos: state.todos };
 };
 
-export default connect(mapStatetoProps, { getPostState, deletePostState })(PostList);
+export default connect(mapStatetoProps, { getPostState, deletePostState })(TodoList);

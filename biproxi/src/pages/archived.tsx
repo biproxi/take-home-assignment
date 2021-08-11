@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { getArchivedState } from '../store/hooks';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { makeStyles,
          Table,
          TableBody,
@@ -11,12 +12,16 @@ import { makeStyles,
          TableRow,
          Paper } from '@material-ui/core';
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
+
+const BackButton = styled.button`
+  background-color: blue;
+  color: white;
+`;
 
 const ArchivedPosts = (props: any) => {
 
@@ -24,12 +29,12 @@ const ArchivedPosts = (props: any) => {
 
   useEffect(() => {
     props.getArchivedState();
-  },[])
+  }, [])
 
   return(
     <div>
       <Link href = '/' passHref>
-        <button>Return to home page</button>
+        <BackButton>Return to home page</BackButton>
       </Link>
       <TableContainer component = {Paper}>
         <Table className = {classes.table} aria-label = "archived table">
@@ -57,8 +62,8 @@ const ArchivedPosts = (props: any) => {
   )
 };
 
-const mapStatetoProps = (state: any) => {
+const mapStateToProps = (state: any) => {
   return { todos: state.todos.archivedTodos };
 }
 
-export default connect(mapStatetoProps, { getArchivedState })(ArchivedPosts);
+export default connect(mapStateToProps, { getArchivedState })(ArchivedPosts);

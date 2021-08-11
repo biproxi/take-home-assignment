@@ -19,12 +19,16 @@ interface Todo {
 interface TodoLists {
   todos: Todo[];
   archivedTodos: Todo[];
+  title: string,
+  status: string
 }
 
 //define the initial state
 const initialState: TodoLists = {
   todos: [],
-  archivedTodos: []
+  archivedTodos: [],
+  title: '',
+  status: ''
 }
 
 const slice = createSlice({
@@ -42,6 +46,12 @@ const slice = createSlice({
     },
     deletePost: (state, action: PayloadAction<Todo>) => {
       state.todos = state.todos.filter((todo: any) => todo.id !== action.payload)
+    },
+    getUpdatedTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+    },
+    getUpdatedStatus: (state, action: PayloadAction<string>) => {
+      state.status = action.payload;
     }
   }
 })
@@ -51,7 +61,12 @@ export default slice.reducer;
 // export const useAppDispatch = () => useDispatch<AppDispatch>();
 // export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-const { getPosts, getArchived, addNewPost, deletePost } = slice.actions;
+const { getPosts,
+        getArchived,
+        addNewPost,
+        deletePost,
+        getUpdatedTitle,
+        getUpdatedStatus } = slice.actions;
 
 export const getPostState = () => async dispatch => {
   try{
@@ -87,4 +102,12 @@ export const deletePostState = (id: number) => async dispatch => {
   } catch (err) {
     return console.error(err.message)
   }
+}
+
+export const updateFormTitle = (title: string) => dispatch => {
+  dispatch(getUpdatedTitle(title))
+}
+
+export const updateFormStatus = (status: string) => dispatch => {
+  dispatch(getUpdatedStatus(status))
 }

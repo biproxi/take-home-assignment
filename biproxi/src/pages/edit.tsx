@@ -1,37 +1,40 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { connect } from 'react-redux';
+import { updateFormTitle, updateFormStatus } from "../store/hooks";
 import axios from "axios";
 
 interface Query{
   id: number,
-  title: string,
-  status: string
+  title: any,
+  status: any
 }
 
 interface Props{
   query: Query
 }
 
-const EditForm: React.FC<Props> = ({ query }) => {
+const EditForm: React.FC<Props> = (props: any) => {
 
   const router = useRouter();
-  const inputRef = useRef({});
 
   useEffect(() => {
-    inputRef.current['title'].focus()
-    inputRef.current['title'].value = query.title
-    inputRef.current['status'].value = query.status
+    let options = document.querySelectorAll("option");
+
+    if (props.query.status === "Active") options[0].setAttribute("selected", "")
+    if (props.query.status === "Inactive") options[1].setAttribute("selected", "")
+    if (props.query.status === "Archived") options[2].setAttribute("selected", "")
   }, []);
 
   const handleEditForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try{
       event.preventDefault();
       const updates = {
-        title: inputRef.current['title'].value,
-        status: inputRef.current['status'].value
+        title: props.todos.title,
+        status: props.todos.status
       };
-      const editPost = await axios.put(`/api/editPost?id=${query.id}`, {updates})
+      await axios.put(`/api/editPost?id=${props.query.id}`, {updates})
 
       router.push({
         pathname: '/'
@@ -41,14 +44,26 @@ const EditForm: React.FC<Props> = ({ query }) => {
     }
   };
 
+   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+     props.updateFormTitle(event.target.value)
+   };
+
+   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+     props.updateFormStatus(event.target.value)
+   };
+
    return(
     <div>
-      <Link href = "/">
+      <Link href = "/" passHref>
         <button>Go back</button>
       </Link>
       <form onSubmit = {handleEditForm}>
-          <input ref={el => inputRef.current['title'] = el} type = "text" placeholder = {query.title} />
-          <select name = "status" ref={el => inputRef.current['status'] = el}>
+          <input
+            type = "text"
+            placeholder = {props.query.title}
+            onChange = {handleTitleChange}
+          />
+          <select name = "status" onChange = {handleStatusChange}>
             <option value={"Active"}>Active</option>
             <option value={"Inactive"}>Inactive</option>
             <option value={"Archived"}>Archived</option>
@@ -59,4 +74,8 @@ const EditForm: React.FC<Props> = ({ query }) => {
   )
 };
 
-export default EditForm;
+const mapStateToProps = (state: any) => {
+  return { todos: state.todos}
+};
+
+export default connect (mapStateToProps, { updateFormTitle, updateFormStatus})(EditForm);
