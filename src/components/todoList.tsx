@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getPostState, deletePostState } from '../store/hooks';
+import { getTodoState, deleteTodoState } from '../store/hooks';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import { OptionButton } from '../styled-components/elements';
 import { makeStyles,
          Table,
@@ -26,18 +25,18 @@ const TodoList = (props: any) => {
   const classes = useStyles();
 
   useEffect(() => {
-    props.getPostState()
-  })
+    props.getTodoState()
+  }, [])
 
-  const editPost = (id: number, title: string, status: string) => {
+  const editTodo = (id: number, title: string, status: string) => {
     router.push({
       pathname: '/edit',
       query: { id, title , status }
     })
   };
 
-  const deletePost = (id: number) => {
-    props.deletePostState(id)
+  const deleteTodo = (id: number) => {
+    props.deleteTodoState(id)
   };
 
   return(
@@ -53,20 +52,20 @@ const TodoList = (props: any) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.todos.todos.map((post: any) => (
-              <TableRow key = {post.id}>
-                <TableCell align = "center">{post.title}</TableCell>
-                <TableCell align = "center">{post.status}</TableCell>
-                <TableCell align = "center">{post.created_at}</TableCell>
-                <TableCell align = "center">{post.last_updated_at}</TableCell>
+            {props.todos.todos.map((Todo: any) => (
+              <TableRow key = {Todo.id}>
+                <TableCell align = "center">{Todo.title}</TableCell>
+                <TableCell align = "center">{Todo.status}</TableCell>
+                <TableCell align = "center">{Todo.created_at}</TableCell>
+                <TableCell align = "center">{Todo.last_updated_at}</TableCell>
                 <TableCell align = "center"
                   style = {{
                     display: "flex",
                     justifyContent: "space-evenly"
                   }}
                 >
-                  <OptionButton onClick = {() => editPost(post.id, post.title, post.status)}>Edit Post</OptionButton>
-                  <OptionButton onClick = {() => deletePost(post.id)}>Delete</OptionButton>
+                  <OptionButton onClick = {() => editTodo(Todo.id, Todo.title, Todo.status)}>Edit Todo</OptionButton>
+                  <OptionButton onClick = {() => deleteTodo(Todo.id)}>Delete</OptionButton>
                 </TableCell>
               </TableRow>
             ))}
@@ -77,7 +76,8 @@ const TodoList = (props: any) => {
 };
 
 const mapStatetoProps = (state: any) => {
+  console.log(state)
   return { todos: state.todos };
 };
 
-export default connect(mapStatetoProps, { getPostState, deletePostState })(TodoList);
+export default connect(mapStatetoProps, { getTodoState, deleteTodoState })(TodoList);

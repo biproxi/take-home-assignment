@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-const deletePost = async (req: NextApiRequest, res: NextApiResponse) => {
+const deleteTodo = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { id } = req.query;
 
@@ -16,4 +16,4 @@ const deletePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default deletePost;
+export default deleteTodo;

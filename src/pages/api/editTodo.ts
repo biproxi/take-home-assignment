@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-const editPost = async (req: NextApiRequest, res: NextApiResponse) => {
+const editTodo = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { title, status } = req.body.updates
     const { id } = req.query
@@ -16,10 +16,10 @@ const editPost = async (req: NextApiRequest, res: NextApiResponse) => {
         }
       ])
       .match({ id })
-       res.send(`Successfully edited post for project ${title}`)
+       res.send(`Successfully edited Todo for project ${title}`)
   } catch(err) {
     res.status(500).send(err)
   }
 }
 
-export default editPost;
+export default editTodo;

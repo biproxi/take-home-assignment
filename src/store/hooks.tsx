@@ -33,16 +33,16 @@ const slice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    getPosts: (state, action: PayloadAction<Todo[]>) => {
+    getTodos: (state, action: PayloadAction<Todo[]>) => {
       state.todos = action.payload;
     },
-    addNewPost: (state, action: PayloadAction<Todo>) => {
+    addNewTodo: (state, action: PayloadAction<Todo>) => {
       state.todos = [...state.todos, action.payload]
     },
     getArchived: (state, action: PayloadAction<Todo[]>) => {
       state.archivedTodos = action.payload;
     },
-    deletePost: (state, action: PayloadAction<Todo>) => {
+    deleteTodo: (state, action: PayloadAction<Todo>) => {
       state.todos = state.todos.filter((todo: any) => todo.id !== action.payload)
     },
     getUpdatedTitle: (state, action: PayloadAction<string>) => {
@@ -57,17 +57,17 @@ const slice = createSlice({
 export default slice.reducer;
 
 //actions
-const { getPosts,
+const { getTodos,
         getArchived,
-        addNewPost,
-        deletePost,
+        addNewTodo,
+        deleteTodo,
         getUpdatedTitle,
         getUpdatedStatus } = slice.actions;
 
-export const getPostState = () => async (dispatch: any) => {
+export const getTodoState = () => async (dispatch: any) => {
   try{
-    const response = await axios.get('/api/getPosts');
-    dispatch(getPosts(response.data))
+    const response = await axios.get('/api/getTodos');
+    dispatch(getTodos(response.data))
   } catch (err) {
     return console.error(err.message)
   }
@@ -75,26 +75,26 @@ export const getPostState = () => async (dispatch: any) => {
 
 export const getArchivedState = () => async (dispatch: any) => {
   try{
-    const response = await axios.get('/api/getArchivedPosts');
+    const response = await axios.get('/api/getArchivedTodos');
     dispatch(getArchived(response.data))
   } catch (err) {
     return console.error(err.message)
   }
 };
 
-export const addNewPostState = (title: string) => async (dispatch: any) => {
+export const addNewTodoState = (title: string) => async (dispatch: any) => {
   try{
-    const response = await axios.post('/api/addPost', {title});
-    dispatch(addNewPost(response.data))
+    const response = await axios.post('/api/addTodo', {title});
+    dispatch(addNewTodo(response.data))
   } catch (err) {
     return console.error(err.message)
   }
 };
 
-export const deletePostState = (id: number) => async (dispatch: any) => {
+export const deleteTodoState = (id: number) => async (dispatch: any) => {
   try{
-    const response = await axios.delete(`/api/deletePost/?id=${id}`);
-    dispatch(deletePost(response.data))
+    const response = await axios.delete(`/api/deleteTodo/?id=${id}`);
+    dispatch(deleteTodo(response.data))
   } catch (err) {
     return console.error(err.message)
   }

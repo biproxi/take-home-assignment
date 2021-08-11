@@ -26,7 +26,7 @@ const ArchivedTodos = (props: any) => {
 
   useEffect(() => {
     props.getArchivedState();
-  })
+  }, [])
 
   const editTodo = (id: number, title: string, status: string) => {
     router.push({

@@ -6,6 +6,7 @@ export const SubmitButton = styled.button`
   padding: 0.5em;
   background-color: #29a329;
   color: #ffffff;
+  margin-top: 1em;
 `;
 
 export const BackButton = styled.button`
@@ -13,7 +14,7 @@ export const BackButton = styled.button`
   color: white;
   border: none;
   padding: 1em;
-  margin-bottom: 3vh;
+  margin-bottom: 1em;
 `;
 
 export const OptionButton = styled.button`

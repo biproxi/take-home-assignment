@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import App from 'next/app';
 import { store } from '../store';
+import SEO from '../components/seo';
 
 type AppProps<P = any> = {
   Component: P;
@@ -21,6 +22,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return(
       <Provider store = {store}>
+        <SEO />
         <Component {...pageProps} />
       </Provider>
     )

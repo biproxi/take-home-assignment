@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addNewPostState, updateFormTitle } from '../store/hooks';
+import { addNewTodoState, updateFormTitle } from '../store/hooks';
 import styled from 'styled-components';
 import { SubmitButton } from '../styled-components/elements';
 
@@ -18,7 +18,7 @@ const CreateForm = (props: any) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    props.addNewPostState(props.todos.title)
+    props.addNewTodoState(props.todos.title)
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,4 +42,4 @@ const mapStateToProps = (state: any) => {
   return { todos: state.todos }
 };
 
-export default connect(mapStateToProps, { updateFormTitle,addNewPostState })(CreateForm);
+export default connect(mapStateToProps, { updateFormTitle,addNewTodoState })(CreateForm);

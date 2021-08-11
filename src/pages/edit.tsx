@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ const EditForm: React.FC<Props> = (props: any) => {
     if (props.query.status === "Active") options[0].setAttribute("selected", "")
     if (props.query.status === "Inactive") options[1].setAttribute("selected", "")
     if (props.query.status === "Archived") options[2].setAttribute("selected", "")
-  });
+  }, []);
 
   const handleEditForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try{
@@ -42,7 +42,7 @@ const EditForm: React.FC<Props> = (props: any) => {
         title: props.todos.title === '' ? props.query.title : props.todos.title,
         status: props.todos.status === '' ? props.query.status : props.todos.status
       };
-      await axios.put(`/api/editPost?id=${props.query.id}`, {updates})
+      await axios.put(`/api/editTodo?id=${props.query.id}`, {updates})
 
       router.push({
         pathname: '/'

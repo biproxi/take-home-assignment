@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
+const getTodos = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const response = await supabase
       .from('posts')
@@ -13,4 +13,4 @@ const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default getPosts;
+export default getTodos;

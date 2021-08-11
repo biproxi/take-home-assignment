@@ -17,7 +17,7 @@ const Home = () => {
       <TopContainer>
         <CreateForm />
         <Link href = '/archived' passHref>
-          <button>Click here to see all archived posts!</button>
+          <button>Click here to see all archived Todos!</button>
         </Link>
       </TopContainer>
       <TodoList />

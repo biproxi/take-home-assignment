@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
+const addTodo = async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const { title } = req.body;
 
@@ -21,4 +21,4 @@ const addPost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default addPost;
+export default addTodo;

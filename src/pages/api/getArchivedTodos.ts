@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../supabase/client';
 
-const getArchivedPosts =  async (req: NextApiRequest, res: NextApiResponse) => {
+const getArchivedTodos =  async (req: NextApiRequest, res: NextApiResponse) => {
   try{
     const response = await supabase
       .from('posts')
@@ -13,4 +13,4 @@ const getArchivedPosts =  async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default getArchivedPosts;
+export default getArchivedTodos;
