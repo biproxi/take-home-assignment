@@ -1,0 +1,23 @@
+{
+  "name": "to-do",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^1.22.2",
+    "bootstrap": "^5.1.0",
+    "next": "11.1.0",
+    "react": "17.0.2",
+    "react-bootstrap": "^1.6.1",
+    "react-dom": "17.0.2",
+    "redux": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.19",
+    "typescript": "4.3.5"
+  }
+}
