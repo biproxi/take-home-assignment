@@ -16,13 +16,13 @@ export interface Todo {
 interface InitialState {
   toDoList: Todo[], //array with type of Todo
   input?: String,
-  status?: String
+  status?: String,
 }
 
 const initialState: InitialState = {
   toDoList: [],
   input: '',
-  status: ''
+  status: '',
 };
 
 const todoSlice = createSlice({
@@ -36,9 +36,6 @@ const todoSlice = createSlice({
     setInput: (state, action: PayloadAction<string>) => {
       state.input = action.payload;
     },
-    setStatus: (state, action: PayloadAction<string>) => {
-      state.status = action.payload;
-    }
   }
 });
 
@@ -47,8 +44,7 @@ export const actions = todoSlice.actions
 // export default todoSlice.reducer
 export const reducer = todoSlice.reducer;
 
-// export const {
-//   saveTodo,
-//   setInput,
-//   setStatus,
-// } = todoSlice.actions;
+export const {
+  saveTodo,
+  setInput,
+} = todoSlice.actions;

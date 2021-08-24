@@ -20,8 +20,6 @@ export default function Home() {
       .then((response) => {
         const todos: Todo[] = response.data;
         dispatch(actions.saveTodo(todos))
-        // console.log('all:', allTodos);
-        // console.log('todos in axios', todos)
       }
       )
       .catch((err) => console.log(err));
@@ -32,7 +30,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ backgroundImage: "url(https://lz12v4f1p8c1cumxnbiqvm10-wpengine.netdna-ssl.com/wp-content/uploads/2015/11/hazemaster-gray-gradient-ui-background.jpg)", backgroundSize: "cover"}}>
       <Row>
         <Col style={{ display: "flex", justifyContent: "center", paddingBottom: "50px" }}>
           <h2>To-Do</h2>
@@ -44,10 +42,10 @@ export default function Home() {
         </Col>
       </Row>
       <Row>
-        {todos.data.length > 0 ?
+        {todos.data ?
         todos.data.map((todo: { id: React.Key | null | undefined; }) => {
           return(
-            <Item todo={todo} key={todo.id}/>
+            <Item todo={todo} id={todo.id} key={todo.id}/>
           )
         })
       : null}
