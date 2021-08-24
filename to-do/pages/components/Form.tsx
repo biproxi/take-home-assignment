@@ -10,8 +10,10 @@ const ToDoForm = () => {
   const formInput = useSelector(setInput);
 
   const submitTodo = () => {
+    const reset = '';
     axios.post('./api/post', {title: formInput})
-    .then((res) => getAll());
+    .then((res) => getAll())
+    .then(() => dispatch(actions.setInput(reset)))
   };
 
   const getInput = (e) => {

@@ -30,7 +30,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Container style={{ backgroundImage: "url(https://lz12v4f1p8c1cumxnbiqvm10-wpengine.netdna-ssl.com/wp-content/uploads/2015/11/hazemaster-gray-gradient-ui-background.jpg)", backgroundSize: "cover"}}>
+    <Container style={{ backgroundImage: "url(https://lz12v4f1p8c1cumxnbiqvm10-wpengine.netdna-ssl.com/wp-content/uploads/2015/11/hazemaster-gray-gradient-ui-background.jpg)", backgroundSize: "cover", height: "100vh"}}>
       <Row>
         <Col style={{ display: "flex", justifyContent: "center", paddingBottom: "50px" }}>
           <h2>To-Do</h2>
@@ -41,7 +41,7 @@ export default function Home() {
           <Form />
         </Col>
       </Row>
-      <Row>
+      <Row style={{paddingBottom: "50px"}}>
         {todos.data ?
         todos.data.map((todo: { id: React.Key | null | undefined; }) => {
           return(
