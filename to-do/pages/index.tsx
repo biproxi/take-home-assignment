@@ -3,15 +3,28 @@ import axios from 'axios';
 import { Container, Col, Row } from 'react-bootstrap';
 import Item from './components/Item';
 import Form from './components/Form';
+import { actions, Todo, allTodos } from '../redux/todoSlice';
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Home() {
 
+  const dispatch = useDispatch();
 
-  const getAll = () => {
+  const todos = useSelector(allTodos);
+
+  type NewType = Promise<void>;
+
+  function getAll(): NewType {
     axios.get('/api/get')
-    .then((response) => console.log(response))
-    .catch((err) => console.log(err))
+      .then((response) => {
+        const todos: Todo[] = response.data;
+        dispatch(actions.saveTodo(todos))
+        // console.log('all:', allTodos);
+        // console.log('todos in axios', todos)
+      }
+      )
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {
@@ -21,7 +34,7 @@ export default function Home() {
   return (
     <Container>
       <Row>
-        <Col style={{display: "flex", justifyContent: "center", paddingBottom: "50px"}}>
+        <Col style={{ display: "flex", justifyContent: "center", paddingBottom: "50px" }}>
           <h2>To-Do</h2>
         </Col>
       </Row>
@@ -31,7 +44,13 @@ export default function Home() {
         </Col>
       </Row>
       <Row>
-        <Item />
+        {todos.data.length > 0 ?
+        todos.data.map((todo: { id: React.Key | null | undefined; }) => {
+          return(
+            <Item todo={todo} key={todo.id}/>
+          )
+        })
+      : null}
       </Row>
     </Container>
   );

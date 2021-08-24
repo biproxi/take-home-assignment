@@ -10,7 +10,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .select('*')
 
     res.status(200).send({ data })
-    console.log(data)
   }
   catch {
     res.status(400).send('Could not retrieve data')
