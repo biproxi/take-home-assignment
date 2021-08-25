@@ -1,14 +1,7 @@
 import React from 'react';
 import './App.css';
 import {store} from "./state/store/store";
-import {log} from "util";
-
-// This feels redundant having it in both the reducer and here but for now I am going to let it slide
-enum TodoStatusEnum {
-    Active = 'Active', // the todo has is not completed
-    Inactive = 'Inactive', // the todo is completed
-    Archived = 'Archived', // the todo is archived
-};
+import {Todo, TodoStatusEnum} from "./types";
 
 const test = {
     title: "test",
