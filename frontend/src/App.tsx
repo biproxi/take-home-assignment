@@ -1,6 +1,6 @@
 import React from 'react';
 import {store} from "./state/store/store";
-import Todo from "./components/Todo";
+import List from "./components/List";
 
 // Driver code
 enum TodoStatusEnum {
@@ -19,11 +19,7 @@ store.dispatch({type: "ADD_TODO", payload: test});
 
 function App() {
   return (
-    <>
-        {store.getState().todoReducer.map((todo, i) => {
-            return <Todo title={todo.title}/>
-        })}
-    </>
+      <List/>
   );
 }
 
