@@ -25,5 +25,8 @@ export const todoReducer = (state: Todo[] = [], action: Action) => {
                 })]
         case "EDIT_TODO":
             return [...state]
+
+        default:
+            return [];
     }
 }
