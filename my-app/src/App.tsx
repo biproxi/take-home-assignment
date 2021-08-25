@@ -3,8 +3,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <>
+      <input type="text" name="item" placeholder="Add a todo item"/>
+      <button>Add todo</button>
+    </>
   );
 }
 
