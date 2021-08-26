@@ -14,9 +14,5 @@ export interface Todo {
     createdAt: number;
 }
 
-export interface TodoProps {
-    title: string
-}
-
 export type Actions = "ADD_TODO" | "DELETE_TODO" | "EDIT_TODO";
 export type Action = {type: Actions, payload: Todo};

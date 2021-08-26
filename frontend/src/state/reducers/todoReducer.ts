@@ -9,6 +9,8 @@ export const todoReducer = (state: Todo[] = [], action: Action) => {
                     return todo.title === action.payload.title;
                 })]
         case "EDIT_TODO":
+            // Change timestamp
+            // Change title
             return [...state]
 
         default:
