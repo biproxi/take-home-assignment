@@ -39,6 +39,7 @@ export default function EditTodo(props: Todo) {
                 <MenuItem value="Archived">Archived</MenuItem>
             </Select>
             <br/> <br/>
+            {/*This forces a rerender.... obviously not the best way to do this, trying to minimize useState usage as the README outlined*/}
             <NavLink to='/'>
                 <Button variant="contained" color="primary" onClick={handleSubmit}>Save</Button>
             </NavLink>
