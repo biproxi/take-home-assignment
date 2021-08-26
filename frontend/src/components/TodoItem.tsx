@@ -7,12 +7,14 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
 import {Todo} from "../types";
-import {NavLink} from "react-router-dom";
 import * as React from "react";
 import {useDispatch} from "react-redux";
+import {useState} from "react";
+import EditTodo from "./EditTodo";
 
 export default function TodoItem(props: Todo) {
     const dispatch = useDispatch();
+    const [edit, setEdit] = useState(false);
 
     return (
         <Card>
@@ -22,24 +24,23 @@ export default function TodoItem(props: Todo) {
             </CardContent>
             <CardActions>
                 <IconButton aria-label="Delete" onClick={() => {
-                    console.log(props)
                         dispatch({type: "DELETE_TODO", payload: props});
                     }
                 }>
                     <DeleteIcon fontSize="medium" />
                 </IconButton>
-                <NavLink to={{
-                    pathname: "/edit",
-                    state: {
-                        title: props.title,
-                        status: props.status
-                    }
-                }}>
-                    <Fab size="small" color="secondary" aria-label="Add">
+
+                <Fab size="small" color="secondary" aria-label="Add" onClick={() => {setEdit(!edit)}}>
                     <EditIcon/>
                 </Fab>
-                </NavLink>
             </CardActions>
+            {
+                edit ?
+                <div style={{padding: "20px"}} >
+                    <EditTodo title={props.title} status={props.status} createdAt={props.createdAt} lastUpdatedAt={props.lastUpdatedAt}/>
+                </div>
+                : null
+            }
         </Card>
     )
 }
