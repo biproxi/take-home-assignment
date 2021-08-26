@@ -3,10 +3,13 @@ import TodoItem from "./TodoItem";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Typography from "@material-ui/core/Typography";
-import {store} from "../state/store/store";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../state/reducers";
 
 export default function List() {
+    const todos = useSelector((state: RootState) => state.todoReducer);
+
     return (
         <>
             <NavLink to="/create" style={{padding: "10px"}}>
@@ -16,7 +19,7 @@ export default function List() {
             </NavLink>
             <br/>
             <Typography style={{padding: "10px"}} variant="h5" color="textSecondary">Active Todos</Typography>
-            {store.getState().todoReducer.map((todo, i) => {
+            {todos.map((todo, i) => {
                 return <div key={i} style={{padding: "10px"}}>
                     <TodoItem title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
                 </div>

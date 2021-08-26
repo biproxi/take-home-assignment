@@ -9,8 +9,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import {Todo} from "../types";
 import {NavLink} from "react-router-dom";
 import * as React from "react";
+import {useDispatch} from "react-redux";
 
 export default function TodoItem(props: Todo) {
+    const dispatch = useDispatch();
+
     return (
         <Card>
             <CardContent>
@@ -18,10 +21,20 @@ export default function TodoItem(props: Todo) {
                 <Typography variant="overline"><strong>Status:</strong> {props.status}</Typography>
             </CardContent>
             <CardActions>
-                <IconButton aria-label="Delete">
+                <IconButton aria-label="Delete" onClick={() => {
+                    console.log(props)
+                        dispatch({type: "DELETE_TODO", payload: props});
+                    }
+                }>
                     <DeleteIcon fontSize="medium" />
                 </IconButton>
-                <NavLink to="/edit">
+                <NavLink to={{
+                    pathname: "/edit",
+                    state: {
+                        title: props.title,
+                        status: props.status
+                    }
+                }}>
                     <Fab size="small" color="secondary" aria-label="Add">
                     <EditIcon/>
                 </Fab>

@@ -14,6 +14,6 @@ export const todoReducer = (state: Todo[] = [], action: Action) => {
             return [...state]
 
         default:
-            return [];
+            return state;
     }
 }
