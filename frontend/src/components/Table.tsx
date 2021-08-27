@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../state/reducers";
 
-export default function List() {
+export default function Table() {
     const todos = useSelector((state: RootState) => state.todoReducer);
 
     return (
@@ -21,9 +21,12 @@ export default function List() {
             <Typography variant="h5" color="textSecondary">Active Todos</Typography>
             {todos.length === 0 ? <Typography color="textSecondary">None yet... :(</Typography> : null}
             {todos.map((todo, i) => {
-                return <div key={i} style={{padding: "10px"}}>
-                    <TodoItem title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
-                </div>
+                if (todo.status !== "Archived") {
+                    return <div key={i} style={{padding: "10px"}}>
+                        <TodoItem title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
+                    </div>
+                }
+                return null;
             })}
         </div>
     );
