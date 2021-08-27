@@ -17,10 +17,10 @@ export class Todo extends BaseEntity {
     status: string;
 
     @Field(() => Number)
-    @Column()
+    @Column({default: Date.now() / 1000})
     createdAt: number;
 
     @Field(() => Number)
-    @Column()
+    @Column({default: Date.now() / 1000})
     lastUpdatedAt: number;
 }
