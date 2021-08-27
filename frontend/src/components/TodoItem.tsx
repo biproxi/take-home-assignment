@@ -14,6 +14,7 @@ import EditTodo from "./EditTodo";
 
 export default function TodoItem(props: Todo) {
     const dispatch = useDispatch();
+    // Using useState here again... sorry just makes the most sense for something this small
     const [edit, setEdit] = useState(false);
 
     return (

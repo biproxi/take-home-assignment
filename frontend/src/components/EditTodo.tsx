@@ -10,7 +10,7 @@ import {Todo} from "../types";
 
 export default function EditTodo(props: Todo) {
     const dispatch = useDispatch();
-    // Yes I am using useState here, seems a little unnecessary to use redux for this, however I know this was explicitly stated as a no go
+    // Yes I am using useState here, makes the most sense for something this small. Redux is still being used heavily though
     const [title, setTitle]  = useState(props.title);
     const [selected, setSelected] = useState(props.status);
 
