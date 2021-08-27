@@ -14,7 +14,7 @@ import EditTodo from "./EditTodo";
 
 export default function TodoItem(props: Todo) {
     const dispatch = useDispatch();
-    // Using useState here again... sorry just makes the most sense for something this small
+    // Once again state is being used here... just for UI logic, redux would be too much... right??
     const [edit, setEdit] = useState(false);
 
     return (

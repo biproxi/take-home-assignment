@@ -11,20 +11,21 @@ export default function List() {
     const todos = useSelector((state: RootState) => state.todoReducer);
 
     return (
-        <>
+        <div style={{padding: "10px"}}>
             <NavLink to="/create" style={{padding: "10px"}}>
                 <Fab size="small" color="primary" aria-label="Add">
                     <AddIcon />
                 </Fab>
             </NavLink>
-            <br/>
-            <Typography style={{padding: "10px"}} variant="h5" color="textSecondary">Active Todos</Typography>
+            <br/> <br/>
+            <Typography variant="h5" color="textSecondary">Active Todos</Typography>
+            {todos.length === 0 ? <Typography color="textSecondary">None yet... :(</Typography> : null}
             {todos.map((todo, i) => {
                 return <div key={i} style={{padding: "10px"}}>
                     <TodoItem title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
                 </div>
             })}
-        </>
+        </div>
     );
 }
 
