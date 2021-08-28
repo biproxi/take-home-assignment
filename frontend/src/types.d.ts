@@ -1,4 +1,4 @@
-// Ripped directly from README
+import {TodoStatusEnum} from "./enums";
 
 export interface Todo {
     id: string;
