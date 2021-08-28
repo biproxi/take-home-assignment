@@ -25,7 +25,6 @@ export default function ArchivedTodos() {
     return (
         <PaddedContainer>
             <Typography variant="h5" color="textSecondary">Archived Todos</Typography>
-            {todos.length === 0 ? <Typography color="textSecondary">None yet... :(</Typography> : null}
             {todos.map((todo, i) => {
                 if (todo.status === "Archived") {
                     return <PaddedContainer key={i}>

@@ -35,7 +35,6 @@ export default function Table() {
             </NavLink>
             <br/> <br/>
             <Typography variant="h5" color="textSecondary">Active Todos</Typography>
-            {todos.length === 0 ? <Typography color="textSecondary">None yet... :(</Typography> : null}
             {todos.map((todo: Todo, i: number) => {
                 if (todo.status !== "Archived") {
                     return <PaddedContainer key={i}>
