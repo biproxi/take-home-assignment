@@ -9,6 +9,7 @@ import {NavLink} from "react-router-dom";
 import {Todo} from "../types";
 import {useMutation} from "@apollo/client";
 import {UPDATE_TODO} from "../graphql/mutations";
+import {TodoStatusEnum} from "../enums";
 
 export default function EditTodo(props: Todo) {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ export default function EditTodo(props: Todo) {
             <Select
                 style={{width: "150px"}}
                 value={selected}
-                onChange={(e => setSelected(e.target.value as string))}
+                onChange={(e => setSelected(e.target.value as TodoStatusEnum))}
             >
                 <MenuItem value="Active">Active</MenuItem>
                 <MenuItem value="Inactive">Inactive</MenuItem>
