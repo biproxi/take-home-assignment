@@ -11,10 +11,9 @@ export const todoReducer = (state: Todo[] = [], action: Action) => {
             return state.filter(todo => {
                 return todo.id !== action.payload.id
             })
-        case "EDIT_TODO":
-            // Since a todo ID was not provided in the given interface, I'm going to use the createdAt timestamp
+        case "UPDATE_TODO":
             for (let i = 0; i < state.length; i++) {
-                if (state[i].createdAt === action.payload.createdAt) {
+                if (state[i].id === action.payload.id) {
                     state[i] = action.payload;
                 }
             }

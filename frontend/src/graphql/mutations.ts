@@ -4,16 +4,15 @@ export const CREATE_TODO = gql`
     mutation Create($data: CreateTodoInput!) {
       createTodo(data: $data) {
         id
+        title
+        createdAt
       }
     }
 `;
 
 export const UPDATE_TODO = gql`
-    mutation updateTodo {
-      updateTodo(
-        data: {
-        title: "Poop on me"
-      }, id: "1") {
+    mutation updateTodo ($data: UpdateTodoInput!, $id: String!) {
+      updateTodo(data: $data, id: $id) {
         id
         title
         status

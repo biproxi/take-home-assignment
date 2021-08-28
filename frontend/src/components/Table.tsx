@@ -6,24 +6,18 @@ import Typography from "@material-ui/core/Typography";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../state/reducers";
-import styled from "styled-components";
 import {Todo} from "../types";
 import {useQuery} from "@apollo/client";
 import {GET_TODOS} from "../graphql/queries";
+import { PaddedContainer } from './StyledComponents';
 
 export default function Table() {
     const todos = useSelector((state: RootState) => state.todoReducer);
     const dispatch = useDispatch();
-    const { loading, error, data } = useQuery(GET_TODOS);
-
-    const PaddedContainer = styled.div`
-      padding: 10px
-    `;
+    const { loading, data } = useQuery(GET_TODOS);
 
     useEffect(() => {
-        if (!loading) {
-            // This feels wrong
-            dispatch({type: "CLEAR", payload: []});
+        if (!loading && todos.length === 0) {
             data.todos.forEach((todo: Todo) => {
                 dispatch({type: "ADD_TODO", payload: todo});
             })

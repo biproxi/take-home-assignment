@@ -7,17 +7,22 @@ import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {Todo} from "../types";
+import {useMutation} from "@apollo/client";
+import {UPDATE_TODO} from "../graphql/mutations";
 
 export default function EditTodo(props: Todo) {
     const dispatch = useDispatch();
+    const [updateTodo] = useMutation(UPDATE_TODO);
     // Yes I am using useState here, makes the most sense for something this small. Redux is still being used heavily though
     const [title, setTitle]  = useState(props.title);
     const [selected, setSelected] = useState(props.status);
 
     const handleSubmit = () => {
+        updateTodo({variables: {data: {title: title, status: selected, lastUpdatedAt: Date.now() / 1000}, id: props.id}})
         dispatch({
-            type: "EDIT_TODO",
+            type: "UPDATE_TODO",
             payload: {
+                id: props.id,
                 title: title,
                 status: selected,
                 createdAt: props.createdAt,

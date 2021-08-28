@@ -16,7 +16,7 @@ import {DELETE_TODO} from "../graphql/mutations";
 
 export default function TodoItem(props: Todo) {
     const dispatch = useDispatch();
-    const [deleteTodo, {data}] = useMutation(DELETE_TODO);
+    const [deleteTodo] = useMutation(DELETE_TODO);
     // Once again state is being used here... just for UI logic, redux would be too much... right??
     const [edit, setEdit] = useState(false);
 
