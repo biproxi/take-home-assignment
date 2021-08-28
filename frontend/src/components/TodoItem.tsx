@@ -11,9 +11,12 @@ import * as React from "react";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 import EditTodo from "./EditTodo";
+import {useMutation} from "@apollo/client";
+import {DELETE_TODO} from "../graphql/mutations";
 
 export default function TodoItem(props: Todo) {
     const dispatch = useDispatch();
+    const [deleteTodo, {data}] = useMutation(DELETE_TODO);
     // Once again state is being used here... just for UI logic, redux would be too much... right??
     const [edit, setEdit] = useState(false);
 
@@ -25,6 +28,7 @@ export default function TodoItem(props: Todo) {
             </CardContent>
             <CardActions>
                 <IconButton aria-label="Delete" onClick={() => {
+                        deleteTodo({variables: {id: props.id}})
                         dispatch({type: "DELETE_TODO", payload: props});
                     }
                 }>
@@ -38,7 +42,7 @@ export default function TodoItem(props: Todo) {
             {
                 edit ?
                 <div style={{padding: "20px"}} >
-                    <EditTodo title={props.title} status={props.status} createdAt={props.createdAt} lastUpdatedAt={props.lastUpdatedAt}/>
+                    <EditTodo id={props.id} title={props.title} status={props.status} createdAt={props.createdAt} lastUpdatedAt={props.lastUpdatedAt}/>
                 </div>
                 : null
             }

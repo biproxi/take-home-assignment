@@ -14,7 +14,7 @@ export default function ArchivedTodos() {
             {todos.map((todo, i) => {
                 if (todo.status === "Archived") {
                     return <div key={i} style={{padding: "10px"}}>
-                        <TodoItem title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
+                        <TodoItem id={todo.id} title={todo.title} status={todo.status} createdAt={todo.createdAt} lastUpdatedAt={todo.lastUpdatedAt}/>
                     </div>
                 }
                 return null;
