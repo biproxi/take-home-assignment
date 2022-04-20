@@ -1,5 +1,5 @@
 ## Task
-Your task is to build a full-stack "Todo" Application in TypeScript. There are two discrete components to this system: A web client that will allow the user to interact with the application and a back-end API that the web client interacts with to store and retrieve data. Each component should run in its own process, however the entire project should be contained in a single git repository. The system does not need to support multiple users or persist data between application restarts though several bonus tasks including adding data persistence are outlined in the sections below. The final step is packaging the application in a manner that makes starting the application in development mode easy. The completed version should take no longer than 6 hours to produce but will take significantly less for candidates familiar with the required toolchain. Some implementation details are intentionally left to your discretion. This helps us determine your familiarity with the TypeScript ecosystem and best-practices.
+Your task is to build a full-stack "Todo" Application in TypeScript. There are two discrete components to this system: A web client that will allow the user to interact with the application and a back-end API that the web client interacts with to store and retrieve data. Each component should run in its own process, however the entire project should be contained in a single git repository. The system does not need to support multiple users or persist data between application restarts though several bonus tasks including adding data persistence are outlined in the sections below. The final step is packaging the application in a manner that makes starting the application in development mode easy. The completed version should take no longer than 4 hours to produce but will take significantly less for candidates familiar with the required toolchain. Some implementation details are intentionally left to your discretion. This helps us determine your familiarity with the TypeScript ecosystem and best-practices.
 
 The two models you will need are provided:
 
@@ -40,7 +40,7 @@ Bootstrap the front-end application however you best see fit. We recommend using
 
 
 ## Back-end Application
-Bootstrap the back-end application however you best see fit. The back-end should accept HTTP requests from the front-end and retrieve, create, and update todos stored in memmory. The backend DOES NOT need to support multiple users, authentication, or persist todos between restarts. You may add support for authentication or persistence as a bonus task. Your application will be graded on the following criteria:
+Bootstrap the back-end application however you best see fit. The back-end should accept HTTP requests from the front-end and retrieve, create, and update todos stored in memory. The backend DOES NOT need to support multiple users, authentication, or persist todos between restarts. You may add support for authentication or persistence as a bonus task but it is not required. Your application will be graded on the following criteria:
 
 ### Requirements
 - [ ] The back-end has a endpoint that allows for the creation of a todo
