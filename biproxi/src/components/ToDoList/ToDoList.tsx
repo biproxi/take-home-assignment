@@ -61,15 +61,15 @@ const parseData = (todoList: any) => { // TODO: Fix type
             <Fragment key={todo.id}>
                 <tr className={todo.id}>
                     <td>
-                        <select defaultValue={todo.status}>
+                        <select defaultValue={todo.status_}>
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
-                            <option value="Archive">Archive</option>
+                            <option value="Archived">Archive</option>
                         </select>
                     </td>
                     <td>{todo.title}</td>
                     <td>{todo.createdAt}</td>
-                    <td>{todo.lastUpdatedAt}</td>
+                    <td>{todo.updatedAt}</td>
                     <td>
                         <button onClick={() => handleDelete(todo.id)}>Delete</button>
                     </td>
@@ -89,7 +89,7 @@ export const ToDoList= () => {
       return (
           <Styles>
               <h1>ToDo List</h1>
-              <Table title={"Todos"} headers={headers} data={parseData(data.data.todos)}/>
+              <Table title={"Todos"} headers={headers} data={parseData(data.todos)}/>
           </Styles>
       );
   }
