@@ -1,4 +1,3 @@
-import store from "./utils/redux/store";
 
 export enum TodoStatusEnum {
   Active = 'Active', // the todo has is not completed
@@ -13,14 +12,15 @@ export interface Todo {
   createdAt: number; // a unix timestamp representing the time the todo was created
 }
 
-export interface TodoItem {
+export interface TodoItemProps {
   todo: Todo; // the todo itself
 }
 
-export type AppState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch
+export interface TodoListProps {
+  todos: [Todo]; // the list of todos
+}
 
-export interface TodoList {
-  todos: Todo[]; // the list of todos
-  totalCount: number; // the total number of todos
+export interface TableProps {
+  todos: [Todo];
+  headers: string[];
 }
