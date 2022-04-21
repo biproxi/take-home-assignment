@@ -13,7 +13,7 @@ const Home: NextPage = (pageprops) => {
       </Head>
 
       <main className={styles.main}>
-        <ToDoList {...pageprops}/>
+        <ToDoList todos={[]} totalCount={0}/>
       </main>
 
       <footer className={styles.footer}>

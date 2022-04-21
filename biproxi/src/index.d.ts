@@ -21,6 +21,6 @@ export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch
 
 export interface TodoList {
-  todos: Todo[] | null; // the list of todos
+  todos: Todo[]; // the list of todos
   totalCount: number; // the total number of todos
 }
