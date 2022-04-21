@@ -80,7 +80,7 @@ const parseData = (todoList: any) => { // TODO: Fix type
 };
 export const ToDoList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
-  const {data, isLoading} = useGetTodoListQuery('');
+  const {data, isLoading, error} = useGetTodoListQuery('');
 
   if (isLoading) {
       return <p>Loading...</p>
@@ -93,5 +93,6 @@ export const ToDoList= () => {
           </Styles>
       );
   }
-  return <p>Table not Loaded</p>
+  // @ts-ignore
+    return <p>Table not Loaded {error? JSON.stringify(error.data): "A server error occured"}</p>
 };

@@ -1,14 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { GraphQLClient, gql } from 'graphql-request'
-
-type Data = {
-  data: any // TODO: define type
-}
+import {Data, DataError} from "../../index";
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | DataError>
 ) {
     const endpoint = 'https://api-us-west-2.graphcms.com/v2/cl29bfkoa10f901z8fclbdoze/master'
     const graphQLClient = new GraphQLClient(endpoint)
@@ -22,8 +19,12 @@ async function handler(
             createdAt
           }
     }`
-    const data = await graphQLClient.request(query)
-    res.status(200).json(data)
+    try {
+      const data = await graphQLClient.request(query)
+      res.status(200).json(data)
+    } catch (err: any) {
+      res.status(500).json({ error: err.message })
+    }
   }
 
   export default handler

@@ -1,4 +1,5 @@
 import {ReactFragment} from "react";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
 export enum TodoStatusEnum {
   Active = 'Active', // the todo has is not completed
@@ -27,4 +28,12 @@ export interface TableProps {
   data: ReactFragment; // the data to be displayed in the table
   headers: string[]; // the headers of the table
   title: string; // the title of the table
+}
+
+export type Data = {
+  data: any // TODO: define type
+}
+
+export interface DataError{
+    error: string;
 }
