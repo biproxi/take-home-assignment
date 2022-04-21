@@ -1,5 +1,5 @@
 import {Todo, TodoListProps} from "../../index";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 
@@ -32,18 +32,45 @@ const Styles = styled.div`
   }
 `;
 
-const parseData = (todoList: Todo[]) => {
+const testTodos = {
+    todos: [
+        {
+            id: "1",
+            status: "Active",
+            title: "Todo One",
+            createdAt: 1,
+            lastUpdatedAt: 1
+        },
+        {
+            id: "2",
+            status: "Active",
+            title: "Todo Two",
+            createdAt: 2,
+            lastUpdatedAt: 2
+        },
+        {
+            id: "3",
+            status: "Active",
+            title: "Todo Three",
+            createdAt: 3,
+            lastUpdatedAt: 3
+        }
+    ]
+}
+const parseData = (todoList: any) => {
     if (todoList.length === 0) {
         return <p>No todos</p>
     }
     return todoList.map((todo: Todo) => {
         return (
-            <>
-                <td>{todo.status}</td>
-                <td>{todo.title}</td>
-                <td>{todo.lastUpdatedAt}</td>
-                <td>{todo.createdAt}</td>
-            </>
+            <Fragment key={todo.id}>
+                <tr>
+                    <td>{todo.title}</td>
+                    <td>{todo.status}</td>
+                    <td>{todo.createdAt}</td>
+                    <td>{todo.lastUpdatedAt}</td>
+                </tr>
+            </Fragment>
         );
     })
 };
@@ -53,7 +80,7 @@ export const ToDoList= (props: TodoListProps) => {
   return (
     <Styles>
       <h1>ToDo List</h1>
-      <Table headers={headers} data={parseData(todos)}/>
+      <Table headers={headers} data={parseData(testTodos.todos)}/>
     </Styles>
   );
 };

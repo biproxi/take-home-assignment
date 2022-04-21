@@ -7,6 +7,7 @@ export enum TodoStatusEnum {
 }
 
 export interface Todo {
+  id: number; // the todo id
   title: string; // the title of the todo
   status: TodoStatusEnum; // the status of the todo
   lastUpdatedAt: number // a unix timestamp representing the time the todo was last updated
@@ -15,10 +16,12 @@ export interface Todo {
 
 export interface TodoItemProps {
   todo: Todo; // the todo itself
+
 }
 
 export interface TodoListProps {
   todos: [Todo]; // the list of todos
+  counter: number; // the total number of todos
 }
 
 export interface TableProps {
