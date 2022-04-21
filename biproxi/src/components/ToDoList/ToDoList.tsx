@@ -4,12 +4,16 @@ import styled from "styled-components";
 import Table from "../Table/Table";
 
 const Styles = styled.div`
+  width: 1000px;
   padding: 1rem;
-  
+  margin: auto;
+  h2 {
+    text-align: center;
+  }
   table {
     border-spacing: 0;
     border: 1px solid black;
-
+    margin: auto;
     tr {
       :last-child {
         td {
@@ -80,7 +84,7 @@ export const ToDoList= (props: TodoListProps) => {
   return (
     <Styles>
       <h1>ToDo List</h1>
-      <Table headers={headers} data={parseData(testTodos.todos)}/>
+      <Table title={"Todos"} headers={headers} data={parseData(testTodos.todos)}/>
     </Styles>
   );
 };

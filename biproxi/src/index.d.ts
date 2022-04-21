@@ -27,4 +27,5 @@ export interface TodoListProps {
 export interface TableProps {
   data: ReactFragment; // the data to be displayed in the table
   headers: string[]; // the headers of the table
+  title: string; // the title of the table
 }
