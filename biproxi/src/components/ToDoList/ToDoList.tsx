@@ -47,14 +47,14 @@ const testTodos = {
         },
         {
             id: "2",
-            status: "Active",
+            status: "Inactive",
             title: "Todo Two",
             createdAt: 2,
             lastUpdatedAt: 2
         },
         {
             id: "3",
-            status: "Active",
+            status: "Archive",
             title: "Todo Three",
             createdAt: 3,
             lastUpdatedAt: 3
@@ -69,8 +69,14 @@ const parseData = (todoList: any) => {
         return (
             <Fragment key={todo.id}>
                 <tr>
+                    <td>
+                        <select defaultValue={todo.status}>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Archive">Archive</option>
+                        </select>
+                    </td>
                     <td>{todo.title}</td>
-                    <td>{todo.status}</td>
                     <td>{todo.createdAt}</td>
                     <td>{todo.lastUpdatedAt}</td>
                 </tr>
