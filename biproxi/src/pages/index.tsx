@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <main>
           <Provider store={store}>
-            <ToDoList todos={null}/>
+            <ToDoList />
           </Provider>
       </main>
 
