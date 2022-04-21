@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import {ToDoList} from "../components/ToDoList/ToDoList";
+import {Provider} from "react-redux";
+import {store} from "./utils/redux/store";
 
 const Home: NextPage = () => {
   return (
@@ -12,7 +13,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <ToDoList todos={[]} totalCount={0}/>
+          <Provider store={store}>
+            <ToDoList todos={null}/>
+          </Provider>
       </main>
 
       <footer>

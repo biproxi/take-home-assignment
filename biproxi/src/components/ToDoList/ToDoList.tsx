@@ -61,14 +61,31 @@ const testTodos = {
         }
     ]
 }
-const parseData = (todoList: any) => {
+
+
+// TODO: Add Delete Logic
+/**
+ *  Handle Delete for specified row item
+ * @param id: string
+ * returns: void
+ */
+const handleDelete = (id: string) => {
+    console.log(`Delete ${id}`)
+}
+
+/**
+ * Parse the todo list into table rows
+ * @param todoList: TodoListProps
+ * @returns JSX.Element
+ */
+const parseData = (todoList: any) => { // TODO: Fix type
     if (todoList.length === 0) {
         return <p>No todos</p>
     }
     return todoList.map((todo: Todo) => {
         return (
             <Fragment key={todo.id}>
-                <tr>
+                <tr className={todo.id}>
                     <td>
                         <select defaultValue={todo.status}>
                             <option value="Active">Active</option>
@@ -79,15 +96,18 @@ const parseData = (todoList: any) => {
                     <td>{todo.title}</td>
                     <td>{todo.createdAt}</td>
                     <td>{todo.lastUpdatedAt}</td>
+                    <td>
+                        <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                    </td>
                 </tr>
             </Fragment>
         );
     })
 };
 export const ToDoList= (props: TodoListProps) => {
-  const [todos] = useState(props.todos);
-  const headers = ["Status", "Title", "Created At", "Last Updated"];
-  return (
+  const headers = ["Status", "Title", "Created At", "Last Updated", ""];
+
+    return (
     <Styles>
       <h1>ToDo List</h1>
       <Table title={"Todos"} headers={headers} data={parseData(testTodos.todos)}/>
