@@ -8,7 +8,7 @@ export const todoApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   endpoints: (builder) => ({
     getTodoList: builder.query<TodoListProps, string>({
-      query: (name) => `pokemon/${name}`,
+      query: () => `api/get-all-todos`,
     }),
   }),
 })
