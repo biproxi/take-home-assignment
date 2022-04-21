@@ -8,21 +8,35 @@ async function handler(
 ) {
     const endpoint = 'https://api-us-west-2.graphcms.com/v2/cl29bfkoa10f901z8fclbdoze/master'
     const graphQLClient = new GraphQLClient(endpoint)
-    const query = gql`
+    const createTodoMutation = gql`
         mutation {
             createTodo(
-                title: "Learn GraphQL",
-                status_: "Active"
+                data: {
+                    title: "Learn GraphQL",
+                    status_: Active
+                 }
             ) {
                 id
-                status_
+               
+            }
+    }`
+    const publishTodoMutation = gql`
+        mutation ($id: ID!) {
+            publishTodo(
+                where: { id: $id }, 
+                to: PUBLISHED) 
+          {
+            id
+            status_
                 title
                 updatedAt
                 createdAt
-            }
-    }`
+  }}`
     try {
-      const data = await graphQLClient.request(query)
+      const create = await graphQLClient.request(createTodoMutation)
+        const data = await graphQLClient.request(publishTodoMutation, {
+            id: create.createTodo.id
+        })
       res.status(200).json(data)
     } catch (err: any) {
       res.status(500).json({ error: err.message })
