@@ -1,7 +1,8 @@
-import {Todo, TodoListProps} from "../../index";
-import {Fragment, useState} from "react";
+import {Todo} from "../../index";
+import {Fragment} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
+import {useGetTodoListQuery} from "../../pages/utils/redux/services/todos";
 
 const Styles = styled.div`
   width: 1000px;
@@ -35,33 +36,6 @@ const Styles = styled.div`
     }
   }
 `;
-
-const testTodos = {
-    todos: [
-        {
-            id: "1",
-            status: "Active",
-            title: "Todo One",
-            createdAt: 1,
-            lastUpdatedAt: 1
-        },
-        {
-            id: "2",
-            status: "Inactive",
-            title: "Todo Two",
-            createdAt: 2,
-            lastUpdatedAt: 2
-        },
-        {
-            id: "3",
-            status: "Archive",
-            title: "Todo Three",
-            createdAt: 3,
-            lastUpdatedAt: 3
-        }
-    ]
-}
-
 
 // TODO: Add Delete Logic
 /**
@@ -104,13 +78,20 @@ const parseData = (todoList: any) => { // TODO: Fix type
         );
     })
 };
-export const ToDoList= (props: TodoListProps) => {
+export const ToDoList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
+  const {data, isLoading} = useGetTodoListQuery('');
 
-    return (
-    <Styles>
-      <h1>ToDo List</h1>
-      <Table title={"Todos"} headers={headers} data={parseData(testTodos.todos)}/>
-    </Styles>
-  );
+  if (isLoading) {
+      return <p>Loading...</p>
+  }
+  if(data) {
+      return (
+          <Styles>
+              <h1>ToDo List</h1>
+              <Table title={"Todos"} headers={headers} data={parseData(data.data.todos)}/>
+          </Styles>
+      );
+  }
+  return <p>Table not Loaded</p>
 };
