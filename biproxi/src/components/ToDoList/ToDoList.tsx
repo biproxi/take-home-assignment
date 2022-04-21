@@ -1,4 +1,4 @@
-import {TodoListProps} from "../../index";
+import {Todo, TodoListProps} from "../../index";
 import {useState} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
@@ -32,13 +32,28 @@ const Styles = styled.div`
   }
 `;
 
+const parseData = (todoList: Todo[]) => {
+    if (todoList.length === 0) {
+        return <p>No todos</p>
+    }
+    return todoList.map((todo: Todo) => {
+        return (
+            <>
+                <td>{todo.status}</td>
+                <td>{todo.title}</td>
+                <td>{todo.lastUpdatedAt}</td>
+                <td>{todo.createdAt}</td>
+            </>
+        );
+    })
+};
 export const ToDoList= (props: TodoListProps) => {
   const [todos] = useState(props.todos);
-  const headers = ["Status", "Title", "Created At", "Completed"];
+  const headers = ["Status", "Title", "Created At", "Last Updated"];
   return (
     <Styles>
       <h1>ToDo List</h1>
-      <Table headers={headers} todos={todos}/>
+      <Table headers={headers} data={parseData(todos)}/>
     </Styles>
   );
 };

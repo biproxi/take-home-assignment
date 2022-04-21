@@ -1,3 +1,4 @@
+import {ReactFragment} from "react";
 
 export enum TodoStatusEnum {
   Active = 'Active', // the todo has is not completed
@@ -21,6 +22,6 @@ export interface TodoListProps {
 }
 
 export interface TableProps {
-  todos: [Todo];
-  headers: string[];
+  data: ReactFragment; // the data to be displayed in the table
+  headers: string[]; // the headers of the table
 }
