@@ -3,6 +3,7 @@ import {Fragment} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 import {useGetTodoListQuery} from "../../pages/utils/redux/services/todos";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
 const Styles = styled.div`
   width: 1000px;
@@ -78,6 +79,13 @@ const parseData = (todoList: any) => { // TODO: Fix type
         );
     })
 };
+
+/**
+ * Type Guard for RTK Query errors
+ * @param error: any
+ */
+const isFetchBaseQueryErrorType = (error: any): error is FetchBaseQueryError => 'status' in error
+
 export const ToDoList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
   const {data, isLoading, error} = useGetTodoListQuery('');
@@ -93,6 +101,10 @@ export const ToDoList= () => {
           </Styles>
       );
   }
-  // @ts-ignore
-    return <p>Table not Loaded {error? JSON.stringify(error.data): "A server error occured"}</p>
+  if (error && isFetchBaseQueryErrorType(error)) {
+      // Check for error type
+      // @ts-ignore
+      return <p>{error.data.error}</p>
+  }
+    return <p>Table not Loaded A server error occurred</p>
 };
