@@ -2,7 +2,7 @@ import {Todo} from "../../index";
 import {Fragment, useEffect} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
-import {useGetTodoListQuery} from "../../pages/utils/redux/services/todos";
+import {useGetTodoListQuery} from "../../pages/utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import axios from "axios";
 
