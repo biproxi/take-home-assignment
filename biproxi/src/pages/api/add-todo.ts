@@ -12,7 +12,7 @@ async function handler(
         mutation {
             createTodo(
                 data: {
-                    title: "Learn GraphQL",
+                    title: "${req.query.title}"
                     status_: Active
                  }
             ) {

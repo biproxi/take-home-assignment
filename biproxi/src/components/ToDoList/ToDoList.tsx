@@ -1,9 +1,10 @@
 import {Todo} from "../../index";
-import {Fragment} from "react";
+import {Fragment, useEffect} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 import {useGetTodoListQuery} from "../../pages/utils/redux/services/todos";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import axios from "axios";
 
 const Styles = styled.div`
   width: 1000px;
@@ -38,7 +39,7 @@ const Styles = styled.div`
   }
 `;
 
-// TODO: Add Delete Logic
+// TODO: Refresh once changed
 /**
  *  Handle Delete for specified row item
  * @param id: string
@@ -46,8 +47,43 @@ const Styles = styled.div`
  */
 const handleDelete = (id: string) => {
     console.log(`Delete ${id}`)
+    axios.delete(`http://localhost:3000/api/delete-todo?id=${id}`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
+/**
+ *  Handle Create new todo passed from form
+ * @param inputId: string
+ * returns: void
+ */
+const handleCreate = (inputId: string) =>{
+    console.log(`Create ${inputId}`)
+    // @ts-ignore
+    const title = document.getElementById(inputId).value
+    axios.post(`http://localhost:3000/api/add-todo?title=${title}`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const handleUpdate = (inputId: string, status: string) =>{
+    console.log(`Update ${inputId}`)
+    axios.put(`http://localhost:3000/api/update-todo?status=${status}&id=${inputId}`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 /**
  * Parse the todo list into table rows
  * @param todoList: TodoListProps
@@ -62,17 +98,16 @@ const parseData = (todoList: any) => { // TODO: Fix type
             <Fragment key={todo.id}>
                 <tr className={todo.id}>
                     <td>
-                        <select defaultValue={todo.status_}>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="Archived">Archive</option>
-                        </select>
+                        {todo.status_}
                     </td>
                     <td>{todo.title}</td>
                     <td>{todo.createdAt}</td>
                     <td>{todo.updatedAt}</td>
                     <td>
                         <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                    </td>
+                    <td>
+                        <button onClick={() => handleUpdate(todo.id, todo.status_)}>Edit</button>
                     </td>
                 </tr>
             </Fragment>
@@ -97,6 +132,10 @@ export const ToDoList= () => {
       return (
           <Styles>
               <h1>ToDo List</h1>
+              <form>
+                  <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
+                  <button type="submit" onClick={() => handleCreate("create")}>Create Todo</button>
+              </form>
               <Table title={"Todos"} headers={headers} data={parseData(data.todos)}/>
           </Styles>
       );
