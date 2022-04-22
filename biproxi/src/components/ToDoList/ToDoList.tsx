@@ -1,14 +1,15 @@
-import {Todo} from "../../index";
-import {Fragment, useEffect} from "react";
+import {NeedsUpdateState, Todo, TodoList} from "../../index";
+import {Fragment, useEffect, useState} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
-import {useGetTodoListQuery} from "../../pages/utils/redux/services/todoQueries";
+import {useAddTodoMutation, useGetTodoListQuery} from "../../pages/utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import axios from "axios";
 import {selectNeedsUpdate, setNeedsUpdate} from "../../pages/utils/redux/features/needsUpdate";
 import {useDispatch, useSelector} from "react-redux";
+import EditModal from "../EditModal/EditModal";
 
-const Styles = styled.div`
+const StyledDiv = styled.div`
   width: 1000px;
   padding: 1rem;
   margin: auto;
@@ -51,7 +52,6 @@ const handleDelete = (id: string) => {
     axios.delete(`http://localhost:3000/api/delete-todo?id=${id}`)
         .then(res => {
             console.log(res)
-            window.location.reload()
         })
         .catch(err => {
             console.log(err)
@@ -63,23 +63,17 @@ const handleDelete = (id: string) => {
  * @param inputId: string
  * returns: void
  */
-const handleCreate = (inputId: string) =>{
+const handleCreate = (inputId: string, addFunc: any) =>{
     console.log(`Create ${inputId}`)
     // @ts-ignore
     const title = document.getElementById(inputId).value
-    axios.post(`http://localhost:3000/api/add-todo?title=${title}`)
-        .then(res => {
-            console.log(res)
-            window.location.reload()
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    addFunc({title})
 }
 
-const handleUpdate = (inputId: string, status: string) =>{
-    console.log(`Update ${inputId}`)
-    axios.put(`http://localhost:3000/api/update-todo?status=${status}&id=${inputId}`)
+const handleUpdate = (updateData: NeedsUpdateState) =>{
+
+    console.log(`Update ${updateData.id}`)
+    axios.put(`http://localhost:3000/api/update-todo?status=${updateData.status}&id=${updateData.id}&title=${updateData.title}`)
         .then(res => {
             console.log(res)
         })
@@ -90,9 +84,10 @@ const handleUpdate = (inputId: string, status: string) =>{
 /**
  * Parse the todo list into table rows
  * @param todoList: TodoListProps
+ * @param openModalFunc: Function
  * @returns JSX.Element
  */
-const parseData = (todoList: any) => { // TODO: Fix type
+const parseData = (todoList: any, openModalFunc: Function) => { // TODO: Fix type
     if (todoList.length === 0) {
         return <p>No todos</p>
     }
@@ -110,7 +105,7 @@ const parseData = (todoList: any) => { // TODO: Fix type
                         <button onClick={() => handleDelete(todo.id)}>Delete</button>
                     </td>
                     <td>
-                        <button onClick={() => handleUpdate(todo.id, todo.status_)}>Edit</button>
+                        <button onClick={() => openModalFunc(todo.id, todo.title, todo.status_)}>Edit</button>
                     </td>
                 </tr>
             </Fragment>
@@ -127,20 +122,47 @@ const isFetchBaseQueryErrorType = (error: any): error is FetchBaseQueryError => 
 export const ToDoList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
   const {data, isLoading, error} = useGetTodoListQuery('');
+  const [addTodo] = useAddTodoMutation();
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const needsUpdateData = useSelector((state: any) => state.needsUpdateDate);
+
+
+  /**
+ *  Handle Create new todo passed from form
+ * @param inputId: string
+ * returns: void
+ */
+// const handleCreate = (inputId: string) =>{
+//     console.log(`Create ${inputId}`)
+//     // @ts-ignore
+//     const title = document.getElementById(inputId).value
+//       addTodo({title: title})
+//
+// }
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   if (isLoading) {
       return <p>Loading...</p>
   }
   if(data) {
       return (
-          <Styles>
+          <StyledDiv>
               <h1>ToDo List</h1>
               <form>
                   <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
-                  <button type="submit" onClick={() => handleCreate("create")}>Create Todo</button>
+                  <button type="submit" onClick={() => handleCreate("create", addTodo)}>Create Todo</button>
               </form>
-              <Table title={"Todos"} headers={headers} data={parseData(data.todos)} />
-          </Styles>
+              <EditModal isOpen={modalIsOpen} onRequestClose={closeModal} onSubmit={()=>handleUpdate(needsUpdateData)}>
+
+              </EditModal>
+              <Table title={"Todos"} headers={headers} data={parseData(data.todos, ()=>openModal())} />
+          </StyledDiv>
       );
   }
   // Check if error comes from RTK Query
