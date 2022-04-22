@@ -1,6 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {Todo} from "../../../../index";
+import {Todo} from "../../../index";
 
 // Define a service using a base URL and expected endpoints
 
@@ -12,6 +12,15 @@ export const todoApi = createApi({
   endpoints: (builder) => ({
     getTodoList: builder.query({
       query: () => `get-all-todos`,
+      providesTags: (result, error, arg) =>
+
+          result
+          ? // @ts-ignore
+              [...result.todos.map(({ id }) => ({ type: 'Todo' as const, id })), 'Todo']
+          : [],
+    }),
+    getArchivedList: builder.query({
+      query: () => `get-all-archived`,
       providesTags: (result, error, arg) =>
 
           result
@@ -54,6 +63,7 @@ export const todoApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useGetTodoListQuery,
+  useGetArchivedListQuery,
   useAddTodoMutation,
   useDeleteTodoMutation,
   useUpdateTodoTitleMutation,

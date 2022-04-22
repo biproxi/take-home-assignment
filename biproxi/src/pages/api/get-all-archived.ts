@@ -11,7 +11,7 @@ async function handler(
     const graphQLClient = new GraphQLClient(endpoint)
     const query = gql`
         query{
-          todos(where: {status__not: Archived}){
+          todos(where: {status_: Archived}){
             id
             status_
             title

@@ -3,11 +3,9 @@ import {ChangeEvent, Fragment} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 import {
-    useAddTodoMutation,
     useDeleteTodoMutation,
-    useGetTodoListQuery,
     useUpdateTodoTitleMutation,
-    useUpdateTodoStatusMutation
+    useUpdateTodoStatusMutation, useGetArchivedListQuery
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
@@ -134,10 +132,9 @@ const parseData = (todoList: TodoList, deleteTodo: Function, updateTodoTitle: Fu
  */
 const isFetchBaseQueryErrorType = (error: any): error is FetchBaseQueryError => 'status' in error
 
-export const ToDoList= () => {
+export const ArchivedList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
-  const {data, isLoading, error} = useGetTodoListQuery('');
-  const [addTodo] = useAddTodoMutation();
+  const {data, isLoading, error} = useGetArchivedListQuery('');
   const [deleteTodo] = useDeleteTodoMutation();
   const [updateTodoTitle] = useUpdateTodoTitleMutation();
   const [updateTodoStatus] = useUpdateTodoStatusMutation();
@@ -148,12 +145,8 @@ export const ToDoList= () => {
   if(data) {
       return (
           <StyledDiv>
-              <h1>ToDo List</h1>
-              <form>
-                  <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
-                  <button type="submit" onClick={() => handleCreate("create", addTodo)}>Create Todo</button>
-              </form>
-              <Table title={"Todos"} headers={headers} data={parseData(data.todos, deleteTodo, updateTodoTitle, updateTodoStatus)} />
+              <h1>Archived List</h1>
+              <Table title={"Archived"} headers={headers} data={parseData(data.todos, deleteTodo, updateTodoTitle, updateTodoStatus)} />
           </StyledDiv>
       );
   }

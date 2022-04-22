@@ -1,6 +1,6 @@
 import { createSlice} from '@reduxjs/toolkit'
 import type { RootState } from '../store'
-import {TodoList} from "../../../../index";
+import {TodoList} from "../../../index";
 
 const initialState: TodoList = {
   todos: [],

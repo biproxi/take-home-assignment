@@ -1,8 +1,12 @@
 import type { AppProps } from 'next/app'
+import {Provider} from "react-redux";
+import {store} from "../utils/redux/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(
-    <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
 
   )
 }

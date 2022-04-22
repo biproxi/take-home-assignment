@@ -1,19 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {ToDoList} from "../components/ToDoList/ToDoList";
-import {Provider} from "react-redux";
-import {store} from "../utils/redux/store";
+import {ArchivedList} from "../components/ArchivedList/ArchivedList";
 
-const Home: NextPage = () => {
+const Archived: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>ToDo List</title>
+        <title>Archived List</title>
         <meta name="description" content="Biproxi take home assignment" />
       </Head>
 
       <main>
-            <ToDoList />
+            <ArchivedList />
       </main>
 
       <footer>
@@ -22,4 +20,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Archived
