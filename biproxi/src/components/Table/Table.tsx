@@ -1,7 +1,7 @@
-import {TableProps} from "../../index";
+import {Table} from "../../index";
 import {Fragment} from "react";
 
-const Table = (props: TableProps) => {
+const Table = (props: Table) => {
     const {headers, data, title} = props;
   return (
       <Fragment>

@@ -30,7 +30,7 @@ async function handler(
                     id: "${req.query.id}"
                 }
                 data: {
-                    status_: "${req.query.status}"
+                    status_: ${req.query.status}
                  }
             ) {
                 id

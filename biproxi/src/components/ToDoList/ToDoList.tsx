@@ -1,17 +1,15 @@
-import {NeedsUpdateState, Todo, TodoList} from "../../index";
-import {Fragment, useEffect, useState} from "react";
+import {Todo, TodoList} from "../../index";
+import {ChangeEvent, Fragment} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 import {
     useAddTodoMutation,
     useDeleteTodoMutation,
-    useGetTodoListQuery
+    useGetTodoListQuery,
+    useUpdateTodoTitleMutation,
+    useUpdateTodoStatusMutation
 } from "../../pages/utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import axios from "axios";
-import {selectNeedsUpdate, setNeedsUpdate} from "../../pages/utils/redux/features/needsUpdate";
-import {useDispatch, useSelector} from "react-redux";
-import EditModal from "../EditModal/EditModal";
 
 const StyledDiv = styled.div`
   width: 1000px;
@@ -71,42 +69,58 @@ const handleCreate = (inputId: string, addTodo: Function) =>{
     addTodo({title})
 }
 
-const handleUpdate = (updateData: NeedsUpdateState) =>{
-
-    console.log(`Update ${updateData.id}`)
-    axios.put(`http://localhost:3000/api/update-todo?status=${updateData.status}&id=${updateData.id}&title=${updateData.title}`)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+/**
+ *  Handle Update for specified row item
+ * @param event
+ * @param id: string
+ * @param updateTodoStatus
+ * @param updateTodoTitle: Function
+ * returns: void
+ * @param updateType
+ */
+const handleUpdate = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, id: string, updateTodoTitle: Function, updateTodoStatus: Function, updateType: string) =>{
+    if (updateType === 'title'){
+        console.log(`Update ${id} title to ${event.target.value}`)
+        updateTodoTitle({id, title: event.target.value})
+    } else if (updateType === 'status'){
+        console.log(`Update ${id} status to ${event.target.value}`)
+        updateTodoStatus({id, status_: event.target.value })
+    }
 }
 /**
  * Parse the todo list into table rows
  * @param todoList: TodoListProps
  * @param deleteTodo: Function
+ * @param updateTodoTitle
+ * @param updateTodoStatus
  * @returns JSX.Element
  */
-const parseData = (todoList: TodoList, deleteTodo: Function) => { // TODO: Fix type
+const parseData = (todoList: TodoList, deleteTodo: Function, updateTodoTitle: Function, updateTodoStatus: Function) => { // TODO: Fix type
     if (todoList.length === 0) {
-        return <p>No todos</p>
+        return <tr><td>No todos</td></tr>
     }
     return todoList.map((todo: Todo) => {
         return (
             <Fragment key={todo.id}>
                 <tr className={todo.id}>
                     <td>
-                        {todo.status_}
+                        <select defaultValue={todo.status_} onChange={(event) =>
+                            handleUpdate(event,todo.id, updateTodoTitle, updateTodoStatus, 'status')}
+                        >
+                            <option value='Active'>Active</option>
+                            <option value='Inactive'>Inactive</option>
+                            <option value='Archived'>Archived</option>
+                        </select>
                     </td>
-                    <td>{todo.title}</td>
+                    <td>
+                        <input defaultValue={todo.title} onChange={(event) =>
+                            handleUpdate(event,todo.id, updateTodoTitle, updateTodoStatus, 'title')}/>
+
+                    </td>
                     <td>{todo.createdAt}</td>
                     <td>{todo.updatedAt}</td>
                     <td>
                         <button onClick={() => handleDelete(todo.id, deleteTodo)}>Delete</button>
-                    </td>
-                    <td>
-                        <button>Edit</button>
                     </td>
                 </tr>
             </Fragment>
@@ -125,16 +139,8 @@ export const ToDoList= () => {
   const {data, isLoading, error} = useGetTodoListQuery('');
   const [addTodo] = useAddTodoMutation();
   const [deleteTodo] = useDeleteTodoMutation();
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const needsUpdateData = useSelector((state: any) => state.needsUpdateDate);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const [updateTodoTitle] = useUpdateTodoTitleMutation();
+  const [updateTodoStatus] = useUpdateTodoStatusMutation();
 
   if (isLoading) {
       return <p>Loading...</p>
@@ -147,10 +153,7 @@ export const ToDoList= () => {
                   <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
                   <button type="submit" onClick={() => handleCreate("create", addTodo)}>Create Todo</button>
               </form>
-              <EditModal isOpen={modalIsOpen} onRequestClose={closeModal} onSubmit={()=>handleUpdate(needsUpdateData)}>
-
-              </EditModal>
-              <Table title={"Todos"} headers={headers} data={parseData(data.todos, deleteTodo)} />
+              <Table title={"Todos"} headers={headers} data={parseData(data.todos, deleteTodo, updateTodoTitle, updateTodoStatus)} />
           </StyledDiv>
       );
   }
