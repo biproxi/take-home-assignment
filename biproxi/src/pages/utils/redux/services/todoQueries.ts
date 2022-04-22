@@ -19,8 +19,7 @@ export const todoApi = createApi({
               [...result.todos.map(({ id }) => ({ type: 'Todo' as const, id })), 'Todo']
           : [],
     }),
-    addTodo: builder.mutation<Todo, "title">({
-      // @ts-ignore
+    addTodo: builder.mutation<Todo, Todo>({
       query: ({ title }) => ({
         url: `add-todo?title=${title}`,
         method: 'POST',
