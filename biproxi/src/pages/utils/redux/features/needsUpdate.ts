@@ -6,7 +6,7 @@ interface NeedsUpdateState {
 }
 
 const initialState: NeedsUpdateState = {
-  value: true,
+  value: false,
 }
 
 export const needsUpdateSlice = createSlice({

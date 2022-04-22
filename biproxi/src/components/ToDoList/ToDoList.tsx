@@ -5,6 +5,8 @@ import Table from "../Table/Table";
 import {useGetTodoListQuery} from "../../pages/utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import axios from "axios";
+import {selectNeedsUpdate, setNeedsUpdate} from "../../pages/utils/redux/features/needsUpdate";
+import {useDispatch, useSelector} from "react-redux";
 
 const Styles = styled.div`
   width: 1000px;
@@ -39,7 +41,6 @@ const Styles = styled.div`
   }
 `;
 
-// TODO: Refresh once changed
 /**
  *  Handle Delete for specified row item
  * @param id: string
@@ -50,6 +51,7 @@ const handleDelete = (id: string) => {
     axios.delete(`http://localhost:3000/api/delete-todo?id=${id}`)
         .then(res => {
             console.log(res)
+            window.location.reload()
         })
         .catch(err => {
             console.log(err)
@@ -68,6 +70,7 @@ const handleCreate = (inputId: string) =>{
     axios.post(`http://localhost:3000/api/add-todo?title=${title}`)
         .then(res => {
             console.log(res)
+            window.location.reload()
         })
         .catch(err => {
             console.log(err)
@@ -136,12 +139,12 @@ export const ToDoList= () => {
                   <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
                   <button type="submit" onClick={() => handleCreate("create")}>Create Todo</button>
               </form>
-              <Table title={"Todos"} headers={headers} data={parseData(data.todos)}/>
+              <Table title={"Todos"} headers={headers} data={parseData(data.todos)} />
           </Styles>
       );
   }
+  // Check if error comes from RTK Query
   if (error && isFetchBaseQueryErrorType(error)) {
-      // Check for error type
       // @ts-ignore
       return <p>{error.data.error}</p>
   }
