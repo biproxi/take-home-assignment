@@ -2,7 +2,11 @@ import {NeedsUpdateState, Todo, TodoList} from "../../index";
 import {Fragment, useEffect, useState} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
-import {useAddTodoMutation, useGetTodoListQuery} from "../../pages/utils/redux/services/todoQueries";
+import {
+    useAddTodoMutation,
+    useDeleteTodoMutation,
+    useGetTodoListQuery
+} from "../../pages/utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import axios from "axios";
 import {selectNeedsUpdate, setNeedsUpdate} from "../../pages/utils/redux/features/needsUpdate";
@@ -45,29 +49,26 @@ const StyledDiv = styled.div`
 /**
  *  Handle Delete for specified row item
  * @param id: string
+ * @param deleteTodo: Function
  * returns: void
  */
-const handleDelete = (id: string) => {
+const handleDelete = (id: string, deleteTodo: Function) => {
     console.log(`Delete ${id}`)
-    axios.delete(`http://localhost:3000/api/delete-todo?id=${id}`)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    deleteTodo({id})
 }
 
 /**
  *  Handle Create new todo passed from form
  * @param inputId: string
+ * @param addTodo: Function
  * returns: void
+ *
  */
-const handleCreate = (inputId: string, addFunc: any) =>{
+const handleCreate = (inputId: string, addTodo: Function) =>{
     console.log(`Create ${inputId}`)
     // @ts-ignore
     const title = document.getElementById(inputId).value
-    addFunc({title})
+    addTodo({title})
 }
 
 const handleUpdate = (updateData: NeedsUpdateState) =>{
@@ -84,10 +85,10 @@ const handleUpdate = (updateData: NeedsUpdateState) =>{
 /**
  * Parse the todo list into table rows
  * @param todoList: TodoListProps
- * @param openModalFunc: Function
+ * @param deleteTodo: Function
  * @returns JSX.Element
  */
-const parseData = (todoList: any, openModalFunc: Function) => { // TODO: Fix type
+const parseData = (todoList: TodoList, deleteTodo: Function) => { // TODO: Fix type
     if (todoList.length === 0) {
         return <p>No todos</p>
     }
@@ -102,10 +103,10 @@ const parseData = (todoList: any, openModalFunc: Function) => { // TODO: Fix typ
                     <td>{todo.createdAt}</td>
                     <td>{todo.updatedAt}</td>
                     <td>
-                        <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                        <button onClick={() => handleDelete(todo.id, deleteTodo)}>Delete</button>
                     </td>
                     <td>
-                        <button onClick={() => openModalFunc(todo.id, todo.title, todo.status_)}>Edit</button>
+                        <button>Edit</button>
                     </td>
                 </tr>
             </Fragment>
@@ -123,22 +124,10 @@ export const ToDoList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
   const {data, isLoading, error} = useGetTodoListQuery('');
   const [addTodo] = useAddTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
   const [modalIsOpen, setIsOpen] = useState(false);
   const needsUpdateData = useSelector((state: any) => state.needsUpdateDate);
 
-
-  /**
- *  Handle Create new todo passed from form
- * @param inputId: string
- * returns: void
- */
-// const handleCreate = (inputId: string) =>{
-//     console.log(`Create ${inputId}`)
-//     // @ts-ignore
-//     const title = document.getElementById(inputId).value
-//       addTodo({title: title})
-//
-// }
   const openModal = () => {
     setIsOpen(true);
   };
@@ -161,7 +150,7 @@ export const ToDoList= () => {
               <EditModal isOpen={modalIsOpen} onRequestClose={closeModal} onSubmit={()=>handleUpdate(needsUpdateData)}>
 
               </EditModal>
-              <Table title={"Todos"} headers={headers} data={parseData(data.todos, ()=>openModal())} />
+              <Table title={"Todos"} headers={headers} data={parseData(data.todos, deleteTodo)} />
           </StyledDiv>
       );
   }

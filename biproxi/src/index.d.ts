@@ -16,7 +16,9 @@ export interface Todo {
 }
 
 export interface TodoList {
+  length: number;
   todos: [Todo] | []; // the list of todos
+  map(element: (todo: Todo) => JSX.Element): JSX.Element;
 }
 
 export interface Table {
