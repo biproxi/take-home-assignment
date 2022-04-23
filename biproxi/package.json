@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "make run": "node ssr-server.js",
-    "make Test": "jest --watch './src/**/*.test.js'"
+    "make test": "jest --silent ./__tests__"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
