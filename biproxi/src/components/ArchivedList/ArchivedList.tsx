@@ -8,6 +8,7 @@ import {
     useUpdateTodoStatusMutation, useGetArchivedListQuery
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import LinkButton from "../Buttons/LinkButton";
 
 const StyledDiv = styled.div`
   width: 1000px;
@@ -145,6 +146,7 @@ export const ArchivedList= () => {
   if(data) {
       return (
           <StyledDiv>
+              <LinkButton to={'/'} >Todo List</LinkButton>
               <h1>Archived List</h1>
               <Table title={"Archived"} headers={headers} data={parseData(data.todos, deleteTodo, updateTodoTitle, updateTodoStatus)} />
           </StyledDiv>

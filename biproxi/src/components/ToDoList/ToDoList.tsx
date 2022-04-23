@@ -10,6 +10,7 @@ import {
     useUpdateTodoStatusMutation
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import LinkButton from "../Buttons/LinkButton";
 
 const StyledDiv = styled.div`
   width: 1000px;
@@ -148,6 +149,7 @@ export const ToDoList= () => {
   if(data) {
       return (
           <StyledDiv>
+              <LinkButton to={'/archived'} >Archived List</LinkButton>
               <h1>ToDo List</h1>
               <form>
                   <input type="text" aria-label="title" name="title" placeholder="Title" id={"create"}/>
