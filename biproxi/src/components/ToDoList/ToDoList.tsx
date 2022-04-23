@@ -10,7 +10,7 @@ import {
     useUpdateTodoStatusMutation
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import LinkButton from "../Buttons/LinkButton";
+import LinkButton from "../Buttons/LinkedButton/LinkButton";
 
 const StyledDiv = styled.div`
   width: 1000px;

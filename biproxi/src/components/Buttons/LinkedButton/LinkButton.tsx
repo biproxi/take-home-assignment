@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {ReactNode} from "react";
+import {JSXElementConstructor, ReactNode} from "react";
 
 const StyledButton = styled.a`
   color: cadetblue;
@@ -17,7 +17,7 @@ const StyledButton = styled.a`
   }
 `;
 
-const LinkButton = (props: { children: string; to: string; }) => {
+const LinkButton: JSXElementConstructor<any> = (props: { children: string; to: string; }) => {
     return (
         <StyledButton href={props.to}>
             {props.children}

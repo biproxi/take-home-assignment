@@ -2,17 +2,17 @@ import {ReactFragment} from "react";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
 export enum TodoStatusEnum {
-  Active = 'Active', // the todo has is not completed
+  Active = 'Active', // the todo is not completed
   Inactive = 'Inactive', // the todo is completed
-  Archived = 'Archived', // the todo is archived (bonus)
+  Archived = 'Archived', // the todo is archived
 }
 
 export interface Todo {
   id: string; // the todo id
   title: string; // the title of the todo
   status_: TodoStatusEnum; // the status of the todo
-  updatedAt: number // a unix timestamp representing the time the todo was last updated
-  createdAt: number; // a unix timestamp representing the time the todo was created
+  updatedAt: string // a unix timestamp representing the time the todo was last updated
+  createdAt: string; // a unix timestamp representing the time the todo was created
 }
 
 export interface TodoList {
@@ -33,9 +33,4 @@ export type Data = {
 
 export interface DataError{
     error: string;
-}
-export interface NeedsUpdateState {
-  id: string,
-  title: string,
-  status: string,
 }

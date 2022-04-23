@@ -1,5 +1,5 @@
 import {Todo, TodoList} from "../../index";
-import {ChangeEvent, Fragment} from "react";
+import {ChangeEvent, Fragment, ReactFragment} from "react";
 import styled from "styled-components";
 import Table from "../Table/Table";
 import {
@@ -8,7 +8,7 @@ import {
     useUpdateTodoStatusMutation, useGetArchivedListQuery
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import LinkButton from "../Buttons/LinkButton";
+import LinkButton from "../Buttons/LinkedButton/LinkButton";
 
 const StyledDiv = styled.div`
   width: 1000px;
@@ -96,7 +96,11 @@ const handleUpdate = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, 
  */
 const parseData = (todoList: TodoList, deleteTodo: Function, updateTodoTitle: Function, updateTodoStatus: Function) => { // TODO: Fix type
     if (todoList.length === 0) {
-        return <tr><td>No todos</td></tr>
+        return (
+            <Fragment>
+                <tr><td>Nothing Archived</td></tr>
+            </Fragment>
+        )
     }
     return todoList.map((todo: Todo) => {
         return (
@@ -133,7 +137,7 @@ const parseData = (todoList: TodoList, deleteTodo: Function, updateTodoTitle: Fu
  */
 const isFetchBaseQueryErrorType = (error: any): error is FetchBaseQueryError => 'status' in error
 
-export const ArchivedList= () => {
+const ArchivedList= () => {
   const headers = ["Status", "Title", "Created At", "Last Updated", ""];
   const {data, isLoading, error} = useGetArchivedListQuery('');
   const [deleteTodo] = useDeleteTodoMutation();
@@ -147,7 +151,7 @@ export const ArchivedList= () => {
       return (
           <StyledDiv>
               <LinkButton to={'/'} >Todo List</LinkButton>
-              <h1>Archived List</h1>
+              <h1 title={'archived list'}>Archived List</h1>
               <Table title={"Archived"} headers={headers} data={parseData(data.todos, deleteTodo, updateTodoTitle, updateTodoStatus)} />
           </StyledDiv>
       );
@@ -159,3 +163,5 @@ export const ArchivedList= () => {
   }
     return <p>Table not Loaded A server error occurred</p>
 };
+
+export default ArchivedList;
