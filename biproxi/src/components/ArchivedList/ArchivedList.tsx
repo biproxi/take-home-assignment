@@ -5,7 +5,8 @@ import Table from "../Table/Table";
 import {
     useDeleteTodoMutation,
     useUpdateTodoTitleMutation,
-    useUpdateTodoStatusMutation, useGetArchivedListQuery
+    useUpdateTodoStatusMutation,
+    useGetArchivedListQuery
 } from "../../utils/redux/services/todoQueries";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import LinkButton from "../Buttons/LinkedButton/LinkButton";

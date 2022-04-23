@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {ArchivedList} from "../components/ArchivedList/ArchivedList";
-
+import ArchivedList from "../components/ArchivedList/ArchivedList";
 const Archived: NextPage = () => {
   return (
     <div>
