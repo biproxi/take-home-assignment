@@ -43,3 +43,4 @@ testem.log
 .DS_Store
 Thumbs.db
 >>>>>>> b2a4b0b (initial commit)
+.env.local
