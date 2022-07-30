@@ -7,8 +7,8 @@ export function Navbar(props: NavbarProps) {
       <nav className={`${styles['links']} ${styles['flex']}`}>
         <Link href="/">Movie Ratings</Link>
         <Link href="/">Home</Link>
-        <Link href="/modify">Edit</Link>
-        <Link href="/display">Display</Link>
+        <Link href="/edit">Edit</Link>
+        <Link href="/ratings">Ratings</Link>
       </nav>
     </div>
   );

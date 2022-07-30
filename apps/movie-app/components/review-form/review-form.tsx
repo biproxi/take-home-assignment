@@ -1,19 +1,10 @@
 import axios from 'axios';
 import Router from 'next/router';
 import { useState, useEffect } from 'react';
-import { Button, Form, Loader, Select } from 'semantic-ui-react';
+import { Button, Form, Loader } from 'semantic-ui-react';
 import styles from './review-form.module.css';
 
 export function ReviewForm({ movie }) {
-  // const options = [
-  //   { key: '5', text: '*****', value: '*****' },
-  //   { key: '4', text: '****', value: '****' },
-  //   { key: '3', text: '***', value: '***' },
-  //   { key: '2', text: '**', value: '**' },
-  //   { key: '1', text: '*', value: '*' },
-  //   { key: 't', text: '👎', value: 'terrible' },
-  // ];
-
   enum MovieRating {
     FiveStars = '*****',
     FourStars = '****',
@@ -30,16 +21,17 @@ export function ReviewForm({ movie }) {
     ratings: '*****',
     review: '',
     createdAt: new Date(),
+    modifiedAt: null,
     modified: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    console.log(form);
     if (isSubmitting) {
       if (Object.keys(errors).length === 0) {
         createReview();
-        // alert('Success');
       } else {
         setIsSubmitting(false);
       }
@@ -56,7 +48,7 @@ export function ReviewForm({ movie }) {
       .catch((error) => {
         console.log(error);
       });
-    Router.push(`/`);
+    Router.push(`/ratings`);
   };
 
   const handleSubmit = (e) => {

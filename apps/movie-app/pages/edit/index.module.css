@@ -1,7 +1,19 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.review-list {
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.review-details {
+  align-self: flex-start;
+  margin: 1em;
+  padding: 2em;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.review-details > * {
+  margin-bottom: 1em;
+}

@@ -5,6 +5,7 @@ import styles from './index.module.css';
 
 export function Movie({ film, reviews }) {
   const IMAGE_PATH = 'https://image.tmdb.org/t/p/';
+  console.log(reviews);
   console.log(film);
   return (
     <div className={`${styles['movie-details']} ${styles['flex']}`}>
@@ -39,13 +40,14 @@ export function Movie({ film, reviews }) {
       <div className={`${styles['review-list']} ${styles['flex']}`}>
         <h3>Local Reviews</h3>
         {reviews.data.map((review) => {
-          return (
+          return review.movieId == film.id ? (
             <div key={review._id} className={styles['review-details']}>
               <h4>
                 {review.name} - {review.movieTitle}
               </h4>
               <p>
-                <b>Created:</b> <em>{review.createdAt}</em>
+                <b>Created:</b>{' '}
+                <em>{new Date(review.createdAt).toLocaleDateString()}</em>
               </p>
               <p>
                 <b>Rating:</b> {review.ratings}
@@ -55,7 +57,7 @@ export function Movie({ film, reviews }) {
                 {review.review}
               </p>
             </div>
-          );
+          ) : null;
         })}
       </div>
     </div>
@@ -73,7 +75,7 @@ export async function getServerSideProps(context) {
 
   // reviews
   const review = await axios.get(
-    'http://localhost:4200/api/controller/specific'
+    'http://localhost:4200/api/controller/reviews'
   );
 
   return {

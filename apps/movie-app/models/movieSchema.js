@@ -14,6 +14,7 @@ const reviewSchema = new Schema({
     maxlength: [250, 'Description cannot be more than 250 characters'],
   },
   createdAt: { type: Date },
+  modifiedAt: { type: Date },
   modified: { type: Boolean },
 });
 
