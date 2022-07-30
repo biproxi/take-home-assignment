@@ -1,0 +1,14 @@
+.movieCard {
+  padding: 1em;
+}
+.movie-container {
+  position: relative;
+  margin: 1em;
+  height: 400px;
+  width: 300px;
+}
+.movie-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

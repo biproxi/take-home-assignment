@@ -10,6 +10,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    domains: ['m.media-amazon.com', 'imdb-api.com', 'image.tmdb.org'],
+  },
 };
 
 module.exports = withNx(nextConfig);
