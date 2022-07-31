@@ -17,3 +17,10 @@
 .review-details > * {
   margin-bottom: 1em;
 }
+.review-details a {
+  margin-right: 1em;
+  color: red;
+}
+.review-details a:first-of-type {
+  color: blue;
+}
