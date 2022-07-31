@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Search from '../search/search';
 import styles from './navbar.module.css';
 
 export function Navbar(props: NavbarProps) {
@@ -6,6 +7,7 @@ export function Navbar(props: NavbarProps) {
     <div className={`${styles['nav']} ${styles['flex']}`}>
       <nav className={`${styles['links']} ${styles['flex']}`}>
         <Link href="/">Movie Ratings</Link>
+        <Search />
         <Link href="/">Home</Link>
         <Link href="/edit">Edit</Link>
         <Link href="/ratings">Ratings</Link>

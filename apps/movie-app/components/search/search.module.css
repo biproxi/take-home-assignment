@@ -1,0 +1,10 @@
+.search-container {
+}
+.search-container form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-container form > * {
+  margin-right: 1em;
+}

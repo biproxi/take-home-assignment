@@ -11,25 +11,25 @@ export function Edit({ reviews }) {
         {reviews.data.map((review) => {
           return (
             <div key={review._id} className={styles['review-details']}>
-              <h4>
+              <h4 className="edit-title">
                 {review.name} - {review.movieTitle}
               </h4>
-              <p>
+              <p className="edit-created">
                 <b>Created:</b>{' '}
                 <em>{new Date(review.createdAt).toLocaleDateString()}</em>
               </p>
-              <p>
+              <p className="edit-rating">
                 <b>Rating:</b> {review.ratings}
               </p>
-              <p>
+              <p className="edit-review">
                 <b>Description: </b>
                 {review.review}
               </p>
               <Link href={`/edit/${review._id.toString()}`}>
-                <a>Edit</a>
+                <a className={`${review.name} edit-btn`}>Edit</a>
               </Link>
               <Link href={`/edit/remove/${review._id.toString()}`}>
-                <a>Delete</a>
+                <a className={`${review.name} delete-btn`}>Delete</a>
               </Link>
             </div>
           );

@@ -1,11 +1,7 @@
 import axios from 'axios';
-import Link from 'next/link';
-import Image from 'next/image';
 import styles from './index.module.css';
 
 export function Ratings({ reviews }) {
-  console.log(reviews);
-  const IMAGE_PATH = 'https://image.tmdb.org/t/p/w500/';
   return (
     <div className={styles['container']}>
       <h1>View Reviews - READ ONLY</h1>
@@ -14,17 +10,17 @@ export function Ratings({ reviews }) {
           return (
             <div key={review._id} className={styles['review-details']}>
               <div className="display-container">
-                <h4>
+                <h4 className="review-title">
                   {review.name} - {review.movieTitle}
                 </h4>
-                <p>
+                <p className="review-created">
                   <b>Created:</b>{' '}
                   <em>{new Date(review.createdAt).toLocaleDateString()}</em>
                 </p>
-                <p>
+                <p className="reivew-rating">
                   <b>Rating:</b> {review.ratings}
                 </p>
-                <p>
+                <p className="review-description">
                   <b>Description: </b>
                   {review.review}
                 </p>

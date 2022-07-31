@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "cypress:open": "cypress open"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +40,7 @@
     "@typescript-eslint/parser": "^5.29.0",
     "babel-jest": "27.5.1",
     "cypress": "^10.2.0",
+    "dotenv": "^16.0.1",
     "eslint": "~8.15.0",
     "eslint-config-next": "12.2.3",
     "eslint-config-prettier": "8.1.0",
