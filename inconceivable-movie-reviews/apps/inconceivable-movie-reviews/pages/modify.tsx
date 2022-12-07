@@ -1,17 +1,17 @@
 import React from 'react';
-import styles from '../styles/index.module.css'
+import styles from '../styles/modify.module.css'
 
-export function Index() {
+export function Modify() {
   /*
    * Replace the elements below with your own.
    *
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-    <div className={styles.home}>
-      <p>This is the home page!</p>
+    <div className={styles.modify}>
+      <p>This is the modify page!</p>
     </div>
   );
 }
 
-export default Index;
+export default Modify;
