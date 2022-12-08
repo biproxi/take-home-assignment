@@ -8,7 +8,7 @@ export function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-    <div></div>
+    <div>Home Page</div>
   );
 }
 
