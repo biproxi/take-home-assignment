@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.app-body {
-  margin: 1em
-}
+
 
 .website-logo {
   filter: invert(100%);
@@ -13,8 +11,11 @@
   width: 48px;
 }
 
-#popcorn-background {
-  background-image: url("../public/popcorn.jpeg");
-  height: 1000px;;
+.gold-text {
+  color: gold;
 }
 
+#popcorn-background {
+  background-image: url("../public/popcorn.jpeg");
+  height: 100%;
+}

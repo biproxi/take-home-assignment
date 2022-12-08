@@ -11,7 +11,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Yay-Nay Movie Reviews</title>
       </Head>
       <main className="app" id="popcorn-background">
+        <div className="sticky top-0 z-50">
         <Navbar />
+        </div>
         <div className="app-body">
           <Component {...pageProps} />
         </div>

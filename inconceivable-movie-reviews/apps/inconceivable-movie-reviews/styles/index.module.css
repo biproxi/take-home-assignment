@@ -1,2 +1,10 @@
-.page {
+#review {
+  background-color: gold;
+  text-align: center;
 }
+
+.review-card {
+  height: 100%;
+  width: 100%;
+}
+

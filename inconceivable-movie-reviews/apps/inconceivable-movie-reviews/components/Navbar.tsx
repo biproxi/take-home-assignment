@@ -22,7 +22,7 @@ function Navbar() {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
                     href="/"
-                    className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium"
+                    className=" hover:bg-gray-700 gold-text px-3 py-2 rounded-md text-lg font-medium"
                   >
                     Yay-Nay Movie Reviews
                   </Link>
