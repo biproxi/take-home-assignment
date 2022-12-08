@@ -8,10 +8,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Inconceivable Movie Reviews</title>
+        <title>Yay-Nay Movie Reviews</title>
       </Head>
-      <main className="app">
-        <Navbar fixed={undefined} />
+      <main className="app" id="popcorn-background">
+        <Navbar />
         <div className="app-body">
           <Component {...pageProps} />
         </div>

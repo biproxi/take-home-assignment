@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "@nrwl/next": "15.3.0",
     "core-js": "^3.6.5",
     "mongodb": "^4.12.1",
