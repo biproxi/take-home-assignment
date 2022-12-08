@@ -7,7 +7,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to inconceivable-movie-reviews!</title>
+        <title>Inconceivable Movie Reviews</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
       </Head>
       <main className="app">
         <Component {...pageProps} />

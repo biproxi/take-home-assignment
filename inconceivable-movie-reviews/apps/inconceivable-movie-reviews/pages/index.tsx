@@ -10,6 +10,10 @@ export function Index() {
   return (
     <div className={styles.home}>
       <p>This is the home page!</p>
+      <button>Contribute</button>
+      <br />
+      <br />
+      <button>View Reviews</button>
     </div>
   );
 }
