@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import styles from '../styles/index.module.css';
+const styles = require('../styles/index.module.css')
+
+console.log(process.env.MONGODURI)
 
 export function Index() {
 

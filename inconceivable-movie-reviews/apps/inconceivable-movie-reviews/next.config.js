@@ -12,6 +12,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  env: {
+    MONGO_URI: 'mongodb://localhost:27017',
+  },
 };
 
 module.exports = withNx(nextConfig);
