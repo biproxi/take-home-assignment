@@ -4,8 +4,6 @@ import Link from 'next/link';
 import React from 'react';
 const styles = require('../styles/index.module.css')
 
-console.log(process.env.MONGODURI)
-
 export function Index() {
 
   return (
