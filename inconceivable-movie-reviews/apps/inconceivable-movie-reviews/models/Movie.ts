@@ -31,6 +31,12 @@ const MovieSchema = new mongoose.Schema({
     required: [true, 'Please specify the star actor of the movie.'],
     maxlength: [40, 'The actor name specified cannot be more than 40 characters.'],
   },
+
+  imageUrl: {
+    /* The star actor of your movie */
+
+    type: String,
+    required: [true, 'Please specify the image you want to use for the movie.']  },
   movieRating: {
     /* Movie's rating, if applicable */
 

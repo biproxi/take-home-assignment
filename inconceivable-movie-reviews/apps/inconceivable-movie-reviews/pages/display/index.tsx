@@ -19,7 +19,7 @@ export function Display(props) {
         .map((movie) => (
           <div key={movie.id}>
             <h2>{movie.title}</h2>
-            <Image src={movie.image} alt={""}></Image>
+            <Image src={movie.imageURL} alt={""}></Image>
             <p>{movie.tagline}</p>
             <p>{movie.starActor}</p>
             <p>{movie.movieRating}</p>
