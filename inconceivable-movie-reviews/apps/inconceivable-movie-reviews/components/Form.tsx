@@ -22,7 +22,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
     const { id } = router.query
 
     try {
-      const res = await fetch(`/api/movies/${id}`, {
+      const res = await fetch(`/api/movie/${id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,
@@ -38,7 +38,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
 
       const { data } = await res.json()
 
-      mutate(`/api/movies/${id}`, data, false) // Update the local data without a revalidation
+      mutate(`/api/movie/${id}`, data, false) // Update the local data without a revalidation
       router.push('/')
     } catch (error) {
       // setMessage('Failed to update movie')
@@ -48,7 +48,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form) => {
     try {
-      const res = await fetch('/api/movies', {
+      const res = await fetch('/api/movie', {
         method: 'POST',
         headers: {
           Accept: contentType,

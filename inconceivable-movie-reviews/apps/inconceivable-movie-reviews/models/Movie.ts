@@ -42,16 +42,6 @@ const MovieSchema = new mongoose.Schema({
 
     type: String,
   },
-  createdAt: {
-    /* Movie's created at time, if applicable */
-
-    type: Number,
-  },
-  lastUpdatedAt: {
-    /* Movie's last time updated at, if applicable */
-
-    type: Number,
-  },
 },
 
   {timestamps: true})

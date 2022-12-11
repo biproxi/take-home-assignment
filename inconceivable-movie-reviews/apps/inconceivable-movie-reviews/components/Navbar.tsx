@@ -28,18 +28,19 @@ function Navbar() {
                   </Link>
 
                   <Link
+                    href="/display"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Reviews
+                  </Link>
+
+                  <Link
                     href="/modify"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Contribute
                   </Link>
 
-                  <Link
-                    href="/display"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Reviews
-                  </Link>
                 </div>
               </div>
             </div>

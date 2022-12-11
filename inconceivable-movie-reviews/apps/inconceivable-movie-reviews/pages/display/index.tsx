@@ -15,7 +15,7 @@ export function Display(props) {
         ))}
       </datalist>
       {props.movies
-        .filter((movie) => movie.name.toLowerCase().includes(searchFilter))
+        .filter((movie) => movie.title.toLowerCase().includes(searchFilter))
         .map((movie) => (
           <div key={movie.id}>
             <h2>{movie.title}</h2>
@@ -39,9 +39,10 @@ export async function getServerSideProps() {
     const movies = result.map((doc) => {
       const movie = doc.toObject()
       movie._id = movie._id.toString()
+      movie.createdAt = ""
+      movie.updatedAt = ""
       return movie
     })
-    console.log(movies)
     return {props: {movies: movies}}
 }
 
