@@ -8,26 +8,30 @@ export function Display(props) {
   const [searchFilter, setSearchFilter] = useState("");
 
   return(
-    <div className="row">
-      Search filter:{" "}
-      <input type="text" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" />
-      <datalist id="titles">
-        {props.movies.map((movie) => (
-          <option key={movie._id}>{movie.title}</option>
-        ))}
-      </datalist>
+    <div className="">
+      <nav className="bg-gray-500 text-center h-8 p-1">
+        Search filter:{" "}
+        <input type="text" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" />
+        <datalist id="titles">
+          {props.movies.map((movie) => (
+            <option key={movie._id}>{movie.title}</option>
+          ))}
+        </datalist>
+      </nav>
       {props.movies
         .filter((movie) => movie.title.toLowerCase().includes(searchFilter))
         .map((movie) => (
-          <div key={movie._id} className="flex justify-center bg-red-600">
-            <h2 className="text-gray-900 text-xl font-medium mb-2">{movie.title}</h2>
-            <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={`${movie.title}`}></Image>
-            <p className="text-gray-700 text-base mb-4">Tagline: {movie.tagline}</p>
-            <p className="text-gray-700 text-base mb-4">Star Actor: {movie.starActor}</p>
-            <p className="text-gray-700 text-base mb-4">Rating: {movie.movieRating}</p>
-            <Link type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" href={`/display/${movie._id}`} >More Info</Link>
+          <div key={movie._id} className="grid grid-cols-3 justify-center p-5">
+            <div className="rounded-lg shadow-lg bg-white max-w-sm p-2">
+              <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={`${movie.title}`}></Image>
+              <h2 className="text-gray-900 text-xl font-medium mb-2">{movie.title}</h2>
+              <p className="text-gray-700 text-base mb-4">Tagline: {movie.tagline}</p>
+              <p className="text-gray-700 text-base mb-4">Star Actor: {movie.starActor}</p>
+              <p className="text-gray-700 text-base mb-4">Rating: {movie.movieRating}</p>
+              <Link type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" href={`/display/${movie._id}`} >More Info</Link>
             <p>Created At: {movie.createdAt}</p>
             <p>Updated At: {movie.updatedAt}</p>
+            </div>
           </div>
         ))}
     </div>
