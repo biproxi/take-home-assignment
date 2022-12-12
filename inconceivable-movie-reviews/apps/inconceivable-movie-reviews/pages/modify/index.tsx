@@ -30,7 +30,7 @@ export function Modify (props) {
         .map((movie) => (
           <div key={movie._id} className="flex justify-center bg-red-600">
             <h2 className="text-gray-900 text-xl font-medium mb-2">{movie.title}</h2>
-            <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={""}></Image>
+            <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={`${movie.title}`}></Image>
             <p className="text-gray-700 text-base mb-4">Tagline: {movie.tagline}</p>
             <p className="text-gray-700 text-base mb-4">Star Actor: {movie.starActor}</p>
             <p className="text-gray-700 text-base mb-4">Rating: {movie.movieRating}</p>

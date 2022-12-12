@@ -32,7 +32,7 @@ export function MovieShow({movie}) {
   return (
     <div className="bg-red-600">
       <h1>{movie.title}</h1>
-      <Image src={movie.imageUrl} alt={""} width={500} height={500}></Image>
+      <Image src={movie.imageUrl} alt={`${movie.title}`} width={500} height={500}></Image>
       <p>Movie Rating: {movie.movieRating}</p>
       <p>Tagline: {movie.tagline}</p>
       <p>Star Actor: {movie.starActor}</p>
