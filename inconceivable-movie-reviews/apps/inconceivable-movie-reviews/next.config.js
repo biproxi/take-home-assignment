@@ -15,6 +15,14 @@ const nextConfig = {
   env: {
     MONGO_URI: 'mongodb://localhost:27017',
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
 module.exports = withNx(nextConfig);

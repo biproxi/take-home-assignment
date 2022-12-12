@@ -1,15 +1,14 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import dbConnect from "../../lib/dbConnect";
 import Movie from "../../models/Movie";
 
 export function MovieShow({movie}) {
-  const [message, setMessage] = useState('')
 
   return (
     <div className="bg-red-600">
       <h1>{movie.title}</h1>
-      <Image src={movie.image} alt={""}></Image>
+      <Image src={movie.imageUrl} alt={""} width={500} height={500} ></Image>
       <p>Movie Rating: {movie.movieRating}</p>
       <p>Tagline: {movie.tagline}</p>
       <p>Star Actor: {movie.starActor}</p>
