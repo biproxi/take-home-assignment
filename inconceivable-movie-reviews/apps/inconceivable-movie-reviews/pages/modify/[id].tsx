@@ -52,8 +52,8 @@ export async function getServerSideProps({ params }) {
 
   const movie = await Movie.findById(params.id).lean()
   movie._id = movie._id.toString()
-  movie.createdAt = ""
-  movie.updatedAt = ""
+  movie.createdAt = movie.createdAt.toString()
+  movie.updatedAt = movie.updatedAt.toString()
 
   return { props: { movie } }
 }

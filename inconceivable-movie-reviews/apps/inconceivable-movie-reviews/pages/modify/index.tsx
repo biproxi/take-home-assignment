@@ -49,8 +49,8 @@ export async function getServerSideProps() {
     const movies = result.map((doc) => {
       const movie = doc.toObject()
       movie._id = movie._id.toString()
-      movie.createdAt = ""
-      movie.updatedAt = ""
+      movie.createdAt = movie.createdAt.toString()
+      movie.updatedAt = movie.updatedAt.toString()
       return movie
     })
     return {props: {movies: movies}}

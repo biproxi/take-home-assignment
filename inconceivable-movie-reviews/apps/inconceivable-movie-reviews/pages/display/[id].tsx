@@ -12,6 +12,8 @@ export function MovieShow({movie}) {
       <p>Movie Rating: {movie.movieRating}</p>
       <p>Tagline: {movie.tagline}</p>
       <p>Star Actor: {movie.starActor}</p>
+      <p>Created At: {movie.createdAt}</p>
+      <p>Updated At: {movie.updatedAt}</p>
     </div>
   )
 }
@@ -21,8 +23,8 @@ export async function getServerSideProps({ params }) {
 
   const movie = await Movie.findById(params.id).lean()
   movie._id = movie._id.toString()
-  movie.createdAt = ""
-  movie.updatedAt = ""
+  movie.createdAt = movie.createdAt.toString()
+  movie.updatedAt = movie.updatedAt.toString()
 
   return { props: { movie } }
 }
