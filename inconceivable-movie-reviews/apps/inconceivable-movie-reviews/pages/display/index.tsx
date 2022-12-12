@@ -19,7 +19,7 @@ export function Display(props) {
       {props.movies
         .filter((movie) => movie.title.toLowerCase().includes(searchFilter))
         .map((movie) => (
-          <div key={movie.id} className="flex justify-center">
+          <div key={movie.id} className="flex justify-center bg-red-600">
             <h2 className="text-gray-900 text-xl font-medium mb-2">{movie.title}</h2>
             <Image className="rounded-t-lg" src={movie.imageURL} width={0} height={0} alt={""}></Image>
             <p className="text-gray-700 text-base mb-4">Tagline: {movie.tagline}</p>
