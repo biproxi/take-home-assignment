@@ -25,3 +25,7 @@ html {
   background-image: url("../public/popcorn.jpeg");
   height: 100%;
 }
+
+#fill-screen {
+  width: 10000px
+}

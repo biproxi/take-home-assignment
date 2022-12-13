@@ -71,7 +71,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
   const handleChange = (e) => {
     const target = e.target
     const value =
-      target.name === 'poddy_trained' ? target.checked : target.value
+      target.name === 'some' ? target.checked : target.value
     const name = target.name
 
     setForm({
@@ -102,54 +102,59 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
   }
 
   return (
-    <>
-      <form id={formId} onSubmit={handleSubmit}>
-      <label htmlFor="title">Title:</label>
+    <div className="w-full max-w-xs">
+      <form id={formId} onSubmit={handleSubmit} className="bg-yellow-400 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
         <input
           type="text"
           name="title"
           value={form.title}
           required
           onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <label htmlFor="movieRating">Movie Rating:</label>
+        <label htmlFor="movieRating" className="block text-gray-700 text-sm font-bold mb-2">Movie Rating:</label>
         <input
           type="text"
           name="movieRating"
           value={form.movieRating}
           required
           onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <label htmlFor="tagline">Tagline:</label>
+        <label htmlFor="tagline" className="block text-gray-700 text-sm font-bold mb-2">Tagline:</label>
         <input
           type="text"
           name="tagline"
           value={form.tagline}
           required
           onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <label htmlFor="starActor">Star Actor:</label>
+        <label htmlFor="starActor" className="block text-gray-700 text-sm font-bold mb-2">Star Actor:</label>
         <input
           type="text"
           name="starActor"
           value={form.starActor}
           required
           onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <label htmlFor="imageUrl">Image URL:</label>
+        <label htmlFor="imageUrl" className="block text-gray-700 text-sm font-bold mb-2">Image URL:</label>
         <input
           type="text"
           name="imageUrl"
           value={form.imageUrl}
           required
           onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 a">
           Submit
         </button>
       </form>
@@ -158,7 +163,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
           <li key={index}>{err}</li>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
