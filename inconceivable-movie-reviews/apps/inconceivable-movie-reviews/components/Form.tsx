@@ -3,11 +3,12 @@ import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import React from 'react'
 
+// The Form component is integral to this app.  It is used for both creating and updating movies, and is also used on the initialize page.  The form houses both the HTML/CSS to cause the form to render in the browser but also the server-side logic that posts our data to the database using Mongoose middle-ware.
+
 const Form = ({ formId, movieForm, forNewMovie = true }) => {
   const router = useRouter()
   const contentType = 'application/json'
   const [errors, setErrors] = useState({})
-  // const [message, setMessage] = useState('')
 
   const [form, setForm] = useState({
     title: movieForm.title,
@@ -17,7 +18,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
     movieRating: movieForm.movieRating,
   })
 
-  /* The PUT method edits an existing entry in the mongodb database. */
+  // The PUT method edits an existing entry in the mongodb database.
   const putData = async (form) => {
     const { id } = router.query
 
@@ -45,7 +46,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
     }
   }
 
-  /* The POST method adds a new entry in the mongodb database. */
+  // The POST method adds a new entry in the mongodb database.
   const postData = async (form) => {
     try {
       const res = await fetch('/api/movie', {
@@ -90,6 +91,8 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
     // if (!form.movieRating) err.movieRating = 'Movie Rating is required'
     return err
   }
+
+// The handleSubmit function is used when the submit button is pressed on the form.  It finds out whether or not the form is for a new or existing movie, and then directs the request to either postData or putData depending on which type of request is needed to fulfill the action.
 
   const handleSubmit = (e) => {
     e.preventDefault()

@@ -3,6 +3,7 @@ import React from "react";
 import dbConnect from "../../lib/dbConnect";
 import Movie from "../../models/Movie";
 
+// The MovieShow function for the display route displays a particular instance of a movie based on its id in read-only form.
 export function MovieShow({movie}) {
 
   return (
@@ -20,11 +21,14 @@ export function MovieShow({movie}) {
   )
 }
 
+// getServerSideProps allows us to use server-side rendering to display a Movie's data based on its id.  The function returns props that can be used in our TSX to render a particular movie.
 export async function getServerSideProps({ params }) {
   await dbConnect()
 
   const movie = await Movie.findById(params.id).lean()
   movie._id = movie._id.toString()
+
+  // In order for the app to not error out, you need to convert the timestamp datatype in MongoDb to a string.  Even if you do not render the timestamp on the page, it will error out if it is not converted to a string.
   movie.createdAt = movie.createdAt.toString()
   movie.updatedAt = movie.updatedAt.toString()
 

@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+// The Navbar component is a simple TSX component that causes a navbar to render at the top of each page.  The Navbar houses links to the home page, to the display page (reviews), and to the modify page (contribute).
+
 function Navbar() {
   return (
     <div>
@@ -40,7 +42,6 @@ function Navbar() {
                   >
                     Contribute
                   </Link>
-
                 </div>
               </div>
             </div>
