@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import router from "next/router";
 
 // The Navbar component is a simple TSX component that causes a navbar to render at the top of each page.  The Navbar houses links to the home page, to the display page (reviews), and to the modify page (contribute).
 
@@ -24,21 +25,21 @@ function Navbar() {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
                     href="/"
-                    className=" hover:bg-gray-700 gold-text px-3 py-2 rounded-md text-lg font-medium"
+                    className={`hover:bg-gray-700 px-3 py-2 rounded-md text-lg font-medium ${router.pathname == "/" ? "text-white" : "text-yellow-300"}`}
                   >
                     Yay-Nay Movie Reviews
                   </Link>
 
                   <Link
                     href="/display"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className={`hover:bg-gray-700 px-3 py-2 rounded-md text-lg font-medium ${router.pathname == "/display" ? "text-white" : "text-yellow-300"}`}
                   >
                     Reviews
                   </Link>
 
                   <Link
                     href="/modify"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className={`hover:bg-gray-700 px-3 py-2 rounded-md text-lg font-medium ${router.pathname == "/modify" ? "text-white" : "text-yellow-300"}`}
                   >
                     Contribute
                   </Link>

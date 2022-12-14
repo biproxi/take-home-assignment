@@ -1,7 +1,7 @@
 import dbConnect from '../../../lib/dbConnect'
 import Movie from '../../../models/Movie'
 
-// The API page in a Next.js app functions very similarly to a controller in a Rails or Phoenix app.  It uses conditional logic to check what type of request is coming from the client.  The client receives the JSON data based on what type of request they submitted.
+// The API page in a Next.js app functions very similarly to a controller in a Rails or Phoenix app.  It uses conditional logic to check what type of request is coming from the client.  The client receives the JSON data based on what type of request they submitted.  The show page follows a similar structure from https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/pages/api/pets/[id].js.
 export default async function handler(req, res) {
   const {
     query: { id },

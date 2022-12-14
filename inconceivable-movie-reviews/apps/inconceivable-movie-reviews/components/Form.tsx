@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import React from 'react'
 
-// The Form component is integral to this app.  It is used for both creating and updating movies, and is also used on the initialize page.  The form houses both the HTML/CSS to cause the form to render in the browser but also the server-side logic that posts our data to the database using Mongoose middle-ware.
+// The Form component is integral to this app.  It is used for both creating and updating movies, and is also used on the initialize page.  The form houses both the HTML/CSS to cause the form to render in the browser but also the server-side logic that posts our data to the database using Mongoose middle-ware.  The form follows the basic structure from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose/components/Form.js.
 
 const Form = ({ formId, movieForm, forNewMovie = true }) => {
   const router = useRouter()
@@ -105,8 +105,8 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
   }
 
   return (
-    <div className="w-full max-w-xs">
-      <form id={formId} onSubmit={handleSubmit} className="bg-yellow-400 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="w-full">
+      <form id={formId} onSubmit={handleSubmit} className="bg-yellow-400 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center">
       <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
         <input
           type="text"
@@ -157,7 +157,7 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <br />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 a">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 ">
           Submit
         </button>
       </form>

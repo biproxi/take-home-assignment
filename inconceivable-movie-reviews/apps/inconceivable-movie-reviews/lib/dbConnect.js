@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// The dbConnect file is what connects the database to our Mongoose middle-ware.  It utilizes the MONGODB_URI to talk to our database.
+// The dbConnect file is what connects the database to our Mongoose middle-ware.  It utilizes the MONGODB_URI to talk to our database.  This file follows a similar strucure from https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js.  The notable difference is that I had to specify what 'family' the request was from.  Without this key line in the options constant, the dbConnect will not work.
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

@@ -20,15 +20,12 @@ export function Modify (props) {
 
   return(
     <div>
-      <nav className="bg-red-500 text-center h-8 p-1 text-white">
-        Search filter:{" "}
-        <input type="text" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" />
-        <datalist id="titles">
-          {props.movies.map((movie) => (
-            <option key={movie._id}>{movie.title}</option>
-          ))}
-        </datalist>
-      </nav>
+      <input type="search" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" className="nosubmit m-2"/>
+      <datalist id="titles">
+        {props.movies.map((movie) => (
+          <option key={movie._id}>{movie.title}</option>
+        ))}
+      </datalist>
       <div className="grid y-screen place-items-center m-3">
         <h1 className="bg-yellow-400 shadow-md rounded px-8 pt-6 pb-8 block text-gray-700 text-sm font-bold mb-2">Add Movie</h1>
         <Form formId="add-movie-form" movieForm={movieForm} />
@@ -38,10 +35,10 @@ export function Modify (props) {
         .filter((movie) => movie.title.toLowerCase().includes(searchFilter))
         .map((movie) => (
           <div key={movie._id} className="p-1">
-            <div className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2">
+            <div className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2 grow transition duration-300 hover:scale-105">
               <Link href={`/modify/${movie._id}`} className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2">
                 <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={`${movie.title}`}></Image>
-                <h2 className="text-white font-bold text-4xl mb-2 text-center">{movie.title}</h2>
+                <h2 className="text-white font-bold text-4xl mb-2 mt-2 text-center">{movie.title}</h2>
                 <p className="text-white text-base mb-4 text-center">Tagline: {movie.tagline}</p>
                 <p className="text-white text-base mb-4 text-center">Star Actor: {movie.starActor}</p>
                 <p className="text-white text-base mb-4 text-center">Rating: {movie.movieRating}</p>
