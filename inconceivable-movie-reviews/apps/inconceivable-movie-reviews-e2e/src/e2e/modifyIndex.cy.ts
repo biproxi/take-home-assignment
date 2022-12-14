@@ -11,4 +11,10 @@ describe('site', () => {
   it('should contain a form with a title label', () => {
     cy.get('label').should('contain', 'Title:');
   });
+
+  it('pulls data from a fixture', () => {
+    cy.fixture('movie').then((movie) => {
+      cy.log('Data: ', movie)
+    })
+  })
 });

@@ -1,0 +1,10 @@
+{
+  "_id": 2,
+  "title": "The Green Mile",
+  "tagline": "Time takes it all, whether you want it to or not.",
+  "starActor": "Tom Hanks",
+  "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1_FMjpg_UX1000_.jpg",
+  "movieRating": "Terrible",
+  "createdAt": "2022-12-12T04:18:05.071Z",
+  "updatedAt": "2022-12-12T04:18:05.071Z"
+}
