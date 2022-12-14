@@ -20,7 +20,7 @@ export function Modify (props) {
 
   return(
     <div>
-      <input type="search" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" className="nosubmit m-2 rounded-2xl"/>
+      <input type="search" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" className="nosubmit m-2 rounded-2xl search-center"/>
       <datalist id="titles">
         {props.movies.map((movie) => (
           <option key={movie._id}>{movie.title}</option>
@@ -35,7 +35,7 @@ export function Modify (props) {
         .filter((movie) => movie.title.toLowerCase().includes(searchFilter))
         .map((movie) => (
           <div key={movie._id} className="p-1">
-            <div className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2 grow transition duration-300 hover:scale-105">
+            <div className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2 my-3 grow transition duration-300 hover:scale-105">
               <Link href={`/modify/${movie._id}`} className="rounded-lg shadow-lg bg-gray-800 max-w-sm p-2">
                 <Image className="rounded-t-lg" src={movie.imageUrl} width={500} height={500} alt={`${movie.title}`}></Image>
                 <h2 className="text-white font-bold text-4xl mb-2 mt-2 text-center">{movie.title}</h2>
