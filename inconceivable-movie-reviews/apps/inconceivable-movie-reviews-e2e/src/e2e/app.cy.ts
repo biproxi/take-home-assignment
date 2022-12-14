@@ -1,13 +1,15 @@
-import { getGreeting } from '../support/app.po';
+describe('site', () => {
+  beforeEach(() => cy.visit('http://localhost:4200'));
 
-describe('inconceivable-movie-reviews', () => {
-  beforeEach(() => cy.visit('/'));
+  it('should display the navbar on each page', () => {
+    cy.get('a').should('contain', 'Yay-Nay Movie Reviews');
+  });
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+  it('should display the navbar on each page', () => {
+    cy.get('a').should('contain', 'Reviews');
+  });
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome inconceivable-movie-reviews');
+  it('should display the navbar on each page', () => {
+    cy.get('a').should('contain', 'Contribute');
   });
 });

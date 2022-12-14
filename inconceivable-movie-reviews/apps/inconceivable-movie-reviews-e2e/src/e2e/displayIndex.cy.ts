@@ -7,4 +7,8 @@ describe('site', () => {
   it('should render the title of the movie', () => {
     cy.get('h2').should('contain', 'The Secret Life of Walter Mitty');
   });
+
+  it('should contain a search input', () => {
+    cy.get('input')
+  });
 });

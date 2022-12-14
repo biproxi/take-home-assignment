@@ -1,0 +1,10 @@
+describe('site', () => {
+  beforeEach(() => {
+    // navigate to an example article
+    cy.visit('http://localhost:4200/initialize');
+  });
+
+  it('should contain a form with a title label', () => {
+    cy.get('label').should('contain', 'Title:');
+  });
+});
