@@ -13,7 +13,7 @@ export function Display(props) {
 
   return(
     <div>
-      <input type="search" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" className="nosubmit m-2"/>
+      <input type="search" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} list="titles" className="nosubmit m-2 rounded-2xl"/>
       <datalist id="titles">
         {props.movies.map((movie) => (
           <option key={movie._id}>{movie.title}</option>

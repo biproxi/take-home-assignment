@@ -98,14 +98,16 @@ const Form = ({ formId, movieForm, forNewMovie = true }) => {
     e.preventDefault()
     const errs = formValidate()
     if (Object.keys(errs).length === 0) {
-      forNewMovie ? postData(form) : putData(form)
+      forNewMovie ? postData(form) : putData(form).then(() => {
+        window.location.href = "/modify"
+      })
     } else {
       setErrors({ errs })
     }
   }
 
   return (
-    <div className="w-full">
+    <div>
       <form id={formId} onSubmit={handleSubmit} className="bg-yellow-400 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center">
       <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
         <input
